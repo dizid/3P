@@ -1,0 +1,6 @@
+URL:
+
+TODO
+resultpage
+page menu kan weg
+netlify: ergens online zetten
