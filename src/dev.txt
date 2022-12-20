@@ -4,3 +4,19 @@ TODO
 resultpage
 page menu kan weg
 netlify: ergens online zetten
+
+// THIS WORKS
+  getters: {
+    endScore: (state) =>
+      (state.baselinepoen * state.projectpoen) +
+      (state.baselinepret * state.projectpret) +
+      (state.baselineprestige * state.projectprestige),
+
+    /*     endAdvice() {
+          if (endScore > 6000)
+            return "wel"
+          // else return "niet"
+        }, */
+  },
+
+})
