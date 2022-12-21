@@ -1,16 +1,8 @@
 URL: https://3p.tnxz.nl/
 
 TODO
-
-design: alles netjes uitgelijnd oid
-
-textarea is nu slecht zichtbaar https://formkit.com/guides/create-a-tailwind-theme
-
-back buttons zichtbaar als button
-beetje padding ad bovenkant
-
-begeleidende teksten/uitleg
 resultpage: leuker maken (uitleg, grafiekje?)
+resultpage: vervolg.... call to action...
 
 
 DONE
@@ -22,7 +14,11 @@ ok tailwind werkend
 ok back buttons 
 ok netlify: ergens online zetten (poging 2)
 ok subdomain eraan
-
+ok design: alles netjes uitgelijnd oid
+ok textarea is nu slecht zichtbaar https://formkit.com/guides/create-a-tailwind-theme
+ok back buttons zichtbaar als button
+ok beetje padding ad bovenkant
+ok begeleidende teksten/uitleg
 
 zo miet ie:
 
