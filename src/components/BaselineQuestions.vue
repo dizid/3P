@@ -1,17 +1,18 @@
 <template>
 <div>
 <div class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800">Hoe belangrijk zijn Poen, Pret en Prestige in het algemeen voor jou?</div>
- <div class="text-1xl font-normal leading-normal mt-0 mb-2 text-pink-800">(Schuifje naar rechts is belangrijker)</div>
+ <div class="text-1xl font-normal leading-normal mt-0 mb-2 text-blue-800">(Schuifje naar rechts is belangrijker)</div>
  <div>
   <FormKit type="form" @submit="handleSubmit" submit-label="Verder..">
 <FormKit name="werk" v-model="answerStore.baselinepoen" type="range" label="Poen" min="1" max="100"/>
 <FormKit name="sociaal" v-model="answerStore.baselinepret" type="range" label="Pret" min="1" max="100"/>
 <FormKit name="relatie" v-model="answerStore.baselineprestige" type="range" label="Prestige" min="1" max="100"/>
 
-<FormKit name="project" v-model="answerStore.project" type="textarea" label="Project" rows="3"
-  placeholder="Beschrijf kort het project waarover je advies wilt."/>
+<FormKit name="project" v-model="answerStore.project" type="textarea" label="Project" rows="1"
+  placeholder="Naam van je project.."/>
 
 </FormKit></div>
+
 </div>
 </template>
 <script setup>

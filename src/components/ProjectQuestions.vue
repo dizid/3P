@@ -1,18 +1,20 @@
 <template>
     <div>
-    <div class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800">Hoeveel Poen, Pret en Prestige levert dit op?</div>
+    <div class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800">
+      Hoeveel Poen, Pret en Prestige levert {{ answerStore.project }} op?</div>
      <div class="text-1xl font-normal leading-normal mt-0 mb-2 text-pink-800">(Schuifje naar rechts is belangrijker)</div>
      <div>
       <FormKit type="form" @submit="handleSubmit" submit-label="Verder..">
     <FormKit name="werk" v-model="answerStore.projectpoen" type="range" label="Poen" min="1" max="100"/>
     <FormKit name="sociaal" v-model="answerStore.projectpret" type="range" label="Pret" min="1" max="100"/>
     <FormKit name="relatie" v-model="answerStore.projectprestige" type="range" label="Prestige" min="1" max="100"/>
-           
-    </FormKit></div>
+   
+    </FormKit>
+    <button @click="back" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Terug</button>
+    </div>
     </div>
     </template>
     <script setup>
-    // Imports
     import { usePStore } from '@/stores/PStore'
     import { useRouter } from 'vue-router'
     
@@ -24,6 +26,7 @@
     const handleSubmit =  () => {
        router.push('resultaat') 
         } 
+    const back = ()  => {router.push('/')} 
      </script>
                  
     <style>  

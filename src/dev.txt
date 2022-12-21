@@ -1,22 +1,24 @@
-URL:
+URL: ?
 
 TODO
-resultpage
-page menu kan weg
+
+design: alles netjes uitgelijnd oid
+
+textarea is nu slecht zichtbaar https://formkit.com/guides/create-a-tailwind-theme
+
+back buttons zichtbaar als button
+beetje padding ad bovenkant
+
+begeleidende teksten/uitleg
+resultpage: leuker maken (uitleg, grafiekje?)
+
 netlify: ergens online zetten
+subdomain eraan
 
-// THIS WORKS
-  getters: {
-    endScore: (state) =>
-      (state.baselinepoen * state.projectpoen) +
-      (state.baselinepret * state.projectpret) +
-      (state.baselineprestige * state.projectprestige),
-
-    /*     endAdvice() {
-          if (endScore > 6000)
-            return "wel"
-          // else return "niet"
-        }, */
-  },
-
-})
+DONE
+ok 2 questions forms, sliders, submit, stored in pinia
+ok resultpage
+ok page menu kan weg
+ok install tailwind
+ok tailwind werkend
+ok back buttons 
