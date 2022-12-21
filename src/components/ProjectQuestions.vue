@@ -1,8 +1,8 @@
 <template>
-    <div>
-    <div class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800">
+    <div class="bg-gray-300 border-green-600 border-b p-4 m-4 rounded text-3xl">
+    <div class="text-2xl font-normal leading-normal mt-0 mb-2 text-black-800">
       Hoeveel Poen, Pret en Prestige levert {{ answerStore.project }} op?</div>
-     <div class="text-1xl font-normal leading-normal mt-0 mb-2 text-pink-800">(Schuifje naar rechts is belangrijker)</div>
+     <div class="text-base font-normal leading-normal mt-0 mb-2 text-blue-800">(Schuifje naar rechts is belangrijker)</div>
      <div>
       <FormKit type="form" @submit="handleSubmit" submit-label="Verder..">
     <FormKit name="werk" v-model="answerStore.projectpoen" type="range" label="Poen" min="1" max="100"/>
@@ -10,7 +10,7 @@
     <FormKit name="relatie" v-model="answerStore.projectprestige" type="range" label="Prestige" min="1" max="100"/>
    
     </FormKit>
-    <button @click="back" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Terug</button>
+    <button @click="back" class="inline-flex items-center px-3 py-1.5 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium rounded-md mx-2">Terug</button>
     </div>
     </div>
     </template>

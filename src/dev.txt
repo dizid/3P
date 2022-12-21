@@ -1,4 +1,4 @@
-URL: ?
+URL: https://3p.tnxz.nl/
 
 TODO
 
@@ -12,8 +12,6 @@ beetje padding ad bovenkant
 begeleidende teksten/uitleg
 resultpage: leuker maken (uitleg, grafiekje?)
 
-netlify: ergens online zetten (poging 2)
-subdomain eraan
 
 DONE
 ok 2 questions forms, sliders, submit, stored in pinia
@@ -22,3 +20,14 @@ ok page menu kan weg
 ok install tailwind
 ok tailwind werkend
 ok back buttons 
+ok netlify: ergens online zetten (poging 2)
+ok subdomain eraan
+
+
+zo miet ie:
+
+class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+
+
+ class="inline-flex items-center px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white text-sm font-medium rounded-md mx-2">Terug</button>
+   

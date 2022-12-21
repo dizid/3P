@@ -1,6 +1,6 @@
 <template>
     <div>
-   <div class="bg-green-300 border-green-600 border-b p-4 m-4 rounded text-3xl">Op basis van jouw levensvisie en de waarden voor 
+   <div class="bg-gray-300 border-green-600 border-b p-4 m-4 rounded text-3xl">Op basis van jouw levensvisie en de waarden voor 
    project "{{ store.project }}", is het advies om dit <b>{{ Advice }}</b> te gaan doen. </div>
     
     <div>
