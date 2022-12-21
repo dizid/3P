@@ -1,7 +1,10 @@
 <template>
 <div>
-<div class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800">Hoe belangrijk zijn Poen, Pret en Prestige in het algemeen voor jou?</div>
- <div class="text-1xl font-normal leading-normal mt-0 mb-2 text-blue-800">(Schuifje naar rechts is belangrijker)</div>
+<div>
+  <p class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800"> Dit tooltje kan je helpen om te beslissen of je een komend project, 
+    kan vanalles zijn, wel of niet moet gaan doen.</p>
+  <p class="text-3xl font-normal leading-normal mt-0 mb-2 text-pink-800"> Hoe belangrijk zijn Poen, Pret en Prestige in het algemeen voor jou?</p>
+ <p class="text-1xl font-normal leading-normal mt-0 mb-2 text-blue-800">(Schuifje naar rechts is belangrijker)</p>
  <div>
   <FormKit type="form" @submit="handleSubmit" submit-label="Verder..">
 <FormKit name="werk" v-model="answerStore.baselinepoen" type="range" label="Poen" min="1" max="100"/>
@@ -13,6 +16,7 @@
 
 </FormKit></div>
 
+</div>
 </div>
 </template>
 <script setup>
