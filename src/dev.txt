@@ -12,7 +12,7 @@ beetje padding ad bovenkant
 begeleidende teksten/uitleg
 resultpage: leuker maken (uitleg, grafiekje?)
 
-netlify: ergens online zetten
+netlify: ergens online zetten (poging 2)
 subdomain eraan
 
 DONE
