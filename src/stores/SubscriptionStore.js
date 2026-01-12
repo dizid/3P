@@ -1,22 +1,30 @@
 import { defineStore } from 'pinia'
+import { stripeService } from '@/services/stripeService'
 
 export const useSubscriptionStore = defineStore({
   id: 'SubscriptionStore',
 
   state: () => ({
     tier: 'free', // 'free' | 'premium'
-    status: null, // 'active' | 'canceled' | 'past_due' | null
+    status: null, // 'active' | 'trialing' | 'canceled' | 'past_due' | null
+    customerId: null, // Stripe customer ID
+    subscriptionId: null, // Stripe subscription ID
     currentPeriodEnd: null,
     features: {
       aiAdvice: false,
       unlimitedHistory: false,
       insights: false,
       export: false
-    }
+    },
+    loading: false,
+    error: null
   }),
 
   getters: {
-    isPremium: (state) => state.tier === 'premium' && state.status === 'active',
+    isPremium: (state) => {
+      return state.tier === 'premium' &&
+        (state.status === 'active' || state.status === 'trialing')
+    },
 
     canUseFeature: (state) => (feature) => {
       // Free tier features
@@ -37,29 +45,131 @@ export const useSubscriptionStore = defineStore({
       const end = new Date(state.currentPeriodEnd)
       const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24))
       return Math.max(0, diff)
-    }
+    },
+
+    isTrialing: (state) => state.status === 'trialing'
   },
 
   actions: {
+    /**
+     * Check subscription status from Stripe via API
+     * Uses cached customer email/ID if available
+     */
     async checkSubscription() {
-      // Placeholder: In production, this would call your backend
-      // which verifies with Stripe
-      const savedSub = localStorage.getItem('subscription')
-      if (savedSub) {
-        try {
-          const sub = JSON.parse(savedSub)
-          this.tier = sub.tier
-          this.status = sub.status
-          this.currentPeriodEnd = sub.currentPeriodEnd
-          this.updateFeatures()
-        } catch {
+      this.loading = true
+      this.error = null
+
+      try {
+        // Try to get cached customer info
+        const cached = this.getCachedCustomer()
+
+        if (!cached.customerId && !cached.email) {
+          // No customer info, stay on free tier
           this.resetToFree()
+          return
         }
+
+        // Call the real Stripe API
+        const result = await stripeService.getSubscriptionStatus(
+          cached.customerId,
+          cached.email
+        )
+
+        // Update state from API response
+        this.tier = result.tier || 'free'
+        this.status = result.status || null
+        this.customerId = result.customerId || cached.customerId
+        this.subscriptionId = result.subscriptionId || null
+        this.currentPeriodEnd = result.currentPeriodEnd || null
+        this.features = result.features || this.getDefaultFeatures()
+
+        // Cache the customer info for faster subsequent checks
+        this.cacheCustomer()
+      } catch (error) {
+        console.error('Subscription check failed:', error)
+        this.error = 'Failed to verify subscription'
+        // Fallback to cached data if API fails
+        this.loadFromCache()
+      } finally {
+        this.loading = false
+      }
+    },
+
+    /**
+     * Get cached customer info from localStorage
+     */
+    getCachedCustomer() {
+      try {
+        const cached = localStorage.getItem('subscription_customer')
+        if (cached) {
+          return JSON.parse(cached)
+        }
+      } catch {
+        // Ignore parse errors
+      }
+      return { customerId: null, email: null }
+    },
+
+    /**
+     * Cache customer info for faster checks
+     */
+    cacheCustomer() {
+      if (this.customerId) {
+        localStorage.setItem('subscription_customer', JSON.stringify({
+          customerId: this.customerId,
+          tier: this.tier,
+          status: this.status,
+          currentPeriodEnd: this.currentPeriodEnd
+        }))
+      }
+    },
+
+    /**
+     * Load subscription from cache (fallback when API unavailable)
+     */
+    loadFromCache() {
+      try {
+        const cached = localStorage.getItem('subscription_customer')
+        if (cached) {
+          const data = JSON.parse(cached)
+          this.tier = data.tier || 'free'
+          this.status = data.status || null
+          this.customerId = data.customerId || null
+          this.currentPeriodEnd = data.currentPeriodEnd || null
+          this.updateFeatures()
+        }
+      } catch {
+        this.resetToFree()
+      }
+    },
+
+    /**
+     * Set customer info after successful checkout
+     */
+    setCustomer(customerId, email = null) {
+      this.customerId = customerId
+      localStorage.setItem('subscription_customer', JSON.stringify({
+        customerId,
+        email
+      }))
+      // Refresh subscription status
+      this.checkSubscription()
+    },
+
+    /**
+     * Get default features based on tier
+     */
+    getDefaultFeatures() {
+      return {
+        aiAdvice: false,
+        unlimitedHistory: false,
+        insights: false,
+        export: false
       }
     },
 
     updateFeatures() {
-      if (this.tier === 'premium' && this.status === 'active') {
+      if (this.tier === 'premium' && (this.status === 'active' || this.status === 'trialing')) {
         this.features = {
           aiAdvice: true,
           unlimitedHistory: true,
@@ -67,38 +177,25 @@ export const useSubscriptionStore = defineStore({
           export: true
         }
       } else {
-        this.features = {
-          aiAdvice: false,
-          unlimitedHistory: false,
-          insights: false,
-          export: false
-        }
+        this.features = this.getDefaultFeatures()
       }
-    },
-
-    // Demo: Upgrade to premium (for testing)
-    async upgradeToPremium() {
-      this.tier = 'premium'
-      this.status = 'active'
-      this.currentPeriodEnd = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
-      this.updateFeatures()
-      this.persistSubscription()
     },
 
     resetToFree() {
       this.tier = 'free'
       this.status = null
+      this.subscriptionId = null
       this.currentPeriodEnd = null
-      this.updateFeatures()
-      localStorage.removeItem('subscription')
+      this.features = this.getDefaultFeatures()
     },
 
-    persistSubscription() {
-      localStorage.setItem('subscription', JSON.stringify({
-        tier: this.tier,
-        status: this.status,
-        currentPeriodEnd: this.currentPeriodEnd
-      }))
+    /**
+     * Clear all subscription data (logout)
+     */
+    clearSubscription() {
+      this.resetToFree()
+      this.customerId = null
+      localStorage.removeItem('subscription_customer')
     }
   }
 })

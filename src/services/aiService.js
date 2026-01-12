@@ -1,45 +1,67 @@
 /**
- * AI Service - Placeholder for AI-powered advice
+ * AI Service - Real AI-powered advice using Claude API
  *
- * In production, these functions would call your backend API
- * which then interacts with OpenAI, Anthropic, or similar.
- *
- * Environment variables needed:
- * - VITE_API_URL
- * - VITE_AI_ENABLED (set to 'true' to enable)
+ * Calls Netlify Function which connects to Anthropic's Claude API
+ * for personalized decision analysis.
  */
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://api.de3ps.nl'
-const AI_ENABLED = import.meta.env.VITE_AI_ENABLED === 'true'
+const API_BASE = import.meta.env.DEV ? 'http://localhost:8888' : ''
 
 export const aiService = {
   /**
    * Check if AI features are enabled
+   * In production, this is always true (controlled by subscription)
    */
   isEnabled() {
-    return AI_ENABLED
+    return true
   },
 
   /**
-   * Get AI-generated summary and insights for a decision analysis
-   * @param {string} tool - Tool ID (e.g., 'tententen', 'pmi')
+   * Get AI-generated analysis for a decision
+   * @param {string} tool - Tool ID (e.g., 'tententen', 'pmi', 'threeps')
    * @param {object} data - Tool-specific data
-   * @returns {Promise<{summary: string, insights: string[], blindSpots: string[], suggestions: string[]}>}
+   * @param {string} decision - The decision being analyzed
+   * @param {number} score - The calculated score
+   * @returns {Promise<{insight: string, blindSpots: string[], nextStep: string, confidence: string}>}
    */
-  async getAnalysisSummary(tool, data) {
-    if (!AI_ENABLED) {
-      return this.getPlaceholderSummary(tool, data)
+  async getAnalysisSummary(tool, data, decision = '', score = null) {
+    try {
+      const response = await fetch(`${API_BASE}/api/analyze-decision`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool,
+          data,
+          decision: decision || data.decision || 'This decision',
+          score
+        })
+      })
+
+      if (!response.ok) {
+        const error = await response.json()
+        console.error('AI analysis failed:', error)
+        return this.getFallbackSummary(tool)
+      }
+
+      const result = await response.json()
+
+      if (result.success && result.analysis) {
+        // Transform to expected format
+        return {
+          summary: result.analysis.insight,
+          insights: result.analysis.blindSpots || [],
+          blindSpots: result.analysis.blindSpots || [],
+          suggestions: [result.analysis.nextStep],
+          confidence: result.analysis.confidence,
+          isReal: true // Flag to indicate this is real AI
+        }
+      }
+
+      return this.getFallbackSummary(tool)
+    } catch (error) {
+      console.error('AI service error:', error)
+      return this.getFallbackSummary(tool)
     }
-
-    // In production, would call backend:
-    // const response = await fetch(`${API_URL}/ai/summary`, {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ tool, data })
-    // })
-    // return response.json()
-
-    return this.getPlaceholderSummary(tool, data)
   },
 
   /**
@@ -50,114 +72,133 @@ export const aiService = {
    * @returns {Promise<{response: string, followUps: string[]}>}
    */
   async getGuidance(tool, data, prompt) {
-    if (!AI_ENABLED) {
-      return {
-        response: 'AI guidance is coming soon! In the meantime, take a moment to reflect on your analysis and trust your instincts.',
-        followUps: [
-          'What aspects of this decision feel most uncertain?',
-          'Have you faced similar decisions before?',
-          'What would you advise a friend in this situation?'
-        ]
-      }
-    }
+    try {
+      const response = await fetch(`${API_BASE}/api/analyze-decision`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tool,
+          data,
+          decision: prompt,
+          isGuidance: true
+        })
+      })
 
-    // In production, would call backend
-    return {
-      response: 'AI guidance will be available soon.',
-      followUps: []
+      if (!response.ok) {
+        return this.getFallbackGuidance()
+      }
+
+      const result = await response.json()
+
+      if (result.success && result.analysis) {
+        return {
+          response: result.analysis.insight,
+          followUps: result.analysis.blindSpots || [],
+          isReal: true
+        }
+      }
+
+      return this.getFallbackGuidance()
+    } catch (error) {
+      console.error('AI guidance error:', error)
+      return this.getFallbackGuidance()
     }
   },
 
   /**
-   * Generate placeholder summary based on tool type
+   * Fallback when AI is unavailable
    */
-  getPlaceholderSummary(tool, data) {
+  getFallbackSummary(tool) {
     const toolSummaries = {
       tententen: {
-        summary: 'Your time-based analysis shows how your feelings evolve across different horizons. Pay attention to where immediate reactions differ from long-term outlook.',
-        insights: [
-          'Long-term perspective is weighted highest (50%)',
-          'Consider if short-term discomfort is worth long-term gain',
-          'Time often provides clarity that emotions obscure'
-        ],
-        blindSpots: [
-          'Are you overweighting current mood?',
-          'Have you considered how external factors might change?'
-        ],
-        suggestions: [
-          'Sleep on it before committing',
-          'Discuss with someone who knows you well'
-        ]
+        summary: 'Your time-based analysis shows how feelings evolve across horizons.',
+        insights: ['Long-term perspective weighted highest (50%)'],
+        blindSpots: ['Consider how external factors might change'],
+        suggestions: ['Sleep on it before committing'],
+        confidence: 'low',
+        isReal: false
       },
       pmi: {
-        summary: 'Your Plus-Minus-Interesting analysis provides a structured view of the decision landscape. The "Interesting" category often reveals overlooked opportunities.',
-        insights: [
-          'Balance of weighted pros and cons matters most',
-          'Interesting points can tip the scales',
-          'Quality of points matters more than quantity'
-        ],
-        blindSpots: [
-          'Are there stakeholders you haven\'t considered?',
-          'What are you assuming that might not be true?'
-        ],
-        suggestions: [
-          'Re-examine your top "Interesting" items',
-          'Consider the reversibility of each factor'
-        ]
+        summary: 'Your PMI analysis provides structured decision landscape view.',
+        insights: ['Quality of points matters more than quantity'],
+        blindSpots: ['Are there stakeholders you haven\'t considered?'],
+        suggestions: ['Re-examine your top "Interesting" items'],
+        confidence: 'low',
+        isReal: false
       },
       regret: {
-        summary: 'Regret minimization focuses on your future self\'s perspective. At 80, will you regret not trying more than trying and failing?',
-        insights: [
-          'Regrets of inaction often outweigh regrets of action',
-          'Reversible decisions carry less risk',
-          'Value alignment is key for lasting satisfaction'
-        ],
-        blindSpots: [
-          'Are you letting fear masquerade as wisdom?',
-          'Is your comfort zone holding you back?'
-        ],
-        suggestions: [
-          'Imagine explaining your choice to your 80-year-old self',
-          'Consider: what would you attempt if you knew you couldn\'t fail?'
-        ]
+        summary: 'Regret minimization focuses on your future self\'s perspective.',
+        insights: ['Regrets of inaction often outweigh action regrets'],
+        blindSpots: ['Are you letting fear masquerade as wisdom?'],
+        suggestions: ['Imagine explaining this to your 80-year-old self'],
+        confidence: 'low',
+        isReal: false
       },
       threeps: {
-        summary: 'Your 3 P\'s analysis shows how well this project aligns with your personal values of Money, Fun, and Prestige.',
-        insights: [
-          'A mismatch in any P can lead to dissatisfaction',
-          'Your baseline values reveal what truly matters to you',
-          'High scores mean strong alignment, not guaranteed success'
-        ],
-        blindSpots: [
-          'Are your baseline values honest or aspirational?',
-          'Could this project change what you value?'
-        ],
-        suggestions: [
-          'Compare with a past project that felt right',
-          'Consider which P you\'d be willing to compromise on'
-        ]
+        summary: 'Your 3 P\'s shows alignment with Money, Fun, and Prestige values.',
+        insights: ['A mismatch in any P can lead to dissatisfaction'],
+        blindSpots: ['Are your baseline values honest or aspirational?'],
+        suggestions: ['Compare with a past project that felt right'],
+        confidence: 'low',
+        isReal: false
+      },
+      swot: {
+        summary: 'Your SWOT analysis reveals strategic positioning.',
+        insights: ['Opportunities often come from addressing weaknesses'],
+        blindSpots: ['Are you underestimating external threats?'],
+        suggestions: ['Focus on leveraging strengths against opportunities'],
+        confidence: 'low',
+        isReal: false
+      },
+      coinflip: {
+        summary: 'Your gut reaction to the coin flip reveals your true preference.',
+        insights: ['First reactions often reflect deep preferences'],
+        blindSpots: ['Is fear influencing your reaction?'],
+        suggestions: ['Trust the feeling, not the coin'],
+        confidence: 'medium',
+        isReal: false
+      },
+      fearRegret: {
+        summary: 'The fear/regret matrix clarifies your emotional landscape.',
+        insights: ['High regret + low fear = clear action signal'],
+        blindSpots: ['Are your fears based on evidence or assumption?'],
+        suggestions: ['List specific actions to address each fear'],
+        confidence: 'low',
+        isReal: false
+      },
+      opportunityCost: {
+        summary: 'Opportunity cost reveals what you truly sacrifice.',
+        insights: ['Every choice eliminates other possibilities'],
+        blindSpots: ['Are there options you haven\'t considered?'],
+        suggestions: ['Consider the hidden costs of inaction'],
+        confidence: 'low',
+        isReal: false
       }
     }
 
-    // Default summary for tools not specifically handled
-    const defaultSummary = {
-      summary: 'Your analysis provides valuable structured thinking about this decision. Take time to reflect on the patterns that emerge.',
-      insights: [
-        'Structured analysis often reveals hidden assumptions',
-        'Your gut reaction after analysis is valuable data',
-        'No framework captures everything - trust your judgment'
-      ],
-      blindSpots: [
-        'What are you not seeing?',
-        'Who else might have perspective on this?'
-      ],
-      suggestions: [
-        'Give yourself time before deciding',
-        'Consider trying a different tool for comparison'
-      ]
+    return toolSummaries[tool] || {
+      summary: 'Analysis helps structure your thinking.',
+      insights: ['Structured analysis reveals hidden assumptions'],
+      blindSpots: ['What are you not seeing?'],
+      suggestions: ['Give yourself time before deciding'],
+      confidence: 'low',
+      isReal: false
     }
+  },
 
-    return toolSummaries[tool] || defaultSummary
+  /**
+   * Fallback guidance when AI is unavailable
+   */
+  getFallbackGuidance() {
+    return {
+      response: 'AI guidance is temporarily unavailable. Trust your analysis and instincts.',
+      followUps: [
+        'What aspects feel most uncertain?',
+        'Have you faced similar decisions before?',
+        'What would you advise a friend?'
+      ],
+      isReal: false
+    }
   }
 }
 

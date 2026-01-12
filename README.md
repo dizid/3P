@@ -27,3 +27,10 @@ npm run dev
 ```sh
 npm run build
 ```
+
+What NOT To Do
+❌ Launch payments with localStorage bypass
+❌ Charge for placeholder AI responses
+❌ Build mobile app before web monetization works
+❌ Add more tools before existing ones monetized
+❌ Spend on ads before conversion funnel works
