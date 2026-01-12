@@ -31,6 +31,26 @@ const router = createRouter({
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/tools',
+      name: 'tools',
+      component: () => import('../views/ToolsHomeView.vue')
+    },
+    {
+      path: '/tools/10-10-10',
+      name: 'tententen',
+      component: () => import('../views/TenTenTenView.vue')
+    },
+    {
+      path: '/tools/regret',
+      name: 'regret',
+      component: () => import('../views/RegretView.vue')
+    },
+    {
+      path: '/tools/pmi',
+      name: 'pmi',
+      component: () => import('../views/PmiView.vue')
     }
   ]
 })

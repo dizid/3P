@@ -37,6 +37,17 @@
               <div class="absolute inset-0 bg-blue-100 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl origin-center"></div>
             </RouterLink>
             <RouterLink
+              to="/tools"
+              class="relative px-4 py-2 rounded-xl font-semibold text-gray-700 overflow-hidden group transition-all duration-300 hover:text-emerald-600"
+              active-class="bg-emerald-100/80 text-emerald-700"
+            >
+              <span class="relative z-10 flex items-center gap-2">
+                <span class="text-lg transform group-hover:scale-110 transition-transform duration-200">&#129520;</span>
+                <span class="hidden sm:inline">Tools</span>
+              </span>
+              <div class="absolute inset-0 bg-emerald-100 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl origin-center"></div>
+            </RouterLink>
+            <RouterLink
               to="/about"
               class="relative px-4 py-2 rounded-xl font-semibold text-gray-700 overflow-hidden group transition-all duration-300 hover:text-purple-600"
               active-class="bg-purple-100/80 text-purple-700"
