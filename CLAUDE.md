@@ -13,44 +13,104 @@ npm run preview # Preview production build locally
 
 ## Project Overview
 
-A decision support app with multiple tools:
+A decision support application with 8 decision-making tools, premium features, and AI-ready infrastructure.
 
-### De 3 P's (Dutch)
-Evaluates projects based on three personal values: Poen (Money), Pret (Fun), Prestige (Status). Multiplies user baseline values by project ratings. Threshold: 6000.
+### App Structure
 
-### Decision Tools (English)
-Located at `/tools`, these are additional decision frameworks:
+| Route | Purpose |
+|-------|---------|
+| `/` | Marketing landing page |
+| `/tools` | Tool selection hub (8 tools) |
+| `/tools/3ps` | De 3 P's (featured) |
+| `/history` | Decision history (10 free, unlimited premium) |
+| `/insights` | Analytics dashboard (premium only) |
+| `/help` | Tool explanations & guides |
+| `/pricing` | Premium subscription page |
+| `/compare` | Side-by-side tool comparison |
 
-| Tool | Route | Store Key | Scoring |
-|------|-------|-----------|---------|
-| **10-10-10 Rule** | `/tools/10-10-10` | `tententen` | Weighted by time: 15% (10min) + 35% (10mo) + 50% (10yr) |
+### Decision Tools
+
+| Tool | Route | Store Key | Scoring Formula |
+|------|-------|-----------|-----------------|
+| **De 3 P's** | `/tools/3ps` | `threeps` | (baseline × project) per P, threshold: 6000 |
+| **10-10-10 Rule** | `/tools/10-10-10` | `tententen` | 15% (10min) + 35% (10mo) + 50% (10yr) |
 | **Regret Minimization** | `/tools/regret` | `regret` | 40% regret + 15% reversibility + 25% values + 20% age80 |
 | **PMI Analysis** | `/tools/pmi` | `pmi` | Plus - Minus + (Interesting × 0.5) |
+| **SWOT Analysis** | `/tools/swot` | `swot` | Strengths + Opportunities - Weaknesses - Threats |
+| **Coin Flip** | `/tools/coinflip` | `coinflip` | Random + gut reaction analysis |
+| **Fear/Regret Matrix** | `/tools/fear-regret` | `fearRegret` | Fear of action vs inaction matrix |
+| **Opportunity Cost** | `/tools/opportunity` | `opportunity` | Best alternative value comparison |
 
 ## Architecture
 
 **Stack**: Vue 3 + Vite + Pinia + Vue Router + FormKit + Tailwind CSS
 
-**User Flow**: Home (baseline values) → Project (project ratings) → Result (score + recommendation)
+### Key Stores
 
-**Key Files**:
-- [PStore.js](src/stores/PStore.js) - Pinia store for 3P's tool (baseline/project values, `endScore`)
-- [ToolsStore.js](src/stores/ToolsStore.js) - Pinia store for decision tools (tententen, regret, pmi state + getters)
-- [router/index.js](src/router/index.js) - All routes including `/tools/*`
-- [style.css](src/style.css) - Custom Tailwind: `.glass`, `.gradient-mesh`, `.card-3d`, animations
+| Store | File | Purpose |
+|-------|------|---------|
+| `ToolsStore` | [src/stores/ToolsStore.js](src/stores/ToolsStore.js) | All 8 tool states, scores, advice |
+| `HistoryStore` | [src/stores/HistoryStore.js](src/stores/HistoryStore.js) | Decision history, outcome tracking |
+| `SubscriptionStore` | [src/stores/SubscriptionStore.js](src/stores/SubscriptionStore.js) | Premium tier, feature flags |
+| `ThemeStore` | [src/stores/ThemeStore.js](src/stores/ThemeStore.js) | Dark/light mode |
+| `AuthStore` | [src/stores/AuthStore.js](src/stores/AuthStore.js) | User authentication (placeholder) |
 
-**Component Structure**:
-- `components/shared/` - Reusable: ToolCard, ToolHeader
-- `components/tententen/` - 10-10-10 form + result
-- `components/regret/` - Regret Minimization form + result
-- `components/pmi/` - PMI form + item cards + result
+### Component Structure
 
-**Path Alias**: `@` maps to `./src` (configured in vite.config.js)
+```
+src/components/
+├── shared/          # ToolCard, ToolHeader, ThemeToggle, SaveToHistoryButton
+├── landing/         # HeroSection, ToolShowcase, PremiumPreview, CTASection
+├── help/            # DecisionGuide, ToolExplanation, TipsSection
+├── premium/         # FeatureGate, PremiumBadge, UpgradePrompt
+├── ai/              # AiAdvicePanel, AiSummary, AiGuidance
+├── history/         # HistoryCard, HistoryFilters, OutcomeModal
+├── insights/        # InsightCard, UsageChart, PatternSummary
+├── threeps/         # ThreePsForm, ThreePsResult
+├── tententen/       # TenTenTenForm, TenTenTenResult
+├── regret/          # RegretForm, RegretResult
+├── pmi/             # PmiForm, PmiItemCard, PmiResult
+├── swot/            # SwotForm, SwotQuadrant, SwotResult
+├── coinflip/        # CoinFlipForm, CoinFlipResult, AnimatedCoin
+├── fearregret/      # FearRegretForm, FearRegretResult, FearMatrix
+├── opportunity/     # OpportunityForm, OpportunityResult
+└── compare/         # CompareToolSelector, CompareResults
+```
 
-**Pattern**: Views are thin wrappers that import a single component (e.g., HomeView imports BaselineQuestions)
+### Services
 
-## Styling Notes
+| Service | Purpose |
+|---------|---------|
+| [stripeService.js](src/services/stripeService.js) | Stripe checkout/portal (placeholder) |
+| [aiService.js](src/services/aiService.js) | AI advice generation (placeholder) |
 
-- FormKit inputs are styled via Tailwind in [style.css](src/style.css) using `[data-type="range"]` and `[data-type="text"]` selectors
-- Custom animations defined in both [tailwind.config.js](tailwind.config.js) and style.css
-- Glass-morphism effects use backdrop-filter (`.glass`, `.glass-card` classes)
+### Premium Features
+
+| Feature | Free | Premium |
+|---------|------|---------|
+| All 8 tools | ✓ | ✓ |
+| Compare tools | ✓ | ✓ |
+| History | 10 items | Unlimited |
+| Insights dashboard | ✗ | ✓ |
+| AI advice | ✗ | ✓ |
+| PDF/JSON export | ✗ | ✓ |
+
+**Feature gating**: Use `SubscriptionStore.isPremium` and `FeatureGate` component.
+
+## Styling
+
+- **Glass morphism**: `.glass`, `.glass-card` classes
+- **Animations**: `.animate-on-enter`, `.stagger-1` through `.stagger-4`
+- **Dark mode**: All components use `dark:` Tailwind variants
+- **FormKit**: Styled via `[data-type="range"]` selectors in [style.css](src/style.css)
+
+## Patterns
+
+- **Views are thin wrappers**: Import single main component
+- **Tool pattern**: Form component → collects input → store action → Result component
+- **Feature gating**: Wrap premium content with `<FeatureGate feature="featureName">`
+- **History saving**: Use `SaveToHistoryButton` component in results
+
+## Path Alias
+
+`@` maps to `./src` (configured in vite.config.js)
