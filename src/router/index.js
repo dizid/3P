@@ -1,7 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
-import ProjectView from '../views/ProjectView.vue'
-import ResultView from '../views/ResultView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,18 +11,17 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView
+      name: 'landing',
+      component: () => import('../views/LandingView.vue')
     },
+    // Legacy redirects for old 3P's routes
     {
       path: '/project',
-      name: 'project',
-      component: ProjectView
+      redirect: '/tools/3ps'
     },
     {
       path: '/resultaat',
-      name: 'resultaat',
-      component: ResultView
+      redirect: '/tools/3ps'
     },
     {
       path: '/about',
@@ -51,6 +47,56 @@ const router = createRouter({
       path: '/tools/pmi',
       name: 'pmi',
       component: () => import('../views/PmiView.vue')
+    },
+    {
+      path: '/tools/swot',
+      name: 'swot',
+      component: () => import('../views/SwotView.vue')
+    },
+    {
+      path: '/tools/opportunity-cost',
+      name: 'opportunity-cost',
+      component: () => import('../views/OpportunityCostView.vue')
+    },
+    {
+      path: '/tools/coin-flip',
+      name: 'coin-flip',
+      component: () => import('../views/CoinFlipView.vue')
+    },
+    {
+      path: '/tools/fear-regret',
+      name: 'fear-regret',
+      component: () => import('../views/FearRegretView.vue')
+    },
+    {
+      path: '/tools/3ps',
+      name: 'threeps',
+      component: () => import('../views/ThreePsView.vue')
+    },
+    {
+      path: '/history',
+      name: 'history',
+      component: () => import('../views/HistoryView.vue')
+    },
+    {
+      path: '/compare',
+      name: 'compare',
+      component: () => import('../views/CompareView.vue')
+    },
+    {
+      path: '/insights',
+      name: 'insights',
+      component: () => import('../views/InsightsView.vue')
+    },
+    {
+      path: '/help',
+      name: 'help',
+      component: () => import('../views/HelpView.vue')
+    },
+    {
+      path: '/pricing',
+      name: 'pricing',
+      component: () => import('../views/PricingView.vue')
     }
   ]
 })

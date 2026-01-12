@@ -1,0 +1,94 @@
+{
+  "app": {
+    "name": "De 3 P's",
+    "tagline": "Decision Making Toolkit"
+  },
+  "nav": {
+    "home": "Start",
+    "tools": "Tools",
+    "history": "History",
+    "about": "Info",
+    "insights": "Insights",
+    "compare": "Compare"
+  },
+  "home": {
+    "title": "Make Better Decisions",
+    "subtitle": "Use proven frameworks to analyze choices and find clarity",
+    "cta": "Explore Tools"
+  },
+  "tools": {
+    "title": "Decision Tools",
+    "subtitle": "Choose a framework to analyze your decision",
+    "tententen": {
+      "name": "10-10-10 Rule",
+      "description": "Evaluate decisions across three time horizons",
+      "short": "Short, medium, and long-term thinking"
+    },
+    "regret": {
+      "name": "Regret Minimization",
+      "description": "Minimize future regret by thinking long-term",
+      "short": "What will you regret at 80?"
+    },
+    "pmi": {
+      "name": "PMI Analysis",
+      "description": "Plus, Minus, Interesting framework",
+      "short": "Systematic pros and cons"
+    },
+    "swot": {
+      "name": "SWOT Analysis",
+      "description": "Strengths, Weaknesses, Opportunities, Threats",
+      "short": "Strategic analysis grid"
+    },
+    "opportunityCost": {
+      "name": "Opportunity Cost",
+      "description": "Compare what you gain vs. what you give up",
+      "short": "Trade-off calculator"
+    },
+    "coinFlip": {
+      "name": "Coin Flip Test",
+      "description": "Your gut reaction reveals your true preference",
+      "short": "Trust your instincts"
+    },
+    "fearRegret": {
+      "name": "Fear vs Regret",
+      "description": "Balance fears of action against fears of inaction",
+      "short": "Confront what holds you back"
+    }
+  },
+  "common": {
+    "decision": "Decision",
+    "score": "Score",
+    "result": "Result",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "reset": "Reset",
+    "export": "Export",
+    "share": "Share",
+    "loading": "Loading...",
+    "noData": "No data yet",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No"
+  },
+  "history": {
+    "title": "Decision History",
+    "subtitle": "Review past decisions and track outcomes",
+    "empty": "No decisions yet",
+    "emptyDesc": "Complete an analysis and save it to see it here",
+    "clearAll": "Clear All History",
+    "trackOutcome": "Track Outcome"
+  },
+  "insights": {
+    "title": "Decision Insights",
+    "subtitle": "Personal analytics from your decision patterns",
+    "totalDecisions": "Total Decisions",
+    "outcomeTracked": "Outcomes Tracked",
+    "avgOutcome": "Avg Outcome",
+    "thisMonth": "This Month"
+  }
+}

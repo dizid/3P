@@ -2,15 +2,20 @@
   <div>
     <!-- Decision Input -->
     <div class="glass-card p-6 mb-6 animate-on-enter">
-      <label class="block text-lg font-bold text-gray-800 mb-3">
+      <label class="block text-lg font-bold text-gray-800 dark:text-gray-100 mb-3">
         What decision are you evaluating?
       </label>
       <input
         v-model="store.tententen.decision"
         type="text"
         placeholder="e.g., Accept the new job offer, Move to a new city..."
-        class="w-full px-4 py-3.5 bg-white border-2 border-gray-300 rounded-xl text-gray-800 text-base placeholder-gray-400 shadow-sm transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none hover:border-gray-400"
+        class="w-full px-4 py-3.5 bg-white dark:bg-slate-800 border-2 border-gray-300 dark:border-gray-600 rounded-xl text-gray-800 dark:text-gray-100 text-base placeholder-gray-400 dark:placeholder-gray-500 shadow-sm transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900 focus:outline-none hover:border-gray-400 dark:hover:border-gray-500"
       />
+
+      <!-- Template Selector -->
+      <div class="mt-4">
+        <TemplateSelector tool="tententen" @select="applyTemplate" />
+      </div>
     </div>
 
     <!-- Time Horizon Cards -->
@@ -141,9 +146,18 @@
 import { computed } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import AnimatedSlider from '@/components/AnimatedSlider.vue'
+import TemplateSelector from '@/components/shared/TemplateSelector.vue'
 
 const store = useToolsStore()
 const emit = defineEmits(['complete'])
+
+// Apply template data
+const applyTemplate = (data) => {
+  store.tententen.decision = data.decision
+  if (data.tenMinutes) store.tententen.feel10min = data.tenMinutes * 10
+  if (data.tenMonths) store.tententen.feel10months = data.tenMonths * 10
+  if (data.tenYears) store.tententen.feel10years = data.tenYears * 10
+}
 
 const scoreColor = computed(() => {
   const score = store.tententenScore

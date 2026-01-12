@@ -140,6 +140,14 @@
           &#8592; Adjust Values
         </span>
       </button>
+      <SaveToHistoryButton
+        tool="tententen"
+        :decision="store.tententen.decision"
+        :score="store.tententenScore"
+        :recommendation="store.tententenAdvice.text"
+        :recommendation-type="store.tententenAdvice.type"
+        :data="{ ...store.tententen }"
+      />
       <button
         @click="$emit('reset')"
         class="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105"
@@ -157,6 +165,7 @@ import { computed, ref, onMounted } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import AnimatedCounter from '@/components/AnimatedCounter.vue'
 import ConfettiCelebration from '@/components/ConfettiCelebration.vue'
+import SaveToHistoryButton from '@/components/shared/SaveToHistoryButton.vue'
 
 const store = useToolsStore()
 const showConfetti = ref(false)

@@ -159,6 +159,14 @@
           &#8592; Edit Analysis
         </span>
       </button>
+      <SaveToHistoryButton
+        tool="pmi"
+        :decision="store.pmi.decision"
+        :score="store.pmiNetScore"
+        :recommendation="store.pmiAdvice.text"
+        :recommendation-type="store.pmiAdvice.type"
+        :data="{ ...store.pmi }"
+      />
       <button
         @click="$emit('reset')"
         class="bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold py-3 px-8 rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105"
@@ -176,6 +184,7 @@ import { computed, ref, onMounted } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import AnimatedCounter from '@/components/AnimatedCounter.vue'
 import ConfettiCelebration from '@/components/ConfettiCelebration.vue'
+import SaveToHistoryButton from '@/components/shared/SaveToHistoryButton.vue'
 
 const store = useToolsStore()
 const showConfetti = ref(false)

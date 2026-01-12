@@ -1,0 +1,94 @@
+{
+  "app": {
+    "name": "De 3 P's",
+    "tagline": "Beslissingen Toolkit"
+  },
+  "nav": {
+    "home": "Start",
+    "tools": "Tools",
+    "history": "Geschiedenis",
+    "about": "Info",
+    "insights": "Inzichten",
+    "compare": "Vergelijk"
+  },
+  "home": {
+    "title": "Maak Betere Beslissingen",
+    "subtitle": "Gebruik bewezen frameworks om keuzes te analyseren",
+    "cta": "Bekijk Tools"
+  },
+  "tools": {
+    "title": "Beslissingstools",
+    "subtitle": "Kies een framework om je beslissing te analyseren",
+    "tententen": {
+      "name": "10-10-10 Regel",
+      "description": "Evalueer beslissingen over drie tijdshorizonten",
+      "short": "Korte, middellange en lange termijn"
+    },
+    "regret": {
+      "name": "Spijt Minimalisatie",
+      "description": "Minimaliseer toekomstige spijt door langetermijndenken",
+      "short": "Waar krijg je spijt van op je 80e?"
+    },
+    "pmi": {
+      "name": "PMI Analyse",
+      "description": "Plus, Min, Interessant framework",
+      "short": "Systematische voor- en nadelen"
+    },
+    "swot": {
+      "name": "SWOT Analyse",
+      "description": "Sterktes, Zwaktes, Kansen, Bedreigingen",
+      "short": "Strategische analyse"
+    },
+    "opportunityCost": {
+      "name": "Opportuniteitskosten",
+      "description": "Vergelijk wat je wint met wat je opgeeft",
+      "short": "Afwegingen calculator"
+    },
+    "coinFlip": {
+      "name": "Muntje Gooien",
+      "description": "Je onderbuikgevoel onthult je echte voorkeur",
+      "short": "Vertrouw je instinct"
+    },
+    "fearRegret": {
+      "name": "Angst vs Spijt",
+      "description": "Weeg angst voor actie af tegen angst voor inactie",
+      "short": "Confronteer wat je tegenhoudt"
+    }
+  },
+  "common": {
+    "decision": "Beslissing",
+    "score": "Score",
+    "result": "Resultaat",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "back": "Terug",
+    "next": "Volgende",
+    "submit": "Versturen",
+    "reset": "Reset",
+    "export": "Exporteren",
+    "share": "Delen",
+    "loading": "Laden...",
+    "noData": "Nog geen data",
+    "confirm": "Bevestigen",
+    "yes": "Ja",
+    "no": "Nee"
+  },
+  "history": {
+    "title": "Beslissingsgeschiedenis",
+    "subtitle": "Bekijk eerdere beslissingen en volg resultaten",
+    "empty": "Nog geen beslissingen",
+    "emptyDesc": "Voltooi een analyse en sla deze op om hier te zien",
+    "clearAll": "Wis Alle Geschiedenis",
+    "trackOutcome": "Resultaat Bijhouden"
+  },
+  "insights": {
+    "title": "Beslissingsinzichten",
+    "subtitle": "Persoonlijke analyses van je beslissingspatronen",
+    "totalDecisions": "Totaal Beslissingen",
+    "outcomeTracked": "Resultaten Gevolgd",
+    "avgOutcome": "Gem. Resultaat",
+    "thisMonth": "Deze Maand"
+  }
+}

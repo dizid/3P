@@ -1,0 +1,80 @@
+{
+  "name": "De 3 P's - Decision Making Toolkit",
+  "short_name": "De 3 P's",
+  "description": "Make better decisions with proven frameworks. Analyze choices using 10-10-10 Rule, Regret Minimization, PMI Analysis, SWOT, and more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#3b82f6",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-128x128.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-152x152.png",
+      "sizes": "152x152",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-384x384.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "utilities", "lifestyle"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Decision Tools",
+      "short_name": "Tools",
+      "description": "Browse all decision-making tools",
+      "url": "/tools",
+      "icons": [{"src": "/icons/icon-96x96.png", "sizes": "96x96"}]
+    },
+    {
+      "name": "Decision History",
+      "short_name": "History",
+      "description": "View your past decisions",
+      "url": "/history",
+      "icons": [{"src": "/icons/icon-96x96.png", "sizes": "96x96"}]
+    }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}
