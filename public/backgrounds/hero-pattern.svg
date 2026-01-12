@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Pattern for subtle background texture -->
+    <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="1.5" fill="rgba(255,255,255,0.1)"/>
+    </pattern>
+
+    <pattern id="grid" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Base gradient -->
+  <rect width="1200" height="800" fill="url(#heroGrad)"/>
+
+  <!-- Pattern overlay -->
+  <rect width="1200" height="800" fill="url(#dots)"/>
+  <rect width="1200" height="800" fill="url(#grid)"/>
+
+  <!-- Floating geometric shapes -->
+  <circle cx="150" cy="150" r="80" fill="rgba(255,255,255,0.05)"/>
+  <circle cx="1050" cy="200" r="120" fill="rgba(255,255,255,0.03)"/>
+  <circle cx="900" cy="600" r="100" fill="rgba(255,255,255,0.04)"/>
+  <circle cx="200" cy="650" r="60" fill="rgba(255,255,255,0.06)"/>
+
+  <!-- Abstract decision tree visualization -->
+  <g opacity="0.08" stroke="white" stroke-width="2" fill="none">
+    <circle cx="600" cy="100" r="15"/>
+    <line x1="600" y1="115" x2="500" y2="200"/>
+    <line x1="600" y1="115" x2="700" y2="200"/>
+    <circle cx="500" cy="200" r="12"/>
+    <circle cx="700" cy="200" r="12"/>
+    <line x1="500" y1="212" x2="450" y2="280"/>
+    <line x1="500" y1="212" x2="550" y2="280"/>
+    <line x1="700" y1="212" x2="650" y2="280"/>
+    <line x1="700" y1="212" x2="750" y2="280"/>
+    <circle cx="450" cy="280" r="10"/>
+    <circle cx="550" cy="280" r="10"/>
+    <circle cx="650" cy="280" r="10"/>
+    <circle cx="750" cy="280" r="10"/>
+  </g>
+
+  <!-- Subtle wave at bottom -->
+  <path d="M 0 700 Q 300 650 600 700 T 1200 700 L 1200 800 L 0 800 Z" fill="rgba(0,0,0,0.1)"/>
+</svg>

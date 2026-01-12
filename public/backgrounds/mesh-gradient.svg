@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <!-- Multiple gradients for mesh effect -->
+    <radialGradient id="mesh1" cx="30%" cy="30%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#6366f1;stop-opacity:0"/>
+    </radialGradient>
+
+    <radialGradient id="mesh2" cx="70%" cy="40%">
+      <stop offset="0%" style="stop-color:#8b5cf6;stop-opacity:0.7"/>
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:0"/>
+    </radialGradient>
+
+    <radialGradient id="mesh3" cx="50%" cy="70%">
+      <stop offset="0%" style="stop-color:#a855f7;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#a855f7;stop-opacity:0"/>
+    </radialGradient>
+
+    <radialGradient id="mesh4" cx="20%" cy="60%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:0"/>
+    </radialGradient>
+
+    <radialGradient id="mesh5" cx="80%" cy="80%">
+      <stop offset="0%" style="stop-color:#3b82f6;stop-opacity:0.6"/>
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Base color -->
+  <rect width="1920" height="1080" fill="#f8fafc"/>
+
+  <!-- Overlapping gradients -->
+  <rect width="1920" height="1080" fill="url(#mesh1)"/>
+  <rect width="1920" height="1080" fill="url(#mesh2)"/>
+  <rect width="1920" height="1080" fill="url(#mesh3)"/>
+  <rect width="1920" height="1080" fill="url(#mesh4)"/>
+  <rect width="1920" height="1080" fill="url(#mesh5)"/>
+
+  <!-- Noise texture overlay -->
+  <filter id="noise">
+    <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="4" stitchTiles="stitch"/>
+    <feColorMatrix type="saturate" values="0"/>
+  </filter>
+  <rect width="1920" height="1080" filter="url(#noise)" opacity="0.03"/>
+</svg>

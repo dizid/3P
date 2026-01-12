@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Four quadrants for SWOT -->
+  <!-- Strengths (top-left, green) -->
+  <rect x="4" y="4" width="26" height="26" rx="4" fill="#10b981" opacity="0.9"/>
+  <text x="17" y="22" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">S</text>
+
+  <!-- Weaknesses (top-right, red) -->
+  <rect x="34" y="4" width="26" height="26" rx="4" fill="#ef4444" opacity="0.9"/>
+  <text x="47" y="22" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">W</text>
+
+  <!-- Opportunities (bottom-left, blue) -->
+  <rect x="4" y="34" width="26" height="26" rx="4" fill="#3b82f6" opacity="0.9"/>
+  <text x="17" y="52" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">O</text>
+
+  <!-- Threats (bottom-right, orange) -->
+  <rect x="34" y="34" width="26" height="26" rx="4" fill="#f59e0b" opacity="0.9"/>
+  <text x="47" y="52" font-family="Arial" font-size="14" font-weight="bold" fill="white" text-anchor="middle">T</text>
+</svg>

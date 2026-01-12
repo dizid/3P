@@ -9,6 +9,18 @@
   "orientation": "any",
   "icons": [
     {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
       "src": "/icons/icon-72x72.png",
       "sizes": "72x72",
       "type": "image/png",
@@ -58,21 +70,42 @@
     }
   ],
   "categories": ["productivity", "utilities", "lifestyle"],
-  "screenshots": [],
+  "screenshots": [
+    {
+      "src": "/og-image.svg",
+      "sizes": "1200x630",
+      "type": "image/svg+xml",
+      "label": "De 3 P's Decision-Making Toolkit"
+    }
+  ],
   "shortcuts": [
     {
-      "name": "Decision Tools",
-      "short_name": "Tools",
-      "description": "Browse all decision-making tools",
-      "url": "/tools",
-      "icons": [{"src": "/icons/icon-96x96.png", "sizes": "96x96"}]
+      "name": "3 P's Tool",
+      "short_name": "3 P's",
+      "description": "Evaluate using Poen, Pret, Prestige",
+      "url": "/tools/3ps",
+      "icons": [{"src": "/icons/3ps.svg", "sizes": "64x64", "type": "image/svg+xml"}]
+    },
+    {
+      "name": "10-10-10 Rule",
+      "short_name": "10-10-10",
+      "description": "Time perspective analysis",
+      "url": "/tools/10-10-10",
+      "icons": [{"src": "/icons/10-10-10.svg", "sizes": "64x64", "type": "image/svg+xml"}]
     },
     {
       "name": "Decision History",
       "short_name": "History",
       "description": "View your past decisions",
       "url": "/history",
-      "icons": [{"src": "/icons/icon-96x96.png", "sizes": "96x96"}]
+      "icons": [{"src": "/logo.svg", "sizes": "any", "type": "image/svg+xml"}]
+    },
+    {
+      "name": "All Tools",
+      "short_name": "Tools",
+      "description": "Browse all 8 frameworks",
+      "url": "/tools",
+      "icons": [{"src": "/logo.svg", "sizes": "any", "type": "image/svg+xml"}]
     }
   ],
   "related_applications": [],
