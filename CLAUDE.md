@@ -37,9 +37,9 @@ A decision support application with 8 decision-making tools, premium features, a
 | **Regret Minimization** | `/tools/regret` | `regret` | 40% regret + 15% reversibility + 25% values + 20% age80 |
 | **PMI Analysis** | `/tools/pmi` | `pmi` | Plus - Minus + (Interesting × 0.5) |
 | **SWOT Analysis** | `/tools/swot` | `swot` | Strengths + Opportunities - Weaknesses - Threats |
-| **Coin Flip** | `/tools/coinflip` | `coinflip` | Random + gut reaction analysis |
-| **Fear/Regret Matrix** | `/tools/fear-regret` | `fearRegret` | Fear of action vs inaction matrix |
-| **Opportunity Cost** | `/tools/opportunity` | `opportunity` | Best alternative value comparison |
+| **Coin Flip** | `/tools/coin-flip` | `coinFlip` | Random + gut reaction analysis |
+| **Fear/Regret Matrix** | `/tools/fear-regret` | `fearRegret` | Fear of inaction - Fear of action |
+| **Opportunity Cost** | `/tools/opportunity-cost` | `opportunityCost` | Gains - Sacrifices comparison |
 
 ## Architecture
 
@@ -77,12 +77,29 @@ src/components/
 └── compare/         # CompareToolSelector, CompareResults
 ```
 
-### Services
+### Data & Services
 
-| Service | Purpose |
-|---------|---------|
+| File | Purpose |
+|------|---------|
+| [templates.js](src/data/templates.js) | Quick-start templates for each tool (career, business, personal) |
 | [stripeService.js](src/services/stripeService.js) | Stripe checkout/portal (placeholder) |
 | [aiService.js](src/services/aiService.js) | AI advice generation (placeholder) |
+
+### Composables
+
+| File | Purpose |
+|------|---------|
+| [useExport.js](src/composables/useExport.js) | Export decisions as Markdown, TXT, or PDF |
+
+### i18n (Internationalization)
+
+| File | Languages |
+|------|-----------|
+| [src/i18n/index.js](src/i18n/index.js) | i18n setup with `t()` function and `useI18n()` composable |
+| [en.json](src/i18n/locales/en.json) | English translations |
+| [nl.json](src/i18n/locales/nl.json) | Dutch translations |
+
+**Usage:** `import { t, useI18n } from '@/i18n'` or use `$t('key')` in templates.
 
 ### Premium Features
 
