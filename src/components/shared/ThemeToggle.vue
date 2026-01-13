@@ -3,6 +3,8 @@
     @click="themeStore.cycleTheme()"
     class="p-2 rounded-lg transition-all duration-200 hover:bg-gray-100 dark:hover:bg-gray-800"
     :title="tooltipText"
+    :aria-label="tooltipText"
+    type="button"
   >
     <!-- Sun icon (light mode) -->
     <svg
@@ -11,6 +13,7 @@
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <path
         stroke-linecap="round"
@@ -27,6 +30,7 @@
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <path
         stroke-linecap="round"
@@ -43,6 +47,7 @@
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <path
         stroke-linecap="round"

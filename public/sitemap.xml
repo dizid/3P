@@ -59,7 +59,7 @@
   </url>
 
   <url>
-    <loc>https://de3ps.nl/tools/coin-flip</loc>
+    <loc>https://de3ps.nl/tools/coinflip</loc>
     <lastmod>2026-01-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -73,7 +73,7 @@
   </url>
 
   <url>
-    <loc>https://de3ps.nl/tools/opportunity-cost</loc>
+    <loc>https://de3ps.nl/tools/opportunity</loc>
     <lastmod>2026-01-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -120,6 +120,13 @@
     <lastmod>2026-01-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+
+  <url>
+    <loc>https://de3ps.nl/success</loc>
+    <lastmod>2026-01-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
   </url>
 
 </urlset>

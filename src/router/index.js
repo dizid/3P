@@ -97,6 +97,16 @@ const router = createRouter({
       path: '/pricing',
       name: 'pricing',
       component: () => import('../views/PricingView.vue')
+    },
+    {
+      path: '/success',
+      name: 'success',
+      component: () => import('../views/SuccessView.vue')
+    },
+    {
+      path: '/shared/:token',
+      name: 'shared',
+      component: () => import('../views/SharedDecisionView.vue')
     }
   ]
 })

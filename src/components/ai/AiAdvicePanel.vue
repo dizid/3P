@@ -12,31 +12,18 @@
             <p class="text-white/80 text-sm">Personalized insights for your decision</p>
           </div>
         </div>
-        <PremiumBadge v-if="!isPremium" variant="default" />
+        <div v-if="isPremium" class="flex items-center gap-2">
+          <span class="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">
+            {{ subscriptionStore.plan === 'coach' ? 'Coach' : 'Pro' }}
+          </span>
+        </div>
       </div>
     </div>
 
     <!-- Content -->
     <div class="p-6">
-      <!-- Premium gate -->
-      <FeatureGate
-        v-if="!isPremium"
-        feature="aiAdvice"
-        title="AI-Powered Insights"
-        description="Get personalized analysis, spot blind spots, and receive actionable suggestions from our AI advisor."
-      >
-        <template #preview>
-          <!-- Blurred preview -->
-          <div class="space-y-4">
-            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-3/4"></div>
-            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-full"></div>
-            <div class="h-4 bg-gray-200 dark:bg-gray-700 rounded w-5/6"></div>
-          </div>
-        </template>
-      </FeatureGate>
-
-      <!-- Premium content -->
-      <div v-else>
+      <!-- AI content available for all users (tiered) -->
+      <div>
         <!-- Tabs -->
         <div class="flex gap-2 mb-6">
           <button
@@ -119,9 +106,8 @@ const followUps = ref([
 ])
 
 onMounted(async () => {
-  if (isPremium.value) {
-    await loadSummary()
-  }
+  // All users get AI analysis (tiered by subscription level)
+  await loadSummary()
 })
 
 const loadSummary = async () => {

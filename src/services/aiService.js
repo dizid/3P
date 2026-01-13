@@ -3,9 +3,31 @@
  *
  * Calls Netlify Function which connects to Anthropic's Claude API
  * for personalized decision analysis.
+ *
+ * Tiered responses:
+ * - Free: Basic insight, blind spots, next step
+ * - Pro: Enhanced with biases, scenarios, confidence reasoning
+ * - Coach: Full deep analysis with coaching questions
  */
 
 const API_BASE = import.meta.env.DEV ? 'http://localhost:8888' : ''
+
+// Get subscription info from localStorage (set by SubscriptionStore)
+const getSubscriptionInfo = () => {
+  try {
+    const stored = localStorage.getItem('subscription')
+    if (stored) {
+      const sub = JSON.parse(stored)
+      return {
+        customerId: sub.customerId || null,
+        email: sub.email || null
+      }
+    }
+  } catch (e) {
+    // Ignore
+  }
+  return { customerId: null, email: null }
+}
 
 export const aiService = {
   /**
@@ -22,10 +44,12 @@ export const aiService = {
    * @param {object} data - Tool-specific data
    * @param {string} decision - The decision being analyzed
    * @param {number} score - The calculated score
-   * @returns {Promise<{insight: string, blindSpots: string[], nextStep: string, confidence: string}>}
+   * @returns {Promise<object>} Analysis object with tier-specific fields
    */
   async getAnalysisSummary(tool, data, decision = '', score = null) {
     try {
+      const { customerId, email } = getSubscriptionInfo()
+
       const response = await fetch(`${API_BASE}/api/analyze-decision`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -33,34 +57,98 @@ export const aiService = {
           tool,
           data,
           decision: decision || data.decision || 'This decision',
-          score
+          score,
+          customerId,
+          email
         })
       })
 
       if (!response.ok) {
         const error = await response.json()
         console.error('AI analysis failed:', error)
+
+        // Handle rate limit
+        if (response.status === 429) {
+          return {
+            error: true,
+            rateLimited: true,
+            message: error.message,
+            resetDate: error.resetDate,
+            upgradeUrl: error.upgradeUrl
+          }
+        }
+
         return this.getFallbackSummary(tool)
       }
 
       const result = await response.json()
 
       if (result.success && result.analysis) {
-        // Transform to expected format
-        return {
-          summary: result.analysis.insight,
-          insights: result.analysis.blindSpots || [],
-          blindSpots: result.analysis.blindSpots || [],
-          suggestions: [result.analysis.nextStep],
-          confidence: result.analysis.confidence,
-          isReal: true // Flag to indicate this is real AI
-        }
+        // Transform based on tier
+        return this.transformAnalysis(result.analysis, result.plan, result.remaining, result.resetDate)
       }
 
       return this.getFallbackSummary(tool)
     } catch (error) {
       console.error('AI service error:', error)
       return this.getFallbackSummary(tool)
+    }
+  },
+
+  /**
+   * Transform analysis based on tier
+   */
+  transformAnalysis(analysis, plan, remaining, resetDate) {
+    const base = {
+      isReal: true,
+      plan,
+      remaining,
+      resetDate
+    }
+
+    if (plan === 'coach') {
+      // Coach tier - full deep analysis
+      return {
+        ...base,
+        summary: analysis.coreInsight,
+        insights: analysis.blindSpots || [],
+        blindSpots: analysis.blindSpots || [],
+        suggestions: [analysis.nextStep],
+        confidence: analysis.confidence?.level || 'medium',
+        // Coach-specific fields
+        biases: analysis.biases || [],
+        scenarios: analysis.scenarios || null,
+        frameworkFit: analysis.frameworkFit || null,
+        clarityScore: analysis.clarityScore || null,
+        confidenceMissing: analysis.confidence?.missing || [],
+        questions: analysis.questions || []
+      }
+    }
+
+    if (plan === 'pro') {
+      // Pro tier - enhanced analysis
+      return {
+        ...base,
+        summary: analysis.insight,
+        insights: analysis.blindSpots || [],
+        blindSpots: analysis.blindSpots || [],
+        suggestions: [analysis.nextStep],
+        confidence: analysis.confidence || 'medium',
+        // Pro-specific fields
+        biases: analysis.biases || [],
+        scenarios: analysis.scenarios || null,
+        confidenceReason: analysis.confidenceReason || null
+      }
+    }
+
+    // Free tier - basic analysis
+    return {
+      ...base,
+      summary: analysis.insight,
+      insights: analysis.blindSpots || [],
+      blindSpots: analysis.blindSpots || [],
+      suggestions: [analysis.nextStep],
+      confidence: analysis.confidence || 'medium'
     }
   },
 

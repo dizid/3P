@@ -38,6 +38,24 @@
         </div>
       </div>
 
+      <!-- Error Message -->
+      <div v-if="error" class="max-w-md mx-auto mb-8 animate-on-enter">
+        <div class="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl p-4">
+          <div class="flex items-center gap-3">
+            <span class="text-red-500 text-xl">&#9888;</span>
+            <div>
+              <p class="text-red-800 dark:text-red-200 font-medium">{{ error }}</p>
+              <button
+                @click="error = null"
+                class="text-red-600 dark:text-red-400 text-sm underline hover:no-underline mt-1"
+              >
+                Dismiss
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <!-- Pricing Cards -->
       <div class="grid md:grid-cols-2 gap-8 mb-12">
         <!-- Free Tier -->
@@ -60,8 +78,8 @@
           :featured="true"
           :badge="'Best Value'"
           :savings="billingPeriod === 'yearly' ? '30% vs monthly' : null"
-          button-text="Coming Soon"
-          :disabled="true"
+          :button-text="isLoading ? 'Redirecting...' : 'Get Premium'"
+          :disabled="isLoading"
           @select="handleUpgrade"
           class="animate-on-enter stagger-3"
         />
@@ -102,16 +120,56 @@
 <script setup>
 import { ref } from 'vue'
 import PricingCard from '@/components/pricing/PricingCard.vue'
-import { pricingTiers } from '@/stores/SubscriptionStore'
+import { pricingTiers, useSubscriptionStore } from '@/stores/SubscriptionStore'
+import { stripeService, stripePrices } from '@/services/stripeService'
+import { trackCheckoutStarted, trackUpgradeClicked } from '@/utils/analytics'
+
+const subscriptionStore = useSubscriptionStore()
 
 const billingPeriod = ref('monthly')
+const isLoading = ref(false)
+const error = ref(null)
 
 const freeTier = pricingTiers.free
 const premiumTier = pricingTiers.premium
 
-const handleUpgrade = () => {
-  // Placeholder: Would redirect to Stripe checkout
-  console.log('Upgrade clicked, billing:', billingPeriod.value)
+const handleUpgrade = async () => {
+  isLoading.value = true
+  error.value = null
+
+  // Track upgrade click and checkout start
+  const price = billingPeriod.value === 'yearly' ? 49.99 : 5.99
+  trackUpgradeClicked('pricing_page', 'premium')
+  trackCheckoutStarted(billingPeriod.value, price)
+
+  try {
+    // Get the correct price ID based on billing period
+    const priceId = billingPeriod.value === 'yearly'
+      ? stripePrices.yearly
+      : stripePrices.monthly
+
+    // Get cached customer info if available
+    const cached = subscriptionStore.getCachedCustomer()
+
+    // Create checkout session
+    const result = await stripeService.createCheckoutSession(
+      priceId,
+      cached.customerId,
+      cached.email
+    )
+
+    if (result.url) {
+      // Redirect to Stripe checkout
+      window.location.href = result.url
+    } else {
+      error.value = result.error || 'Failed to start checkout. Please try again.'
+    }
+  } catch (err) {
+    console.error('Checkout error:', err)
+    error.value = 'Something went wrong. Please try again.'
+  } finally {
+    isLoading.value = false
+  }
 }
 
 const faqs = [

@@ -13,8 +13,16 @@ onMounted(() => {
 
 <template>
   <div class="min-h-screen gradient-mesh dark:gradient-mesh-dark">
+    <!-- Skip Link for Accessibility -->
+    <a
+      href="#main-content"
+      class="skip-link sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-indigo-600 focus:text-white focus:rounded-lg focus:shadow-lg"
+    >
+      Skip to main content
+    </a>
+
     <!-- Navigation Header with Glass Effect -->
-    <nav class="glass dark:glass-dark sticky top-0 z-50 border-b border-white/20 dark:border-gray-700/50 shadow-glass">
+    <nav class="glass dark:glass-dark sticky top-0 z-50 border-b border-white/20 dark:border-gray-700/50 shadow-glass" aria-label="Main navigation">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-20">
           <!-- Logo/Brand with Animation -->
@@ -102,7 +110,7 @@ onMounted(() => {
     </nav>
 
     <!-- Main Content with Page Transitions -->
-    <main class="relative z-0">
+    <main id="main-content" class="relative z-0" tabindex="-1">
       <RouterView v-slot="{ Component, route }">
         <Transition name="page" mode="out-in">
           <component :is="Component" :key="route.path" />

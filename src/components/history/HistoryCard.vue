@@ -68,21 +68,33 @@
           <!-- Actions -->
           <div class="flex items-center gap-2">
             <button
+              @click="shareDecision"
+              class="p-2 text-gray-400 hover:text-indigo-500 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 rounded-lg transition-colors"
+              title="Share"
+              aria-label="Share decision"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+            </button>
+            <button
               v-if="!decision.outcome"
               @click="$emit('trackOutcome', decision)"
-              class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+              class="p-2 text-gray-400 hover:text-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
               title="Track Outcome"
+              aria-label="Track outcome"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
               </svg>
             </button>
             <button
               @click="$emit('delete', decision.id)"
-              class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+              class="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
               title="Delete"
+              aria-label="Delete decision"
             >
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
               </svg>
             </button>
@@ -102,6 +114,37 @@ const props = defineProps({
 })
 
 defineEmits(['delete', 'trackOutcome'])
+
+// Share decision via Web Share API or clipboard
+const shareDecision = async () => {
+  const shareData = {
+    title: `Decision: ${props.decision.decision}`,
+    text: `I analyzed "${props.decision.decision}" using ${toolName.value}. Score: ${props.decision.score ?? 'N/A'} - ${props.decision.recommendation}`,
+    url: window.location.origin + '/tools'
+  }
+
+  // Try Web Share API first (mobile-friendly)
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData)
+      return
+    } catch (err) {
+      // User cancelled or share failed, fall back to clipboard
+      if (err.name !== 'AbortError') {
+        console.error('Share failed:', err)
+      }
+    }
+  }
+
+  // Fall back to copying text to clipboard
+  const text = `${shareData.text}\n\nTry it yourself: ${shareData.url}`
+  try {
+    await navigator.clipboard.writeText(text)
+    alert('Decision copied to clipboard!')
+  } catch (err) {
+    console.error('Copy failed:', err)
+  }
+}
 
 const meta = computed(() => toolMeta[props.decision.tool] || {
   name: props.decision.tool,

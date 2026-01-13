@@ -36,6 +36,18 @@
         </RouterLink>
       </div>
 
+      <!-- Email Capture -->
+      <div class="mt-12 pt-10 border-t border-gray-200 dark:border-gray-700">
+        <p class="text-gray-600 dark:text-gray-400 mb-4">
+          Get decision-making tips and product updates
+        </p>
+        <EmailCapture
+          placeholder="Your email address"
+          button-text="Subscribe"
+          location="cta_section"
+        />
+      </div>
+
       <!-- Trust indicators -->
       <div class="mt-12 flex flex-wrap justify-center gap-8 text-sm text-gray-500 dark:text-gray-400">
         <div class="flex items-center gap-2">
@@ -62,4 +74,5 @@
 </template>
 
 <script setup>
+import EmailCapture from '@/components/landing/EmailCapture.vue'
 </script>
