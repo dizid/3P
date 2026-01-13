@@ -39,7 +39,7 @@ onMounted(() => {
                 <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   De 3 P's
                 </h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400 -mt-1 tracking-wide">Projecten Beoordelen</p>
+                <p class="text-xs text-gray-600 dark:text-gray-400 -mt-1 tracking-wide">Projecten Beoordelen</p>
               </div>
             </RouterLink>
           </div>
@@ -48,7 +48,7 @@ onMounted(() => {
           <div class="flex items-center gap-2 sm:gap-3">
             <RouterLink
               to="/"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-700 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400"
+              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400"
               active-class="bg-blue-100/80 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300"
             >
               <span class="relative z-10 flex items-center gap-2">
@@ -59,7 +59,7 @@ onMounted(() => {
             </RouterLink>
             <RouterLink
               to="/tools"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-700 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-emerald-600 dark:hover:text-emerald-400"
+              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-emerald-600 dark:hover:text-emerald-400"
               active-class="bg-emerald-100/80 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300"
             >
               <span class="relative z-10 flex items-center gap-2">
@@ -70,7 +70,7 @@ onMounted(() => {
             </RouterLink>
             <RouterLink
               to="/history"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-700 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-amber-600 dark:hover:text-amber-400"
+              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-amber-600 dark:hover:text-amber-400"
               active-class="bg-amber-100/80 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300"
             >
               <span class="relative z-10 flex items-center gap-2">
@@ -81,7 +81,7 @@ onMounted(() => {
             </RouterLink>
             <RouterLink
               to="/help"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-700 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-indigo-600 dark:hover:text-indigo-400"
+              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-indigo-600 dark:hover:text-indigo-400"
               active-class="bg-indigo-100/80 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300"
             >
               <span class="relative z-10 flex items-center gap-2">
@@ -92,7 +92,7 @@ onMounted(() => {
             </RouterLink>
             <RouterLink
               to="/about"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-700 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-purple-600 dark:hover:text-purple-400"
+              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-purple-600 dark:hover:text-purple-400"
               active-class="bg-purple-100/80 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300"
             >
               <span class="relative z-10 flex items-center gap-2">
