@@ -12,7 +12,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen gradient-mesh dark:gradient-mesh-dark">
+  <div class="min-h-screen gradient-mesh">
     <!-- Skip Link for Accessibility -->
     <a
       href="#main-content"
@@ -44,62 +44,52 @@ onMounted(() => {
             </RouterLink>
           </div>
 
-          <!-- Navigation Links with Enhanced Hover -->
+          <!-- Navigation Links - Simple & Readable -->
           <div class="flex items-center gap-2 sm:gap-3">
             <RouterLink
               to="/"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-blue-600 dark:hover:text-blue-400"
-              active-class="bg-blue-100/80 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300"
+              class="px-4 py-2 rounded-xl font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-colors"
             >
-              <span class="relative z-10 flex items-center gap-2">
-                <span class="text-lg transform group-hover:scale-110 transition-transform duration-200">&#127968;</span>
+              <span class="flex items-center gap-2">
+                <span class="text-lg">🏠</span>
                 <span class="hidden sm:inline">Start</span>
               </span>
-              <div class="absolute inset-0 bg-blue-100 dark:bg-blue-900/50 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl origin-center"></div>
             </RouterLink>
             <RouterLink
               to="/tools"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-emerald-600 dark:hover:text-emerald-400"
-              active-class="bg-emerald-100/80 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300"
+              class="px-4 py-2 rounded-xl font-semibold bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
             >
-              <span class="relative z-10 flex items-center gap-2">
-                <span class="text-lg transform group-hover:scale-110 transition-transform duration-200">&#129520;</span>
+              <span class="flex items-center gap-2">
+                <span class="text-lg">🧰</span>
                 <span class="hidden sm:inline">Tools</span>
               </span>
-              <div class="absolute inset-0 bg-emerald-100 dark:bg-emerald-900/50 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl origin-center"></div>
             </RouterLink>
             <RouterLink
               to="/history"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-amber-600 dark:hover:text-amber-400"
-              active-class="bg-amber-100/80 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300"
+              class="px-4 py-2 rounded-xl font-semibold bg-amber-500 text-white hover:bg-amber-600 transition-colors"
             >
-              <span class="relative z-10 flex items-center gap-2">
-                <span class="text-lg transform group-hover:scale-110 transition-transform duration-200">&#128218;</span>
+              <span class="flex items-center gap-2">
+                <span class="text-lg">📚</span>
                 <span class="hidden sm:inline">History</span>
               </span>
-              <div class="absolute inset-0 bg-amber-100 dark:bg-amber-900/50 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl origin-center"></div>
             </RouterLink>
             <RouterLink
               to="/help"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-indigo-600 dark:hover:text-indigo-400"
-              active-class="bg-indigo-100/80 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300"
+              class="px-4 py-2 rounded-xl font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition-colors"
             >
-              <span class="relative z-10 flex items-center gap-2">
-                <span class="text-lg transform group-hover:scale-110 transition-transform duration-200">&#10067;</span>
+              <span class="flex items-center gap-2">
+                <span class="text-lg">❓</span>
                 <span class="hidden sm:inline">Help</span>
               </span>
-              <div class="absolute inset-0 bg-indigo-100 dark:bg-indigo-900/50 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl origin-center"></div>
             </RouterLink>
             <RouterLink
               to="/about"
-              class="relative px-4 py-2 rounded-xl font-semibold text-gray-900 dark:text-gray-200 overflow-hidden group transition-all duration-300 hover:text-purple-600 dark:hover:text-purple-400"
-              active-class="bg-purple-100/80 dark:bg-purple-900/50 text-purple-700 dark:text-purple-300"
+              class="px-4 py-2 rounded-xl font-semibold bg-purple-500 text-white hover:bg-purple-600 transition-colors"
             >
-              <span class="relative z-10 flex items-center gap-2">
-                <span class="text-lg transform group-hover:scale-110 transition-transform duration-200">&#8505;&#65039;</span>
+              <span class="flex items-center gap-2">
+                <span class="text-lg">ℹ️</span>
                 <span class="hidden sm:inline">Info</span>
               </span>
-              <div class="absolute inset-0 bg-purple-100 dark:bg-purple-900/50 scale-0 group-hover:scale-100 transition-transform duration-300 rounded-xl origin-center"></div>
             </RouterLink>
 
             <!-- Theme Toggle -->
@@ -128,5 +118,16 @@ onMounted(() => {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Force nav text to be visible */
+nav a {
+  color: #000 !important;
+}
+nav a.router-link-active {
+  color: inherit !important;
+}
+.dark nav a {
+  color: #fff !important;
 }
 </style>

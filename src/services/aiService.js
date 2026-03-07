@@ -52,7 +52,10 @@ export const aiService = {
 
       const response = await fetch(`${API_BASE}/api/analyze-decision`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': import.meta.env.VITE_APP_API_KEY || ''
+        },
         body: JSON.stringify({
           tool,
           data,
@@ -163,7 +166,10 @@ export const aiService = {
     try {
       const response = await fetch(`${API_BASE}/api/analyze-decision`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': import.meta.env.VITE_APP_API_KEY || ''
+        },
         body: JSON.stringify({
           tool,
           data,

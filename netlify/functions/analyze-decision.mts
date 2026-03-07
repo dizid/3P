@@ -301,6 +301,16 @@ export default async (req: Request, context: Context) => {
     });
   }
 
+  // Verify app API key
+  const appApiKey = Netlify.env.get("APP_API_KEY");
+  const requestApiKey = req.headers.get("x-api-key");
+  if (!appApiKey || requestApiKey !== appApiKey) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   // Get API key from environment
   const apiKey = Netlify.env.get("ANTHROPIC_API_KEY");
   if (!apiKey) {
