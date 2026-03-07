@@ -1,206 +1,75 @@
 import { defineStore } from 'pinia'
-import { stripeService } from '@/services/stripeService'
+import { useAuthStore } from '@/stores/AuthStore'
 
 export const useSubscriptionStore = defineStore({
   id: 'SubscriptionStore',
 
   state: () => ({
-    tier: 'free', // 'free' | 'premium'
-    status: null, // 'active' | 'trialing' | 'canceled' | 'past_due' | null
-    customerId: null, // Stripe customer ID
-    subscriptionId: null, // Stripe subscription ID
-    currentPeriodEnd: null,
-    features: {
-      aiAdvice: false,
-      unlimitedHistory: false,
-      insights: false,
-      export: false
-    },
+    // Subscription state is derived from AuthStore user data
     loading: false,
     error: null
   }),
 
   getters: {
-    isPremium: (state) => {
-      return state.tier === 'premium' &&
-        (state.status === 'active' || state.status === 'trialing')
+    // Plan comes from AuthStore (set by auth session check)
+    plan() {
+      const authStore = useAuthStore()
+      return authStore.user?.plan || 'free'
     },
 
-    canUseFeature: (state) => (feature) => {
-      // Free tier features
-      const freeFeatures = ['tools', 'compare', 'basicHistory']
-      if (freeFeatures.includes(feature)) return true
-
-      // Premium features
-      return state.features[feature] === true
+    isPro() {
+      return this.plan === 'pro'
     },
 
-    historyLimit: (state) => {
-      return state.tier === 'premium' ? Infinity : 10
+    // Legacy getter — kept for components using isPremium
+    isPremium() {
+      return this.isPro
     },
 
-    daysRemaining: (state) => {
-      if (!state.currentPeriodEnd) return null
-      const now = new Date()
-      const end = new Date(state.currentPeriodEnd)
-      const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24))
-      return Math.max(0, diff)
+    canUseFeature() {
+      return (feature) => {
+        // Free features — always available
+        const freeFeatures = ['tools', 'compare', 'basicHistory', 'templates']
+        if (freeFeatures.includes(feature)) return true
+
+        // Pro features
+        if (this.isPro) return true
+
+        return false
+      }
     },
 
-    isTrialing: (state) => state.status === 'trialing'
+    historyLimit() {
+      return this.isPro ? Infinity : 10
+    },
+
+    features() {
+      const pro = this.isPro
+      return {
+        aiAdvice: pro,
+        unlimitedHistory: pro,
+        insights: pro,
+        export: pro,
+        aiCoaching: pro,
+        outcomeReminders: pro,
+        shareableLinks: pro
+      }
+    }
   },
 
   actions: {
-    /**
-     * Check subscription status from Stripe via API
-     * Uses cached customer email/ID if available
-     */
+    // No-op — subscription is checked via AuthStore.checkSession()
     async checkSubscription() {
-      this.loading = true
-      this.error = null
-
-      try {
-        // Try to get cached customer info
-        const cached = this.getCachedCustomer()
-
-        if (!cached.customerId && !cached.email) {
-          // No customer info, stay on free tier
-          this.resetToFree()
-          return
-        }
-
-        // Call the real Stripe API
-        const result = await stripeService.getSubscriptionStatus(
-          cached.customerId,
-          cached.email
-        )
-
-        // Update state from API response
-        this.tier = result.tier || 'free'
-        this.status = result.status || null
-        this.customerId = result.customerId || cached.customerId
-        this.subscriptionId = result.subscriptionId || null
-        this.currentPeriodEnd = result.currentPeriodEnd || null
-        this.features = result.features || this.getDefaultFeatures()
-
-        // Cache the customer info for faster subsequent checks
-        this.cacheCustomer()
-      } catch (error) {
-        console.error('Subscription check failed:', error)
-        this.error = 'Failed to verify subscription'
-        // Fallback to cached data if API fails
-        this.loadFromCache()
-      } finally {
-        this.loading = false
-      }
+      // Subscription plan is returned as part of auth session
     },
 
-    /**
-     * Get cached customer info from localStorage
-     */
-    getCachedCustomer() {
-      try {
-        const cached = localStorage.getItem('subscription_customer')
-        if (cached) {
-          return JSON.parse(cached)
-        }
-      } catch {
-        // Ignore parse errors
-      }
-      return { customerId: null, email: null }
-    },
-
-    /**
-     * Cache customer info for faster checks
-     */
-    cacheCustomer() {
-      if (this.customerId) {
-        localStorage.setItem('subscription_customer', JSON.stringify({
-          customerId: this.customerId,
-          tier: this.tier,
-          status: this.status,
-          currentPeriodEnd: this.currentPeriodEnd
-        }))
-      }
-    },
-
-    /**
-     * Load subscription from cache (fallback when API unavailable)
-     */
-    loadFromCache() {
-      try {
-        const cached = localStorage.getItem('subscription_customer')
-        if (cached) {
-          const data = JSON.parse(cached)
-          this.tier = data.tier || 'free'
-          this.status = data.status || null
-          this.customerId = data.customerId || null
-          this.currentPeriodEnd = data.currentPeriodEnd || null
-          this.updateFeatures()
-        }
-      } catch {
-        this.resetToFree()
-      }
-    },
-
-    /**
-     * Set customer info after successful checkout
-     */
-    setCustomer(customerId, email = null) {
-      this.customerId = customerId
-      localStorage.setItem('subscription_customer', JSON.stringify({
-        customerId,
-        email
-      }))
-      // Refresh subscription status
-      this.checkSubscription()
-    },
-
-    /**
-     * Get default features based on tier
-     */
-    getDefaultFeatures() {
-      return {
-        aiAdvice: false,
-        unlimitedHistory: false,
-        insights: false,
-        export: false
-      }
-    },
-
-    updateFeatures() {
-      if (this.tier === 'premium' && (this.status === 'active' || this.status === 'trialing')) {
-        this.features = {
-          aiAdvice: true,
-          unlimitedHistory: true,
-          insights: true,
-          export: true
-        }
-      } else {
-        this.features = this.getDefaultFeatures()
-      }
-    },
-
-    resetToFree() {
-      this.tier = 'free'
-      this.status = null
-      this.subscriptionId = null
-      this.currentPeriodEnd = null
-      this.features = this.getDefaultFeatures()
-    },
-
-    /**
-     * Clear all subscription data (logout)
-     */
     clearSubscription() {
-      this.resetToFree()
-      this.customerId = null
-      localStorage.removeItem('subscription_customer')
+      // Handled by AuthStore.logout()
     }
   }
 })
 
-// Pricing tiers
+// Pricing tiers for the pricing page
 export const pricingTiers = {
   free: {
     name: 'Free',
@@ -209,27 +78,32 @@ export const pricingTiers = {
       'All 8 decision tools',
       'Compare decisions side-by-side',
       'Save last 10 decisions',
-      'Basic export (copy to clipboard)'
+      '1 AI analysis per month',
+      'Copy to clipboard export',
+      'Decision templates'
     ],
     limitations: [
-      'No AI advice',
+      'Basic AI (1/month)',
       'Limited history (10)',
       'No insights dashboard',
-      'No PDF/JSON export'
+      'No PDF export'
     ]
   },
-  premium: {
-    name: 'Premium',
-    monthlyPrice: 5.99,
-    yearlyPrice: 49.99,
+  pro: {
+    name: 'Pro',
+    monthlyPrice: 7.99,
+    yearlyPrice: 69,
+    yearlySaving: '28%',
     features: [
-      'All Free features',
-      'AI-powered advice & insights',
+      'Everything in Free',
+      'Unlimited AI coaching (Claude Sonnet)',
+      'AI follow-up conversations',
       'Unlimited decision history',
+      'Outcome tracking & reminders',
       'Personal insights dashboard',
-      'PDF & JSON export',
-      'Priority support'
+      'PDF export',
+      'Shareable decision links'
     ],
-    badge: 'Best Value'
+    badge: 'Recommended'
   }
 }

@@ -1,27 +1,24 @@
 import type { Context, Config } from "@netlify/functions";
 import Anthropic from "@anthropic-ai/sdk";
-import Stripe from "stripe";
 import { neon } from "@neondatabase/serverless";
+import jwt from "jsonwebtoken";
 
-// Rate limiting constants by tier
+// 2-tier rate limits
 const TIER_LIMITS = {
-  free: 1,    // 1 AI analysis per month for free
-  pro: 15,    // 15 AI analyses per month for pro
-  coach: 999, // Unlimited for coach tier
+  free: 1,     // 1 AI analysis per month
+  pro: 999,    // Unlimited for pro
 };
 
-// Model selection by tier
+// 2-tier model selection
 const TIER_MODELS = {
   free: "claude-3-haiku-20240307",
-  pro: "claude-3-5-haiku-20241022",
-  coach: "claude-sonnet-4-20250514",
+  pro: "claude-sonnet-4-20250514",
 };
 
-// Max tokens by tier
+// 2-tier max tokens
 const TIER_MAX_TOKENS = {
   free: 400,
-  pro: 800,
-  coach: 2000,
+  pro: 2000,
 };
 
 // Get database connection
@@ -60,70 +57,64 @@ The user rated their fear of taking action vs their anticipated regret of NOT ac
 The user compared gains from Option A vs what they sacrifice by not choosing Option B.`,
 };
 
-type PlanTier = "free" | "pro" | "coach";
+type PlanTier = "free" | "pro";
+
+interface JwtPayload {
+  profileId: string;
+  email: string;
+}
 
 interface SubscriptionInfo {
   plan: PlanTier;
   profileId: string | null;
-  customerId: string | null;
+}
+
+// Extract profile ID from JWT auth token (server-side verification)
+function getAuthProfileId(req: Request): string | null {
+  const jwtSecret = Netlify.env.get("JWT_SECRET");
+  if (!jwtSecret) return null;
+
+  const authHeader = req.headers.get("authorization");
+  if (!authHeader || !authHeader.startsWith("Bearer ")) return null;
+
+  try {
+    const payload = jwt.verify(
+      authHeader.replace("Bearer ", ""),
+      jwtSecret
+    ) as JwtPayload;
+    return payload.profileId;
+  } catch {
+    return null;
+  }
 }
 
 /**
- * Get subscription info from Neon database
+ * Get subscription info from Neon database using verified profile ID
  */
 async function getSubscriptionInfo(
-  customerId: string | null,
-  email: string | null
+  profileId: string | null
 ): Promise<SubscriptionInfo> {
-  const defaultInfo: SubscriptionInfo = { plan: "free", profileId: null, customerId: null };
+  const defaultInfo: SubscriptionInfo = { plan: "free", profileId: null };
 
-  if (!customerId && !email) {
-    return defaultInfo;
-  }
+  if (!profileId) return defaultInfo;
 
   try {
     const sql = getDb();
 
-    // Try to find profile by stripe_customer_id or email
-    let profiles;
-    if (customerId) {
-      profiles = await sql`
-        SELECT p.id, s.plan, s.status, s.stripe_customer_id
-        FROM profiles p
-        LEFT JOIN subscriptions s ON s.profile_id = p.id
-        WHERE p.stripe_customer_id = ${customerId}
-        LIMIT 1
-      `;
-    } else if (email) {
-      profiles = await sql`
-        SELECT p.id, s.plan, s.status, s.stripe_customer_id
-        FROM profiles p
-        LEFT JOIN subscriptions s ON s.profile_id = p.id
-        WHERE p.email = ${email}
-        LIMIT 1
-      `;
-    }
+    const subs = await sql`
+      SELECT plan, status FROM subscriptions
+      WHERE profile_id = ${profileId} AND (status = 'active' OR status = 'trialing')
+      LIMIT 1
+    `;
 
-    if (!profiles || profiles.length === 0) {
-      return defaultInfo;
-    }
-
-    const profile = profiles[0];
-
-    // Check if subscription is active
-    if (profile.status === "active" || profile.status === "trialing") {
+    if (subs.length > 0) {
       return {
-        plan: (profile.plan as PlanTier) || "pro",
-        profileId: profile.id,
-        customerId: profile.stripe_customer_id,
+        plan: (subs[0].plan as PlanTier) || "pro",
+        profileId,
       };
     }
 
-    return {
-      plan: "free",
-      profileId: profile.id,
-      customerId: profile.stripe_customer_id,
-    };
+    return { plan: "free", profileId };
   } catch (error) {
     console.error("Error getting subscription info:", error);
     return defaultInfo;
@@ -144,8 +135,8 @@ async function checkRateLimit(
   nextMonth.setMonth(nextMonth.getMonth() + 1);
   nextMonth.setDate(1);
 
-  // For coach tier, always allow
-  if (plan === "coach") {
+  // For pro tier, unlimited
+  if (plan === "pro") {
     return { allowed: true, remaining: 999, resetDate: nextMonth };
   }
 
@@ -232,28 +223,7 @@ Please provide a brief, actionable analysis in JSON format:
 Be direct, practical, and specific to THEIR decision. No generic advice.`;
   }
 
-  if (plan === "pro") {
-    // Enhanced analysis for pro tier
-    return `${baseContext}
-
-Please provide a thorough analysis in JSON format:
-{
-  "insight": "One key insight from their analysis (2-3 sentences)",
-  "blindSpots": ["3-4 things they might have overlooked"],
-  "biases": ["1-2 potential cognitive biases affecting this decision"],
-  "scenarios": {
-    "best": "What happens if this goes well",
-    "worst": "What's the realistic downside"
-  },
-  "nextStep": "One concrete next action they should take within 24 hours",
-  "confidence": "low" | "medium" | "high" based on how complete their analysis is,
-  "confidenceReason": "Brief explanation of the confidence rating"
-}
-
-Be direct, practical, and specific to THEIR decision. Provide real insights, not generic advice.`;
-  }
-
-  // Coach tier - full deep analysis
+  // Pro tier — full AI coaching analysis (Claude Sonnet)
   return `${baseContext}
 
 You are an expert decision coach. Provide a comprehensive analysis in JSON format:
@@ -324,7 +294,7 @@ export default async (req: Request, context: Context) => {
   }
 
   try {
-    const { tool, decision, data, score, customerId, email } = await req.json();
+    const { tool, decision, data, score } = await req.json();
 
     if (!tool || !decision) {
       return new Response(
@@ -336,19 +306,20 @@ export default async (req: Request, context: Context) => {
       );
     }
 
-    // Get subscription info from Neon
-    const subscriptionInfo = await getSubscriptionInfo(customerId, email);
-    const { plan, profileId } = subscriptionInfo;
+    // Get subscription via server-side auth token verification
+    const profileId = getAuthProfileId(req);
+    const subscriptionInfo = await getSubscriptionInfo(profileId);
+    const { plan } = subscriptionInfo;
 
     // Rate limiting based on tier
     const clientIp = context.ip || "unknown";
-    const rateLimit = await checkRateLimit(profileId, plan, clientIp);
+    const rateLimit = await checkRateLimit(subscriptionInfo.profileId, plan, clientIp);
 
     if (!rateLimit.allowed) {
       return new Response(
         JSON.stringify({
           error: "Rate limit exceeded",
-          message: `Your ${plan} tier allows ${TIER_LIMITS[plan]} AI analyses per month. ${plan === "free" ? "Upgrade to Pro for 15/month or Coach for unlimited." : "Upgrade to Coach for unlimited access."}`,
+          message: `You've used your ${TIER_LIMITS[plan]} free AI analysis this month. Upgrade to Pro for unlimited AI coaching.`,
           remaining: 0,
           resetDate: rateLimit.resetDate.toISOString(),
           upgradeUrl: "/pricing",

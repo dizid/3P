@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '@/stores/AuthStore'
+import { useSubscriptionStore } from '@/stores/SubscriptionStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -86,7 +88,8 @@ const router = createRouter({
     {
       path: '/insights',
       name: 'insights',
-      component: () => import('../views/InsightsView.vue')
+      component: () => import('../views/InsightsView.vue'),
+      meta: { requiresPro: true }
     },
     {
       path: '/help',
@@ -107,8 +110,28 @@ const router = createRouter({
       path: '/shared/:token',
       name: 'shared',
       component: () => import('../views/SharedDecisionView.vue')
+    },
+    {
+      path: '/auth/verify',
+      name: 'auth-verify',
+      component: () => import('../views/AuthVerifyView.vue')
     }
   ]
+})
+
+// Route guard for Pro-only routes
+router.beforeEach((to) => {
+  if (to.meta.requiresPro) {
+    const authStore = useAuthStore()
+    const subStore = useSubscriptionStore()
+
+    if (!authStore.isAuthenticated) {
+      return { name: 'pricing', query: { reason: 'login-required' } }
+    }
+    if (!subStore.isPro) {
+      return { name: 'pricing', query: { reason: 'upgrade-required' } }
+    }
+  }
 })
 
 export default router

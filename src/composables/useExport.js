@@ -246,6 +246,64 @@ export function useExport() {
   }
 
   /**
+   * Download decision as PDF using html2pdf.js
+   * Falls back to print dialog if html2pdf is not available
+   */
+  async function downloadPdf(decision) {
+    const content = createPrintContent(decision)
+
+    // Parse HTML safely with DOMParser
+    const parser = new DOMParser()
+    const doc = parser.parseFromString(content, 'text/html')
+
+    // Create container and safely import parsed content
+    const container = document.createElement('div')
+    const importedBody = document.importNode(doc.body, true)
+    while (importedBody.firstChild) {
+      container.appendChild(importedBody.firstChild)
+    }
+
+    // Apply inline styles for PDF rendering
+    container.style.fontFamily = "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    container.style.padding = '40px'
+    container.style.maxWidth = '800px'
+    container.style.lineHeight = '1.6'
+
+    try {
+      const { default: html2pdf } = await import('html2pdf.js')
+
+      // Temporarily add to DOM (required by html2pdf)
+      container.style.position = 'absolute'
+      container.style.left = '-9999px'
+      document.body.appendChild(container)
+
+      const filename = `decision-${decision.tool}-${new Date(decision.createdAt).toISOString().slice(0, 10)}.pdf`
+
+      await html2pdf()
+        .set({
+          margin: 10,
+          filename,
+          html2canvas: { scale: 2 },
+          jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+        })
+        .from(container)
+        .save()
+
+      document.body.removeChild(container)
+      return true
+    } catch (err) {
+      console.error('PDF generation failed, falling back to print:', err)
+      // Remove container if it was added
+      if (container.parentNode) {
+        document.body.removeChild(container)
+      }
+      // Fallback to print dialog
+      exportAsPdf(decision)
+      return false
+    }
+  }
+
+  /**
    * Open print dialog for PDF export using safe DOM methods
    */
   function exportAsPdf(decision) {
@@ -277,6 +335,7 @@ export function useExport() {
     copyToClipboard,
     exportAsMarkdown,
     exportAsText,
-    exportAsPdf
+    exportAsPdf,
+    downloadPdf
   }
 }

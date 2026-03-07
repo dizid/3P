@@ -131,3 +131,12 @@ src/components/
 ## Path Alias
 
 `@` maps to `./src` (configured in vite.config.js)
+
+## Deployment
+
+- **Netlify site ID:** `a5e53b4a-5519-4c1e-b21e-0ad9c9846503` (de3ps)
+- **Netlify URL:** https://3p.tnxz.nl
+- **Neon project ID:** `holy-mouse-05375084` (crypto-prediction — shared DB)
+- **Neon database:** `neondb` (default)
+- **Neon region:** aws-ap-southeast-1
+- **GitHub repo:** dizid/3P

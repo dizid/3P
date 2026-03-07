@@ -1,69 +1,155 @@
 import { defineStore } from 'pinia'
 
+const API_BASE = import.meta.env.DEV ? 'http://localhost:8888' : ''
+const API_KEY = import.meta.env.VITE_APP_API_KEY || ''
+
 export const useAuthStore = defineStore({
   id: 'AuthStore',
 
   state: () => ({
     user: null,
     isAuthenticated: false,
-    isLoading: false
+    isLoading: false,
+    // Magic link flow state
+    magicLinkSent: false,
+    magicLinkEmail: null,
+    authError: null
   }),
 
   getters: {
     userEmail: (state) => state.user?.email || null,
-    userName: (state) => state.user?.name || 'User'
+    userName: (state) => state.user?.displayName || state.user?.email?.split('@')[0] || 'User',
+    userPlan: (state) => state.user?.plan || 'free',
+    isPro: (state) => state.user?.plan === 'pro',
+    sessionToken: () => localStorage.getItem('auth_token')
   },
 
   actions: {
-    // Placeholder - will be implemented with real auth
-    async login(email, password) {
+    // Send magic link email
+    async sendMagicLink(email) {
       this.isLoading = true
-      try {
-        // Simulate API call
-        await new Promise(resolve => setTimeout(resolve, 1000))
+      this.authError = null
 
-        // Placeholder: In production, this would call your auth API
-        this.user = {
-          id: 'user_' + Date.now(),
-          email,
-          name: email.split('@')[0]
+      try {
+        const response = await fetch(`${API_BASE}/api/auth/send-magic-link`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY
+          },
+          body: JSON.stringify({ email })
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to send login link')
         }
-        this.isAuthenticated = true
+
+        this.magicLinkSent = true
+        this.magicLinkEmail = email
         return { success: true }
       } catch (error) {
+        this.authError = error.message
         return { success: false, error: error.message }
       } finally {
         this.isLoading = false
       }
     },
 
-    async logout() {
-      this.user = null
-      this.isAuthenticated = false
+    // Verify magic link token
+    async verifyMagicLink(token) {
+      this.isLoading = true
+      this.authError = null
+
+      try {
+        const response = await fetch(`${API_BASE}/api/auth/verify`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': API_KEY
+          },
+          body: JSON.stringify({ token })
+        })
+
+        const data = await response.json()
+
+        if (!response.ok) {
+          throw new Error(data.error || 'Invalid or expired link')
+        }
+
+        // Store session
+        localStorage.setItem('auth_token', data.token)
+        this.user = data.user
+        this.isAuthenticated = true
+        this.magicLinkSent = false
+        this.magicLinkEmail = null
+
+        return { success: true }
+      } catch (error) {
+        this.authError = error.message
+        return { success: false, error: error.message }
+      } finally {
+        this.isLoading = false
+      }
     },
 
-    async checkAuth() {
-      // Placeholder: Check if user has valid session
-      // In production, this would verify the JWT or session
-      const savedUser = localStorage.getItem('auth_user')
-      if (savedUser) {
-        try {
-          this.user = JSON.parse(savedUser)
+    // Check existing session on app load
+    async checkSession() {
+      const token = localStorage.getItem('auth_token')
+      if (!token) {
+        this.isAuthenticated = false
+        this.user = null
+        return
+      }
+
+      try {
+        const response = await fetch(`${API_BASE}/api/auth/session`, {
+          method: 'GET',
+          headers: {
+            'x-api-key': API_KEY,
+            'Authorization': `Bearer ${token}`
+          }
+        })
+
+        const data = await response.json()
+
+        if (data.authenticated) {
+          this.user = data.user
           this.isAuthenticated = true
-        } catch {
-          this.user = null
-          this.isAuthenticated = false
+        } else {
+          // Session expired — clean up
+          this.logout()
+        }
+      } catch {
+        // Network error — keep cached state if we have it
+        const cached = localStorage.getItem('auth_user_cache')
+        if (cached) {
+          try {
+            this.user = JSON.parse(cached)
+            this.isAuthenticated = true
+          } catch {
+            this.logout()
+          }
         }
       }
     },
 
-    // Save user to localStorage (for demo purposes)
-    persistUser() {
-      if (this.user) {
-        localStorage.setItem('auth_user', JSON.stringify(this.user))
-      } else {
-        localStorage.removeItem('auth_user')
-      }
+    logout() {
+      localStorage.removeItem('auth_token')
+      localStorage.removeItem('auth_user_cache')
+      this.user = null
+      this.isAuthenticated = false
+      this.magicLinkSent = false
+      this.magicLinkEmail = null
+      this.authError = null
+    },
+
+    // Reset magic link flow (go back to email input)
+    resetMagicLink() {
+      this.magicLinkSent = false
+      this.magicLinkEmail = null
+      this.authError = null
     }
   }
 })

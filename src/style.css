@@ -471,16 +471,10 @@
   }
 }
 
-/* NAV TEXT FIX - Force readable text */
-nav a {
-  color: #1f2937 !important;
+/* Nav bar: fully opaque so content doesn't show through */
+nav.glass {
+  background: rgba(255, 255, 255, 1);
 }
-nav a.router-link-active {
-  color: white !important;
-}
-.dark nav a {
-  color: #f3f4f6 !important;
-}
-.dark nav a.router-link-active {
-  color: white !important;
+:is(.dark nav.glass) {
+  background: rgba(30, 41, 59, 1);
 }

@@ -1,10 +1,29 @@
 import { defineStore } from 'pinia'
+import { useAuthStore } from '@/stores/AuthStore'
+import { useSubscriptionStore } from '@/stores/SubscriptionStore'
+
+const API_BASE = import.meta.env.DEV ? 'http://localhost:8888' : ''
+const API_KEY = import.meta.env.VITE_APP_API_KEY || ''
+
+const getHeaders = () => {
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-api-key': API_KEY
+  }
+  const token = localStorage.getItem('auth_token')
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+  return headers
+}
 
 export const useHistoryStore = defineStore({
   id: 'HistoryStore',
 
   state: () => ({
-    decisions: []
+    decisions: [],
+    serverTotal: 0,
+    synced: false
   }),
 
   getters: {
@@ -38,25 +57,66 @@ export const useHistoryStore = defineStore({
         stats[d.tool] = (stats[d.tool] || 0) + 1
       })
       return stats
+    },
+
+    // Check if user can save more (free: 10 limit)
+    canSaveMore() {
+      const subStore = useSubscriptionStore()
+      if (subStore.isPro) return true
+      return this.decisions.length < 10
+    },
+
+    // How many slots remaining for free users
+    remainingSlots() {
+      const subStore = useSubscriptionStore()
+      if (subStore.isPro) return Infinity
+      return Math.max(0, 10 - this.decisions.length)
     }
   },
 
   actions: {
-    addDecision(decision) {
+    async addDecision(decision) {
+      const authStore = useAuthStore()
+      const subStore = useSubscriptionStore()
+
       const newDecision = {
         id: crypto.randomUUID(),
         ...decision,
         createdAt: new Date().toISOString(),
         outcome: null
       }
+
+      // Always save locally
       this.decisions.push(newDecision)
       this.saveToLocalStorage()
+
+      // If authenticated, also save to server
+      if (authStore.isAuthenticated) {
+        try {
+          await fetch(`${API_BASE}/api/decisions`, {
+            method: 'POST',
+            headers: getHeaders(),
+            body: JSON.stringify({
+              tool: decision.tool,
+              title: decision.decision || decision.title || 'Untitled Decision',
+              description: decision.recommendation || null,
+              data: decision.data || {},
+              score: decision.score || null,
+              adviceType: decision.recommendationType || null
+            })
+          })
+        } catch (err) {
+          console.error('Failed to sync decision to server:', err)
+        }
+      }
+
       return newDecision.id
     },
 
     removeDecision(id) {
       this.decisions = this.decisions.filter(d => d.id !== id)
       this.saveToLocalStorage()
+      // Server deletion handled separately if needed
     },
 
     updateOutcome(id, outcome) {
@@ -68,12 +128,78 @@ export const useHistoryStore = defineStore({
           trackedAt: new Date().toISOString()
         }
         this.saveToLocalStorage()
+
+        // Sync to server if authenticated
+        const authStore = useAuthStore()
+        if (authStore.isAuthenticated) {
+          fetch(`${API_BASE}/api/decisions`, {
+            method: 'PATCH',
+            headers: getHeaders(),
+            body: JSON.stringify({
+              decisionId: id,
+              outcomeRating: outcome.rating,
+              outcomeNotes: outcome.notes
+            })
+          }).catch(err => console.error('Failed to sync outcome:', err))
+        }
       }
     },
 
     clearHistory() {
       this.decisions = []
       this.saveToLocalStorage()
+    },
+
+    // Load from server for authenticated Pro users, localStorage for others
+    async loadHistory() {
+      const authStore = useAuthStore()
+      const subStore = useSubscriptionStore()
+
+      // Always load localStorage first (instant)
+      this.loadFromLocalStorage()
+
+      // If authenticated + Pro, also fetch from server
+      if (authStore.isAuthenticated && subStore.isPro) {
+        try {
+          const response = await fetch(`${API_BASE}/api/decisions?limit=200`, {
+            method: 'GET',
+            headers: getHeaders()
+          })
+
+          if (response.ok) {
+            const data = await response.json()
+            this.serverTotal = data.total
+
+            // Merge server decisions with local (server is source of truth for Pro)
+            if (data.decisions && data.decisions.length > 0) {
+              const serverDecisions = data.decisions.map(d => ({
+                id: d.id,
+                tool: d.tool,
+                decision: d.title,
+                title: d.title,
+                score: d.score,
+                recommendation: d.description,
+                recommendationType: d.advice_type,
+                createdAt: d.created_at,
+                outcome: d.outcome_rating ? {
+                  rating: d.outcome_rating,
+                  notes: d.outcome_notes,
+                  trackedAt: d.outcome_date
+                } : null
+              }))
+
+              // Merge: keep server data, add any local-only decisions
+              const serverIds = new Set(serverDecisions.map(d => d.id))
+              const localOnly = this.decisions.filter(d => !serverIds.has(d.id))
+              this.decisions = [...serverDecisions, ...localOnly]
+              this.synced = true
+            }
+          }
+        } catch (err) {
+          console.error('Failed to load from server:', err)
+          // Keep localStorage data as fallback
+        }
+      }
     },
 
     saveToLocalStorage() {

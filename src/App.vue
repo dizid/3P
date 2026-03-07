@@ -1,13 +1,18 @@
 <script setup>
-import { onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useThemeStore } from '@/stores/ThemeStore'
+import { useAuthStore } from '@/stores/AuthStore'
 import ThemeToggle from '@/components/shared/ThemeToggle.vue'
 import OnboardingModal from '@/components/onboarding/OnboardingModal.vue'
+import LoginModal from '@/components/auth/LoginModal.vue'
 
 const themeStore = useThemeStore()
+const authStore = useAuthStore()
+const showLoginModal = ref(false)
 
 onMounted(() => {
   themeStore.init()
+  authStore.checkSession()
 })
 </script>
 
@@ -44,53 +49,80 @@ onMounted(() => {
             </RouterLink>
           </div>
 
-          <!-- Navigation Links - Simple & Readable -->
-          <div class="flex items-center gap-2 sm:gap-3">
+          <!-- Navigation Links -->
+          <div class="flex items-center gap-1 sm:gap-2">
             <RouterLink
               to="/"
-              class="px-4 py-2 rounded-xl font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-colors"
+              class="nav-link"
+              exact-active-class="nav-link-active"
             >
-              <span class="flex items-center gap-2">
-                <span class="text-lg">🏠</span>
-                <span class="hidden sm:inline">Start</span>
-              </span>
+              Start
             </RouterLink>
             <RouterLink
               to="/tools"
-              class="px-4 py-2 rounded-xl font-semibold bg-emerald-500 text-white hover:bg-emerald-600 transition-colors"
+              class="nav-link"
+              active-class="nav-link-active"
             >
-              <span class="flex items-center gap-2">
-                <span class="text-lg">🧰</span>
-                <span class="hidden sm:inline">Tools</span>
-              </span>
+              Tools
             </RouterLink>
             <RouterLink
               to="/history"
-              class="px-4 py-2 rounded-xl font-semibold bg-amber-500 text-white hover:bg-amber-600 transition-colors"
+              class="nav-link"
+              active-class="nav-link-active"
             >
-              <span class="flex items-center gap-2">
-                <span class="text-lg">📚</span>
-                <span class="hidden sm:inline">History</span>
-              </span>
+              History
             </RouterLink>
             <RouterLink
               to="/help"
-              class="px-4 py-2 rounded-xl font-semibold bg-indigo-500 text-white hover:bg-indigo-600 transition-colors"
+              class="nav-link"
+              active-class="nav-link-active"
             >
-              <span class="flex items-center gap-2">
-                <span class="text-lg">❓</span>
-                <span class="hidden sm:inline">Help</span>
-              </span>
+              Help
             </RouterLink>
             <RouterLink
               to="/about"
-              class="px-4 py-2 rounded-xl font-semibold bg-purple-500 text-white hover:bg-purple-600 transition-colors"
+              class="nav-link"
+              active-class="nav-link-active"
             >
-              <span class="flex items-center gap-2">
-                <span class="text-lg">ℹ️</span>
-                <span class="hidden sm:inline">Info</span>
-              </span>
+              Info
             </RouterLink>
+
+            <!-- Divider -->
+            <div class="w-px h-6 bg-gray-300 dark:bg-gray-600 mx-1"></div>
+
+            <!-- Auth: Login / User menu -->
+            <button
+              v-if="!authStore.isAuthenticated"
+              @click="showLoginModal = true"
+              class="px-3 py-1.5 rounded-lg text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-colors"
+            >
+              Login
+            </button>
+            <div v-else class="relative group">
+              <button class="nav-link flex items-center gap-1.5">
+                {{ authStore.userName }}
+                <span v-if="authStore.isPro" class="text-[10px] bg-gradient-to-r from-amber-400 to-orange-500 text-white px-1.5 py-0.5 rounded font-bold leading-none">PRO</span>
+              </button>
+              <!-- Dropdown -->
+              <div class="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-slate-800 rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 p-2 z-50">
+                <div class="px-3 py-2 text-sm text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700 mb-1">
+                  {{ authStore.userEmail }}
+                </div>
+                <RouterLink
+                  to="/pricing"
+                  v-if="!authStore.isPro"
+                  class="block px-3 py-2 text-sm text-gray-900 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
+                >
+                  Upgrade to Pro
+                </RouterLink>
+                <button
+                  @click="authStore.logout()"
+                  class="w-full text-left px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg"
+                >
+                  Log out
+                </button>
+              </div>
+            </div>
 
             <!-- Theme Toggle -->
             <ThemeToggle />
@@ -108,6 +140,13 @@ onMounted(() => {
       </RouterView>
     </main>
 
+    <!-- Login Modal -->
+    <LoginModal
+      :show="showLoginModal"
+      @close="showLoginModal = false"
+      @authenticated="showLoginModal = false"
+    />
+
     <!-- Onboarding Modal for First-time Users -->
     <OnboardingModal />
   </div>
@@ -120,14 +159,33 @@ onMounted(() => {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Force nav text to be visible */
-nav a {
-  color: #000 !important;
+/* Nav link styles */
+.nav-link {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: background-color 0.15s, color 0.15s;
 }
-nav a.router-link-active {
-  color: inherit !important;
+.nav-link:hover {
+  background-color: rgba(99, 102, 241, 0.08);
+  color: #4f46e5;
 }
-.dark nav a {
-  color: #fff !important;
+.nav-link-active {
+  background-color: rgba(99, 102, 241, 0.12);
+  color: #4f46e5;
+  font-weight: 600;
+}
+.dark .nav-link {
+  color: #d1d5db;
+}
+.dark .nav-link:hover {
+  background-color: rgba(99, 102, 241, 0.15);
+  color: #a5b4fc;
+}
+.dark .nav-link-active {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
 }
 </style>

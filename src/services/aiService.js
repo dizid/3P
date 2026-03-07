@@ -5,34 +5,29 @@
  * for personalized decision analysis.
  *
  * Tiered responses:
- * - Free: Basic insight, blind spots, next step
- * - Pro: Enhanced with biases, scenarios, confidence reasoning
- * - Coach: Full deep analysis with coaching questions
+ * - Free: Basic insight, blind spots, next step (1/month, Haiku)
+ * - Pro: Full coaching analysis with biases, scenarios, questions (unlimited, Sonnet)
  */
 
 const API_BASE = import.meta.env.DEV ? 'http://localhost:8888' : ''
+const API_KEY = import.meta.env.VITE_APP_API_KEY || ''
 
-// Get subscription info from localStorage (set by SubscriptionStore)
-const getSubscriptionInfo = () => {
-  try {
-    const stored = localStorage.getItem('subscription')
-    if (stored) {
-      const sub = JSON.parse(stored)
-      return {
-        customerId: sub.customerId || null,
-        email: sub.email || null
-      }
-    }
-  } catch (e) {
-    // Ignore
+// Get auth token for server-side subscription verification
+const getAuthHeaders = () => {
+  const headers = {
+    'Content-Type': 'application/json',
+    'x-api-key': API_KEY
   }
-  return { customerId: null, email: null }
+  const token = localStorage.getItem('auth_token')
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`
+  }
+  return headers
 }
 
 export const aiService = {
   /**
    * Check if AI features are enabled
-   * In production, this is always true (controlled by subscription)
    */
   isEnabled() {
     return true
@@ -40,29 +35,17 @@ export const aiService = {
 
   /**
    * Get AI-generated analysis for a decision
-   * @param {string} tool - Tool ID (e.g., 'tententen', 'pmi', 'threeps')
-   * @param {object} data - Tool-specific data
-   * @param {string} decision - The decision being analyzed
-   * @param {number} score - The calculated score
-   * @returns {Promise<object>} Analysis object with tier-specific fields
    */
   async getAnalysisSummary(tool, data, decision = '', score = null) {
     try {
-      const { customerId, email } = getSubscriptionInfo()
-
       const response = await fetch(`${API_BASE}/api/analyze-decision`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_APP_API_KEY || ''
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({
           tool,
           data,
           decision: decision || data.decision || 'This decision',
-          score,
-          customerId,
-          email
+          score
         })
       })
 
@@ -87,7 +70,6 @@ export const aiService = {
       const result = await response.json()
 
       if (result.success && result.analysis) {
-        // Transform based on tier
         return this.transformAnalysis(result.analysis, result.plan, result.remaining, result.resetDate)
       }
 
@@ -109,16 +91,16 @@ export const aiService = {
       resetDate
     }
 
-    if (plan === 'coach') {
-      // Coach tier - full deep analysis
+    if (plan === 'pro') {
+      // Pro tier — full coaching analysis
       return {
         ...base,
-        summary: analysis.coreInsight,
+        summary: analysis.coreInsight || analysis.insight,
         insights: analysis.blindSpots || [],
         blindSpots: analysis.blindSpots || [],
         suggestions: [analysis.nextStep],
-        confidence: analysis.confidence?.level || 'medium',
-        // Coach-specific fields
+        confidence: analysis.confidence?.level || analysis.confidence || 'medium',
+        // Pro-specific fields
         biases: analysis.biases || [],
         scenarios: analysis.scenarios || null,
         frameworkFit: analysis.frameworkFit || null,
@@ -128,23 +110,7 @@ export const aiService = {
       }
     }
 
-    if (plan === 'pro') {
-      // Pro tier - enhanced analysis
-      return {
-        ...base,
-        summary: analysis.insight,
-        insights: analysis.blindSpots || [],
-        blindSpots: analysis.blindSpots || [],
-        suggestions: [analysis.nextStep],
-        confidence: analysis.confidence || 'medium',
-        // Pro-specific fields
-        biases: analysis.biases || [],
-        scenarios: analysis.scenarios || null,
-        confidenceReason: analysis.confidenceReason || null
-      }
-    }
-
-    // Free tier - basic analysis
+    // Free tier — basic analysis
     return {
       ...base,
       summary: analysis.insight,
@@ -156,20 +122,13 @@ export const aiService = {
   },
 
   /**
-   * Get interactive AI guidance / chat-style advice
-   * @param {string} tool - Tool ID
-   * @param {object} data - Tool-specific data
-   * @param {string} prompt - User's question or request
-   * @returns {Promise<{response: string, followUps: string[]}>}
+   * Get interactive AI guidance
    */
   async getGuidance(tool, data, prompt) {
     try {
       const response = await fetch(`${API_BASE}/api/analyze-decision`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': import.meta.env.VITE_APP_API_KEY || ''
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify({
           tool,
           data,
@@ -186,8 +145,8 @@ export const aiService = {
 
       if (result.success && result.analysis) {
         return {
-          response: result.analysis.insight,
-          followUps: result.analysis.blindSpots || [],
+          response: result.analysis.coreInsight || result.analysis.insight,
+          followUps: result.analysis.questions || result.analysis.blindSpots || [],
           isReal: true
         }
       }
