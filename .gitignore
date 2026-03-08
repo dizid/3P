@@ -1,7 +1,7 @@
 # Logs
 
 *.txt
-
+*.env
 logs
 *.log
 npm-debug.log*
