@@ -132,7 +132,7 @@ onMounted(() => {
     </nav>
 
     <!-- Main Content with Page Transitions -->
-    <main id="main-content" class="relative z-0" tabindex="-1">
+    <main id="main-content" class="relative z-0 isolate" tabindex="-1">
       <RouterView v-slot="{ Component, route }">
         <Transition name="page" mode="out-in">
           <component :is="Component" :key="route.path" />
