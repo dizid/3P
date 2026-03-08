@@ -5,6 +5,9 @@
   publish = "dist"
   functions = "netlify/functions"
 
+[build.environment]
+  NPM_CONFIG_PRODUCTION = "false"
+
 [dev]
   command = "npm run dev"
   targetPort = 5173

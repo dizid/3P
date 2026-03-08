@@ -473,8 +473,9 @@
 
 /* Nav bar: fully opaque so content doesn't show through */
 nav.glass {
-  background: rgba(255, 255, 255, 1);
+  background: #ffffff !important;
 }
+nav.glass-dark,
 :is(.dark nav.glass) {
-  background: rgba(30, 41, 59, 1);
+  background: #1e293b !important;
 }
