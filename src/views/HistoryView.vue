@@ -9,7 +9,7 @@
             Decision History
           </span>
         </h1>
-        <p class="text-gray-600">
+        <p class="text-gray-600 dark:text-gray-400">
           Review past decisions and track their outcomes over time.
         </p>
       </div>
@@ -55,10 +55,10 @@
         class="glass-card p-12 text-center animate-on-enter stagger-3"
       >
         <div class="text-6xl mb-4">&#128203;</div>
-        <h2 class="text-xl font-bold text-gray-800 mb-2">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
           {{ historyStore.totalDecisions === 0 ? 'No decisions yet' : 'No matching decisions' }}
         </h2>
-        <p class="text-gray-600 mb-6">
+        <p class="text-gray-600 dark:text-gray-400 mb-6">
           {{ historyStore.totalDecisions === 0
             ? 'Complete an analysis with any decision tool and save it to see it here.'
             : 'Try adjusting your filters to see more results.'
@@ -101,7 +101,7 @@
       >
         <button
           @click="confirmClearAll"
-          class="text-sm text-gray-500 hover:text-red-500 transition-colors"
+          class="text-sm text-gray-500 dark:text-gray-400 hover:text-red-500 dark:hover:text-red-400 transition-colors"
         >
           Clear All History
         </button>

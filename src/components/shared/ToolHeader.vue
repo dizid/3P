@@ -3,7 +3,7 @@
     <!-- Back Button -->
     <RouterLink
       to="/tools"
-      class="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors mb-4 group"
+      class="inline-flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-4 group"
     >
       <svg
         class="w-5 h-5 transform group-hover:-translate-x-1 transition-transform"

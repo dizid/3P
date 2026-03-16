@@ -9,7 +9,7 @@
             Compare Tools
           </span>
         </h1>
-        <p class="text-gray-600">
+        <p class="text-gray-600 dark:text-gray-400">
           Run your decision through multiple frameworks for a comprehensive analysis.
         </p>
       </div>
@@ -17,14 +17,14 @@
       <!-- Step 1: Decision Input -->
       <div v-if="step === 1" class="space-y-6 animate-on-enter">
         <div class="glass-card p-6">
-          <label class="block text-lg font-bold text-gray-800 mb-3">
+          <label class="block text-lg font-bold text-gray-800 dark:text-gray-100 mb-3">
             What decision are you analyzing?
           </label>
           <input
             v-model="decision"
             type="text"
             placeholder="e.g., Accept the job offer, Start the business, Move to a new city..."
-            class="w-full px-4 py-3.5 bg-white border-2 border-gray-300 rounded-xl text-gray-800 text-base placeholder-gray-400 shadow-sm transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 focus:outline-none"
+            class="w-full px-4 py-3.5 bg-white dark:bg-slate-800 border-2 border-gray-300 dark:border-gray-600 rounded-xl text-gray-800 dark:text-gray-100 text-base placeholder-gray-400 dark:placeholder-gray-500 shadow-sm transition-all duration-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900 focus:outline-none"
           />
         </div>
 
@@ -52,12 +52,12 @@
         <!-- Progress -->
         <div class="mb-6">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-sm font-medium text-gray-600">
+            <span class="text-sm font-medium text-gray-600 dark:text-gray-400">
               Tool {{ currentToolIndex + 1 }} of {{ selectedTools.length }}
             </span>
-            <span class="text-sm text-gray-500">{{ toolMeta[currentTool]?.name }}</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">{{ toolMeta[currentTool]?.name }}</span>
           </div>
-          <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div class="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
             <div
               class="h-full bg-gradient-to-r from-blue-500 to-purple-600 transition-all duration-300"
               :style="{ width: ((currentToolIndex + 1) / selectedTools.length) * 100 + '%' }"

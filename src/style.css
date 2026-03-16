@@ -48,35 +48,38 @@
   .gradient-mesh {
     background-color: #f8fafc;
     background-image:
-      radial-gradient(at 40% 20%, hsla(210, 100%, 90%, 0.8) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, hsla(189, 100%, 90%, 0.6) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(270, 100%, 93%, 0.7) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, hsla(340, 100%, 93%, 0.5) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(150, 100%, 90%, 0.6) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, hsla(22, 100%, 92%, 0.5) 0px, transparent 50%);
+      radial-gradient(at 50% 50%, hsla(240, 100%, 92%, 0.3) 0px, transparent 50%),
+      radial-gradient(at 40% 20%, hsla(210, 100%, 88%, 0.85) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(189, 100%, 88%, 0.6) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(270, 100%, 90%, 0.75) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsla(340, 100%, 91%, 0.45) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(150, 100%, 90%, 0.4) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsla(22, 100%, 92%, 0.35) 0px, transparent 50%);
   }
 
   .gradient-mesh-dark {
-    background-color: #0f172a;
+    background-color: #0b1120;
     background-image:
-      radial-gradient(at 40% 20%, hsla(210, 100%, 20%, 0.4) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, hsla(240, 100%, 15%, 0.25) 0px, transparent 50%),
+      radial-gradient(at 40% 20%, hsla(210, 100%, 20%, 0.5) 0px, transparent 50%),
       radial-gradient(at 80% 0%, hsla(189, 100%, 15%, 0.3) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(270, 100%, 20%, 0.35) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, hsla(340, 100%, 18%, 0.25) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(150, 100%, 15%, 0.3) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, hsla(22, 100%, 18%, 0.25) 0px, transparent 50%);
+      radial-gradient(at 0% 50%, hsla(270, 100%, 20%, 0.45) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsla(340, 100%, 18%, 0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(150, 100%, 15%, 0.2) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsla(22, 100%, 18%, 0.15) 0px, transparent 50%);
   }
 
   /* Auto-switch gradient-mesh to dark when dark mode is active */
   :is(.dark .gradient-mesh) {
-    background-color: #0f172a;
+    background-color: #0b1120;
     background-image:
-      radial-gradient(at 40% 20%, hsla(210, 100%, 20%, 0.4) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, hsla(240, 100%, 15%, 0.25) 0px, transparent 50%),
+      radial-gradient(at 40% 20%, hsla(210, 100%, 20%, 0.5) 0px, transparent 50%),
       radial-gradient(at 80% 0%, hsla(189, 100%, 15%, 0.3) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(270, 100%, 20%, 0.35) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, hsla(340, 100%, 18%, 0.25) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, hsla(150, 100%, 15%, 0.3) 0px, transparent 50%),
-      radial-gradient(at 80% 100%, hsla(22, 100%, 18%, 0.25) 0px, transparent 50%);
+      radial-gradient(at 0% 50%, hsla(270, 100%, 20%, 0.45) 0px, transparent 50%),
+      radial-gradient(at 80% 50%, hsla(340, 100%, 18%, 0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(150, 100%, 15%, 0.2) 0px, transparent 50%),
+      radial-gradient(at 80% 100%, hsla(22, 100%, 18%, 0.15) 0px, transparent 50%);
   }
 }
 
@@ -191,20 +194,18 @@
   }
 }
 
-/* ===== PAGE TRANSITIONS ===== */
+/* ===== PAGE TRANSITIONS (opacity only — no transforms to avoid z-index issues) ===== */
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 0.25s ease;
 }
 
 .page-enter-from {
   opacity: 0;
-  transform: translateX(20px);
 }
 
 .page-leave-to {
   opacity: 0;
-  transform: translateX(-20px);
 }
 
 /* Fade transition */
@@ -471,11 +472,7 @@
   }
 }
 
-/* Nav bar: fully opaque so content doesn't show through */
-nav.glass {
-  background: #ffffff !important;
-}
-nav.glass-dark,
-:is(.dark nav.glass) {
-  background: #1e293b !important;
+/* Nav scroll padding for anchor links */
+html {
+  scroll-padding-top: 5rem;
 }

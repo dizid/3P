@@ -1,5 +1,5 @@
 <template>
-  <section class="py-20 px-4 bg-white dark:bg-slate-800">
+  <section class="py-20 px-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm">
     <div class="max-w-6xl mx-auto">
       <!-- Section Header -->
       <div class="text-center mb-16">

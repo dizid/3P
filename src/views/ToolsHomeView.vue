@@ -9,7 +9,7 @@
             Decision Tools
           </span>
         </h1>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
           Simple frameworks to help you make better decisions. Choose a tool below to get started.
         </p>
       </div>
@@ -122,7 +122,7 @@
 
       <!-- Info Box -->
       <div class="mt-10 glass p-6 rounded-xl border-l-4 border-purple-500 animate-on-enter stagger-8">
-        <p class="text-sm text-gray-700 flex items-start gap-3">
+        <p class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3">
           <span class="text-xl flex-shrink-0">&#128161;</span>
           <span>
             <strong>Tip:</strong> Different tools work best for different decisions.

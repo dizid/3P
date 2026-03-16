@@ -22,17 +22,17 @@
 
       <!-- Content -->
       <div class="flex-1 min-w-0">
-        <h3 class="text-xl font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition-colors">
+        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
           {{ title }}
         </h3>
-        <p class="text-sm text-gray-500 leading-relaxed">
+        <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
           {{ description }}
         </p>
       </div>
 
       <!-- Arrow -->
       <div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">
-        <svg class="w-6 h-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
         </svg>
       </div>

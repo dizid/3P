@@ -1,18 +1,18 @@
 <template>
-  <section class="relative overflow-hidden py-20 px-4">
+  <section class="relative overflow-hidden pt-12 pb-20 px-4">
     <!-- Background gradient -->
     <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-500"></div>
 
     <!-- Decorative elements -->
     <div class="absolute top-20 left-10 w-72 h-72 bg-white/10 rounded-full blur-3xl"></div>
-    <div class="absolute bottom-10 right-10 w-96 h-96 bg-pink-300/20 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-pink-400/25 rounded-full blur-3xl"></div>
     <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-indigo-400/10 rounded-full blur-3xl"></div>
 
     <!-- Floating icons -->
-    <div class="absolute top-20 right-[15%] text-5xl opacity-20 animate-float">&#128161;</div>
-    <div class="absolute top-40 left-[10%] text-4xl opacity-20 animate-float-delayed">&#9200;</div>
-    <div class="absolute bottom-32 right-[25%] text-5xl opacity-20 animate-float">&#127919;</div>
-    <div class="absolute bottom-20 left-[20%] text-4xl opacity-20 animate-float-delayed">&#128176;</div>
+    <div class="absolute top-20 right-[15%] text-5xl opacity-30 animate-float">&#128161;</div>
+    <div class="absolute top-40 left-[10%] text-4xl opacity-30 animate-float-delayed">&#9200;</div>
+    <div class="absolute bottom-32 right-[25%] text-5xl opacity-30 animate-float">&#127919;</div>
+    <div class="absolute bottom-20 left-[20%] text-4xl opacity-30 animate-float-delayed">&#128176;</div>
 
     <div class="relative z-10 max-w-5xl mx-auto text-center text-white">
       <!-- Badge -->

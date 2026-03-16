@@ -62,7 +62,7 @@
           <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Free</h3>
           <div class="flex items-baseline gap-1 mb-6">
             <span class="text-4xl font-bold text-gray-900 dark:text-white">&euro;0</span>
-            <span class="text-gray-500">/forever</span>
+            <span class="text-gray-500 dark:text-gray-400">/forever</span>
           </div>
 
           <ul class="space-y-3 mb-8">
@@ -94,12 +94,12 @@
             <span class="text-4xl font-bold text-gray-900 dark:text-white">
               &euro;{{ billingPeriod === 'monthly' ? '7.99' : '5.75' }}
             </span>
-            <span class="text-gray-500">/month</span>
+            <span class="text-gray-500 dark:text-gray-400">/month</span>
           </div>
           <p v-if="billingPeriod === 'yearly'" class="text-sm text-green-600 dark:text-green-400 mb-6">
             &euro;69/year &mdash; save &euro;26.88
           </p>
-          <p v-else class="text-sm text-gray-500 mb-6">&nbsp;</p>
+          <p v-else class="text-sm text-gray-500 dark:text-gray-400 mb-6">&nbsp;</p>
 
           <ul class="space-y-3 mb-8">
             <li v-for="feature in proFeatures" :key="feature" class="flex items-start gap-3">
