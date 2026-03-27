@@ -9,6 +9,7 @@
         color-dark="#dc2626"
       />
 
+      <GutCheck v-if="!showResult" v-model="gutFeeling" />
       <FearRegretForm v-if="!showResult" @complete="showResult = true" />
       <FearRegretResult v-else @back="showResult = false" @reset="handleReset" />
     </div>
@@ -19,11 +20,13 @@
 import { ref } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import ToolHeader from '@/components/shared/ToolHeader.vue'
+import GutCheck from '@/components/shared/GutCheck.vue'
 import FearRegretForm from '@/components/fearregret/FearRegretForm.vue'
 import FearRegretResult from '@/components/fearregret/FearRegretResult.vue'
 
 const store = useToolsStore()
 const showResult = ref(false)
+const gutFeeling = ref('')
 
 const handleReset = () => {
   store.resetFearRegret()

@@ -9,6 +9,7 @@
         color-dark="#059669"
       />
 
+      <GutCheck v-if="!showResult" v-model="gutFeeling" />
       <PmiForm v-if="!showResult" @complete="showResult = true" />
       <PmiResult v-else @back="showResult = false" @reset="handleReset" />
     </div>
@@ -19,11 +20,13 @@
 import { ref } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import ToolHeader from '@/components/shared/ToolHeader.vue'
+import GutCheck from '@/components/shared/GutCheck.vue'
 import PmiForm from '@/components/pmi/PmiForm.vue'
 import PmiResult from '@/components/pmi/PmiResult.vue'
 
 const store = useToolsStore()
 const showResult = ref(false)
+const gutFeeling = ref('')
 
 const handleReset = () => {
   store.resetPmi()

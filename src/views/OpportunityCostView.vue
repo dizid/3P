@@ -9,6 +9,7 @@
         color-dark="#0891b2"
       />
 
+      <GutCheck v-if="!showResult" v-model="gutFeeling" />
       <OpportunityForm v-if="!showResult" @complete="showResult = true" />
       <OpportunityResult v-else @back="showResult = false" @reset="handleReset" />
     </div>
@@ -19,11 +20,13 @@
 import { ref } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import ToolHeader from '@/components/shared/ToolHeader.vue'
+import GutCheck from '@/components/shared/GutCheck.vue'
 import OpportunityForm from '@/components/opportunity/OpportunityForm.vue'
 import OpportunityResult from '@/components/opportunity/OpportunityResult.vue'
 
 const store = useToolsStore()
 const showResult = ref(false)
+const gutFeeling = ref('')
 
 const handleReset = () => {
   store.resetOpportunityCost()

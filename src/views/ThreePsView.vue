@@ -9,6 +9,7 @@
         color-dark="#4f46e5"
       />
 
+      <GutCheck v-if="store.threeps.currentStep < 3" v-model="gutFeeling" />
       <ThreePsForm v-if="store.threeps.currentStep < 3" @complete="handleComplete" />
       <ThreePsResult v-else @back="handleBack" @reset="handleReset" />
     </div>
@@ -16,12 +17,15 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import ToolHeader from '@/components/shared/ToolHeader.vue'
+import GutCheck from '@/components/shared/GutCheck.vue'
 import ThreePsForm from '@/components/threeps/ThreePsForm.vue'
 import ThreePsResult from '@/components/threeps/ThreePsResult.vue'
 
 const store = useToolsStore()
+const gutFeeling = ref('')
 
 const handleComplete = () => {
   store.setThreepsStep(3)

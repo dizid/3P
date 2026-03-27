@@ -9,6 +9,7 @@
         color-dark="#d97706"
       />
 
+      <GutCheck v-if="!showResult" v-model="gutFeeling" />
       <SwotForm v-if="!showResult" @complete="showResult = true" />
       <SwotResult v-else @back="showResult = false" @reset="handleReset" />
     </div>
@@ -19,11 +20,13 @@
 import { ref } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import ToolHeader from '@/components/shared/ToolHeader.vue'
+import GutCheck from '@/components/shared/GutCheck.vue'
 import SwotForm from '@/components/swot/SwotForm.vue'
 import SwotResult from '@/components/swot/SwotResult.vue'
 
 const store = useToolsStore()
 const showResult = ref(false)
+const gutFeeling = ref('')
 
 const handleReset = () => {
   store.resetSwot()

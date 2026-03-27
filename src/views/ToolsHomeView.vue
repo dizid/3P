@@ -14,6 +14,9 @@
         </p>
       </div>
 
+      <!-- Tool Recommendation Quiz -->
+      <ToolQuiz />
+
       <!-- Featured Tool: De 3 P's -->
       <div class="mb-6 animate-on-enter">
         <RouterLink
@@ -138,4 +141,5 @@
 
 <script setup>
 import ToolCard from '@/components/shared/ToolCard.vue'
+import ToolQuiz from '@/components/shared/ToolQuiz.vue'
 </script>

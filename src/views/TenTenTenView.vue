@@ -9,6 +9,7 @@
         color-dark="#1d4ed8"
       />
 
+      <GutCheck v-if="!showResult" v-model="gutFeeling" />
       <TenTenTenForm v-if="!showResult" @complete="showResult = true" />
       <TenTenTenResult v-else @back="showResult = false" @reset="handleReset" />
     </div>
@@ -19,11 +20,13 @@
 import { ref } from 'vue'
 import { useToolsStore } from '@/stores/ToolsStore'
 import ToolHeader from '@/components/shared/ToolHeader.vue'
+import GutCheck from '@/components/shared/GutCheck.vue'
 import TenTenTenForm from '@/components/tententen/TenTenTenForm.vue'
 import TenTenTenResult from '@/components/tententen/TenTenTenResult.vue'
 
 const store = useToolsStore()
 const showResult = ref(false)
+const gutFeeling = ref('')
 
 const handleReset = () => {
   store.resetTententen()

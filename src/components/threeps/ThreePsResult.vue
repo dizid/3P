@@ -247,6 +247,11 @@
       </div>
     </div>
 
+    <!-- Post Decision Coach -->
+    <div class="mt-6 animate-on-enter">
+      <PostDecisionCoach />
+    </div>
+
     <!-- Action Buttons -->
     <div class="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center mt-8 animate-on-enter stagger-5">
       <button
@@ -283,6 +288,7 @@ import { useToolsStore } from '@/stores/ToolsStore'
 import AnimatedCounter from '@/components/AnimatedCounter.vue'
 import ConfettiCelebration from '@/components/ConfettiCelebration.vue'
 import SaveToHistoryButton from '@/components/shared/SaveToHistoryButton.vue'
+import PostDecisionCoach from '@/components/shared/PostDecisionCoach.vue'
 
 const store = useToolsStore()
 const showConfetti = ref(false)
