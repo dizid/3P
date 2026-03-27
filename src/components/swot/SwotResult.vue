@@ -36,7 +36,7 @@
       </div>
 
       <!-- Score Display -->
-      <div class="p-8 bg-gradient-to-b from-gray-50 to-white">
+      <div class="p-8 bg-gradient-to-b from-gray-50 to-white dark:from-slate-800 dark:to-slate-900">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center mb-8">
           <div class="glass p-4 rounded-xl">
             <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Internal</div>
@@ -81,18 +81,18 @@
       </div>
 
       <!-- Quadrant Summary -->
-      <div class="p-8 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Your SWOT Breakdown</h2>
+      <div class="p-8 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Your SWOT Breakdown</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <!-- Strengths -->
-          <div class="p-4 bg-green-50 rounded-xl">
+          <div class="p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
             <div class="flex items-center gap-2 mb-3">
               <span class="text-2xl">&#128170;</span>
               <span class="font-bold text-green-700">Strengths</span>
               <span class="ml-auto text-lg font-bold text-green-600">+{{ store.swotStrengthsScore }}</span>
             </div>
-            <ul class="space-y-1 text-sm text-gray-700">
+            <ul class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
               <li v-for="item in filledStrengths" :key="item.id" class="flex justify-between">
                 <span>{{ item.text }}</span>
                 <span class="text-green-600 font-medium">+{{ item.weight }}</span>
@@ -102,13 +102,13 @@
           </div>
 
           <!-- Weaknesses -->
-          <div class="p-4 bg-red-50 rounded-xl">
+          <div class="p-4 bg-red-50 dark:bg-red-900/20 rounded-xl">
             <div class="flex items-center gap-2 mb-3">
               <span class="text-2xl">&#128683;</span>
               <span class="font-bold text-red-700">Weaknesses</span>
               <span class="ml-auto text-lg font-bold text-red-600">-{{ store.swotWeaknessesScore }}</span>
             </div>
-            <ul class="space-y-1 text-sm text-gray-700">
+            <ul class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
               <li v-for="item in filledWeaknesses" :key="item.id" class="flex justify-between">
                 <span>{{ item.text }}</span>
                 <span class="text-red-600 font-medium">-{{ item.weight }}</span>
@@ -118,13 +118,13 @@
           </div>
 
           <!-- Opportunities -->
-          <div class="p-4 bg-blue-50 rounded-xl">
+          <div class="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-xl">
             <div class="flex items-center gap-2 mb-3">
               <span class="text-2xl">&#127775;</span>
               <span class="font-bold text-blue-700">Opportunities</span>
               <span class="ml-auto text-lg font-bold text-blue-600">+{{ store.swotOpportunitiesScore }}</span>
             </div>
-            <ul class="space-y-1 text-sm text-gray-700">
+            <ul class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
               <li v-for="item in filledOpportunities" :key="item.id" class="flex justify-between">
                 <span>{{ item.text }}</span>
                 <span class="text-blue-600 font-medium">+{{ item.weight }}</span>
@@ -134,13 +134,13 @@
           </div>
 
           <!-- Threats -->
-          <div class="p-4 bg-orange-50 rounded-xl">
+          <div class="p-4 bg-orange-50 dark:bg-orange-900/20 rounded-xl">
             <div class="flex items-center gap-2 mb-3">
               <span class="text-2xl">&#9888;</span>
               <span class="font-bold text-orange-700">Threats</span>
               <span class="ml-auto text-lg font-bold text-orange-600">-{{ store.swotThreatsScore }}</span>
             </div>
-            <ul class="space-y-1 text-sm text-gray-700">
+            <ul class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
               <li v-for="item in filledThreats" :key="item.id" class="flex justify-between">
                 <span>{{ item.text }}</span>
                 <span class="text-orange-600 font-medium">-{{ item.weight }}</span>
@@ -152,11 +152,11 @@
       </div>
 
       <!-- Strategic Advice -->
-      <div class="p-8 bg-gray-50 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Strategic Insight</h2>
+      <div class="p-8 bg-gray-50 dark:bg-slate-800 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Strategic Insight</h2>
         <div class="flex gap-4 items-start">
           <div class="text-4xl">&#127919;</div>
-          <p class="text-gray-700 leading-relaxed italic">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed italic">
             <template v-if="isPositive">
               "Your strengths and opportunities outweigh your weaknesses and threats.
               This is a favorable position! Focus on leveraging your strengths to capitalize on opportunities,

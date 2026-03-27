@@ -35,7 +35,7 @@
       </div>
 
       <!-- Score Display -->
-      <div class="p-8 bg-gradient-to-b from-gray-50 to-white">
+      <div class="p-8 bg-gradient-to-b from-gray-50 to-white dark:from-slate-800 dark:to-slate-900">
         <div class="grid grid-cols-3 gap-4 text-center mb-8">
           <div class="glass p-4 rounded-xl border-2 border-orange-200">
             <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Action Fears</div>
@@ -67,8 +67,8 @@
       </div>
 
       <!-- Fear Breakdown -->
-      <div class="p-8 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Your Fear Inventory</h2>
+      <div class="p-8 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Your Fear Inventory</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Fears of Action -->
@@ -80,9 +80,9 @@
               <div
                 v-for="item in filledActionFears"
                 :key="item.id"
-                class="flex items-center justify-between p-3 bg-orange-50 rounded-lg"
+                class="flex items-center justify-between p-3 bg-orange-50 dark:bg-orange-900/20 rounded-lg"
               >
-                <span class="text-gray-800">{{ item.text }}</span>
+                <span class="text-gray-800 dark:text-gray-100">{{ item.text }}</span>
                 <span class="font-bold text-orange-600">{{ item.weight }}</span>
               </div>
               <div v-if="!filledActionFears.length" class="text-gray-400 italic p-3">
@@ -100,9 +100,9 @@
               <div
                 v-for="item in filledInactionFears"
                 :key="item.id"
-                class="flex items-center justify-between p-3 bg-blue-50 rounded-lg"
+                class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg"
               >
-                <span class="text-gray-800">{{ item.text }}</span>
+                <span class="text-gray-800 dark:text-gray-100">{{ item.text }}</span>
                 <span class="font-bold text-blue-600">{{ item.weight }}</span>
               </div>
               <div v-if="!filledInactionFears.length" class="text-gray-400 italic p-3">
@@ -114,11 +114,11 @@
       </div>
 
       <!-- Interpretation -->
-      <div class="p-8 bg-gray-50 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">What This Means</h2>
+      <div class="p-8 bg-gray-50 dark:bg-slate-800 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">What This Means</h2>
         <div class="flex gap-4 items-start">
           <div class="text-4xl">&#128168;</div>
-          <p class="text-gray-700 leading-relaxed italic">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed italic">
             <template v-if="store.fearNetScore >= 10">
               "Your fear of regret significantly outweighs your fear of failure.
               This is often the sign that you should act - the pain of 'what if' will haunt you

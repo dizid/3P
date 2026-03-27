@@ -35,7 +35,7 @@
       </div>
 
       <!-- What Happened -->
-      <div class="p-8 bg-gradient-to-b from-gray-50 to-white">
+      <div class="p-8 bg-gradient-to-b from-gray-50 to-white dark:from-slate-800 dark:to-slate-900">
         <div class="max-w-md mx-auto">
           <div class="grid grid-cols-3 gap-4 text-center mb-8">
             <div class="glass p-4 rounded-xl">
@@ -62,16 +62,16 @@
       </div>
 
       <!-- Explanation -->
-      <div class="p-8 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">What This Means</h2>
+      <div class="p-8 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">What This Means</h2>
 
         <div class="max-w-xl mx-auto">
           <template v-if="store.coinFlip.reaction === 'relieved'">
-            <div class="flex gap-4 items-start p-4 bg-green-50 rounded-xl">
+            <div class="flex gap-4 items-start p-4 bg-green-50 dark:bg-green-900/20 rounded-xl">
               <div class="text-3xl">&#128524;</div>
               <div>
                 <h3 class="font-bold text-green-700 mb-1">Relief = Alignment</h3>
-                <p class="text-gray-700">
+                <p class="text-gray-700 dark:text-gray-300">
                   When you felt relieved at "{{ coinChoice }}", your body was telling you
                   this is what you actually want. The coin didn't decide - it revealed.
                 </p>
@@ -80,11 +80,11 @@
           </template>
 
           <template v-else-if="store.coinFlip.reaction === 'disappointed'">
-            <div class="flex gap-4 items-start p-4 bg-purple-50 rounded-xl">
+            <div class="flex gap-4 items-start p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
               <div class="text-3xl">&#128532;</div>
               <div>
                 <h3 class="font-bold text-purple-700 mb-1">Disappointment = Hidden Desire</h3>
-                <p class="text-gray-700">
+                <p class="text-gray-700 dark:text-gray-300">
                   Your disappointment at "{{ coinChoice }}" revealed that you actually
                   want "{{ otherChoice }}". You were hoping the coin would give you permission.
                 </p>
@@ -93,11 +93,11 @@
           </template>
 
           <template v-else>
-            <div class="flex gap-4 items-start p-4 bg-amber-50 rounded-xl">
+            <div class="flex gap-4 items-start p-4 bg-amber-50 dark:bg-amber-900/20 rounded-xl">
               <div class="text-3xl">&#128528;</div>
               <div>
                 <h3 class="font-bold text-amber-700 mb-1">Neutral = True Indifference</h3>
-                <p class="text-gray-700">
+                <p class="text-gray-700 dark:text-gray-300">
                   If you genuinely felt nothing, maybe both options are equally valid for you.
                   In that case, either choice is fine - just pick one and commit!
                 </p>
@@ -108,11 +108,11 @@
       </div>
 
       <!-- The Psychology -->
-      <div class="p-8 bg-gray-50 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Why This Works</h2>
+      <div class="p-8 bg-gray-50 dark:bg-slate-800 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Why This Works</h2>
         <div class="flex gap-4 items-start">
           <div class="text-4xl">&#129504;</div>
-          <p class="text-gray-700 leading-relaxed italic">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed italic">
             "Your rational mind can debate endlessly, but your emotional brain knows what it wants.
             By creating a moment of 'finality' with the coin flip, we bypass analysis paralysis
             and tap directly into your true preferences. The coin is just a mirror."

@@ -36,7 +36,7 @@
       </div>
 
       <!-- Score Display -->
-      <div class="p-8 bg-gradient-to-b from-gray-50 to-white text-center">
+      <div class="p-8 bg-gradient-to-b from-gray-50 to-white dark:from-slate-800 dark:to-slate-900 text-center">
         <div class="mb-6">
           <div
             class="text-7xl font-black mb-2 bg-clip-text text-transparent"
@@ -68,48 +68,48 @@
       </div>
 
       <!-- Breakdown -->
-      <div class="p-8 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Your Reflection Breakdown</h2>
+      <div class="p-8 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Your Reflection Breakdown</h2>
 
         <div class="space-y-4">
-          <div class="flex items-center justify-between p-4 bg-purple-50 rounded-xl">
+          <div class="flex items-center justify-between p-4 bg-purple-50 dark:bg-purple-900/20 rounded-xl">
             <div class="flex items-center gap-3">
               <span class="text-2xl">&#128557;</span>
               <div>
-                <div class="font-semibold text-gray-800">Regret of Inaction</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100">Regret of Inaction</div>
                 <div class="text-xs text-gray-500">40% weight</div>
               </div>
             </div>
             <div class="text-2xl font-bold text-purple-600">{{ store.regret.regretNotTrying }}</div>
           </div>
 
-          <div class="flex items-center justify-between p-4 bg-indigo-50 rounded-xl">
+          <div class="flex items-center justify-between p-4 bg-indigo-50 dark:bg-indigo-900/20 rounded-xl">
             <div class="flex items-center gap-3">
               <span class="text-2xl">&#128260;</span>
               <div>
-                <div class="font-semibold text-gray-800">Reversibility</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100">Reversibility</div>
                 <div class="text-xs text-gray-500">15% weight</div>
               </div>
             </div>
             <div class="text-2xl font-bold text-indigo-600">{{ store.regret.reversibility }}</div>
           </div>
 
-          <div class="flex items-center justify-between p-4 bg-violet-50 rounded-xl">
+          <div class="flex items-center justify-between p-4 bg-violet-50 dark:bg-violet-900/20 rounded-xl">
             <div class="flex items-center gap-3">
               <span class="text-2xl">&#128142;</span>
               <div>
-                <div class="font-semibold text-gray-800">Value Alignment</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100">Value Alignment</div>
                 <div class="text-xs text-gray-500">25% weight</div>
               </div>
             </div>
             <div class="text-2xl font-bold text-violet-600">{{ store.regret.valueAlignment }}</div>
           </div>
 
-          <div class="flex items-center justify-between p-4 bg-fuchsia-50 rounded-xl">
+          <div class="flex items-center justify-between p-4 bg-fuchsia-50 dark:bg-fuchsia-900/20 rounded-xl">
             <div class="flex items-center gap-3">
               <span class="text-2xl">&#129491;</span>
               <div>
-                <div class="font-semibold text-gray-800">80-Year Perspective</div>
+                <div class="font-semibold text-gray-800 dark:text-gray-100">80-Year Perspective</div>
                 <div class="text-xs text-gray-500">20% weight</div>
               </div>
             </div>
@@ -119,11 +119,11 @@
       </div>
 
       <!-- Advice -->
-      <div class="p-8 bg-gray-50 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">Message from Your Future Self</h2>
+      <div class="p-8 bg-gray-50 dark:bg-slate-800 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Message from Your Future Self</h2>
         <div class="flex gap-4 items-start">
           <div class="text-4xl">&#129491;</div>
-          <p class="text-gray-700 leading-relaxed italic">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed italic">
             <template v-if="isPositive">
               "Looking back from 80, I'm so glad you took that leap. The fear was temporary,
               but the growth and experiences lasted a lifetime. You won't regret trying."

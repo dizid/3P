@@ -36,7 +36,7 @@
       </div>
 
       <!-- Score Display -->
-      <div class="p-8 bg-gradient-to-b from-gray-50 to-white text-center">
+      <div class="p-8 bg-gradient-to-b from-gray-50 to-white dark:from-slate-800 dark:to-slate-900 text-center">
         <div class="mb-6">
           <div
             class="text-7xl font-black mb-2 bg-clip-text text-transparent"
@@ -65,8 +65,8 @@
       </div>
 
       <!-- Item Lists -->
-      <div class="p-8 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Your Analysis</h2>
+      <div class="p-8 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Your Analysis</h2>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <!-- Plus Items -->
@@ -77,9 +77,9 @@
             <div
               v-for="item in filledPlusItems"
               :key="item.id"
-              class="flex items-center justify-between p-3 bg-green-50 rounded-lg"
+              class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg"
             >
-              <span class="text-gray-800">{{ item.text }}</span>
+              <span class="text-gray-800 dark:text-gray-100">{{ item.text }}</span>
               <span class="text-green-600 font-bold">+{{ item.weight }}</span>
             </div>
           </div>
@@ -92,9 +92,9 @@
             <div
               v-for="item in filledMinusItems"
               :key="item.id"
-              class="flex items-center justify-between p-3 bg-red-50 rounded-lg"
+              class="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg"
             >
-              <span class="text-gray-800">{{ item.text }}</span>
+              <span class="text-gray-800 dark:text-gray-100">{{ item.text }}</span>
               <span class="text-red-600 font-bold">-{{ item.weight }}</span>
             </div>
           </div>
@@ -107,9 +107,9 @@
             <div
               v-for="item in filledInterestingItems"
               :key="item.id"
-              class="flex items-center justify-between p-3 bg-blue-50 rounded-lg"
+              class="flex items-center justify-between p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg"
             >
-              <span class="text-gray-800">{{ item.text }}</span>
+              <span class="text-gray-800 dark:text-gray-100">{{ item.text }}</span>
               <span class="text-blue-600 font-bold">{{ item.weight }}</span>
             </div>
           </div>
@@ -117,9 +117,9 @@
       </div>
 
       <!-- Advice -->
-      <div class="p-8 bg-gray-50 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">What This Means</h2>
-        <p class="text-gray-700 leading-relaxed">
+      <div class="p-8 bg-gray-50 dark:bg-slate-800 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">What This Means</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
           <template v-if="store.pmiNetScore >= 10">
             <span class="text-green-600 font-semibold">Strong positive signal!</span>
             Your analysis shows significantly more benefits than drawbacks.

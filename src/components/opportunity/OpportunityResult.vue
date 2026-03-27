@@ -35,7 +35,7 @@
       </div>
 
       <!-- Score Display -->
-      <div class="p-8 bg-gradient-to-b from-gray-50 to-white">
+      <div class="p-8 bg-gradient-to-b from-gray-50 to-white dark:from-slate-800 dark:to-slate-900">
         <div class="grid grid-cols-3 gap-4 text-center mb-8">
           <div class="glass p-4 rounded-xl border-2 border-green-200">
             <div class="text-sm text-gray-500 uppercase tracking-wider mb-1">Gains</div>
@@ -74,8 +74,8 @@
       </div>
 
       <!-- Breakdown -->
-      <div class="p-8 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-6 text-center">Trade-off Breakdown</h2>
+      <div class="p-8 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">Trade-off Breakdown</h2>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Gains List -->
@@ -87,9 +87,9 @@
               <div
                 v-for="item in filledGains"
                 :key="item.id"
-                class="flex items-center justify-between p-3 bg-green-50 rounded-lg"
+                class="flex items-center justify-between p-3 bg-green-50 dark:bg-green-900/20 rounded-lg"
               >
-                <span class="text-gray-800">{{ item.text }}</span>
+                <span class="text-gray-800 dark:text-gray-100">{{ item.text }}</span>
                 <span class="font-bold text-green-600">+{{ item.weight }}</span>
               </div>
               <div v-if="!filledGains.length" class="text-gray-400 italic p-3">
@@ -107,9 +107,9 @@
               <div
                 v-for="item in filledSacrifices"
                 :key="item.id"
-                class="flex items-center justify-between p-3 bg-red-50 rounded-lg"
+                class="flex items-center justify-between p-3 bg-red-50 dark:bg-red-900/20 rounded-lg"
               >
-                <span class="text-gray-800">{{ item.text }}</span>
+                <span class="text-gray-800 dark:text-gray-100">{{ item.text }}</span>
                 <span class="font-bold text-red-600">-{{ item.weight }}</span>
               </div>
               <div v-if="!filledSacrifices.length" class="text-gray-400 italic p-3">
@@ -121,11 +121,11 @@
       </div>
 
       <!-- Insight -->
-      <div class="p-8 bg-gray-50 border-t">
-        <h2 class="text-xl font-bold text-gray-800 mb-4">The Bottom Line</h2>
+      <div class="p-8 bg-gray-50 dark:bg-slate-800 border-t dark:border-slate-700">
+        <h2 class="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">The Bottom Line</h2>
         <div class="flex gap-4 items-start">
           <div class="text-4xl">&#9878;</div>
-          <p class="text-gray-700 leading-relaxed italic">
+          <p class="text-gray-700 dark:text-gray-300 leading-relaxed italic">
             <template v-if="isPositive">
               "The gains outweigh the sacrifices. This trade-off appears favorable.
               You're not just getting something - you're getting more than you're giving up.
