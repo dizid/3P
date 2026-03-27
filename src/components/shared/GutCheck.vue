@@ -1,5 +1,5 @@
 <template>
-  <div class="glass mb-6 rounded-xl border border-dashed border-white/20 dark:border-white/10 px-4 py-3">
+  <div class="glass mb-6 rounded-xl border border-dashed border-gray-300 dark:border-slate-600 px-4 py-3">
     <p class="text-xs text-gray-500 dark:text-gray-400 mb-2 font-medium tracking-wide uppercase">
       Before you start &mdash; what&rsquo;s your gut telling you?
     </p>

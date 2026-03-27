@@ -124,7 +124,7 @@
               ? 'border-purple-300 dark:border-purple-700 bg-purple-50 dark:bg-purple-900/20 hover:bg-purple-100 dark:hover:bg-purple-900/40'
               : 'border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/5'"
           >
-            <span class="text-2xl">{{ tool.icon }}</span>
+            <span class="text-2xl" v-html="tool.icon"></span>
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2">
                 <span class="text-sm font-semibold text-gray-800 dark:text-gray-100">{{ tool.name }}</span>
