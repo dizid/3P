@@ -21,6 +21,70 @@ const TIER_MAX_TOKENS = {
   pro: 2000,
 };
 
+// Default-on demo mode: real Anthropic calls are gated behind this flag until
+// explicitly opted out. Set DEMO_MODE=false in Netlify env vars (+ redeploy) to
+// enable live AI calls. See AI-COST-RISK.md for why this was added.
+const DEMO_MODE = (Netlify.env.get("DEMO_MODE") ?? "true") !== "false";
+
+// Mock analyses returned while DEMO_MODE is on. Shapes match buildPromptForTier's
+// real JSON response schema exactly (see below) so the frontend needs zero changes.
+const MOCK_FREE_ANALYSIS = {
+  insight:
+    "Your numbers point toward a decision you already lean toward — the framework is mostly confirming a direction you've sensed for a while.",
+  blindSpots: [
+    "Consider whether you're weighting short-term comfort over long-term fit.",
+    "Check if this choice still holds up under your worst-case assumption.",
+  ],
+  nextStep: "Write down the single biggest risk and how you'd handle it.",
+  confidence: "medium",
+};
+
+const MOCK_PRO_ANALYSIS = {
+  coreInsight:
+    "This decision hinges less on the framework's math and more on one unstated assumption you're making about how things play out over time — surface that assumption before committing.",
+  biases: [
+    {
+      name: "Confirmation bias",
+      manifestation: "The inputs you rated highest tend to support the option you already favored.",
+      challenge: "What score would a skeptical friend give this same option?",
+    },
+    {
+      name: "Sunk cost fallacy",
+      manifestation: "Past investment may be inflating how committed you feel to one path.",
+      challenge: "If you were starting fresh today, would you still choose this?",
+    },
+  ],
+  blindSpots: [
+    "The framework doesn't capture how reversible this decision actually is.",
+    "External factors outside your control aren't weighted here.",
+    "You may be underestimating the emotional cost of the alternative.",
+  ],
+  scenarios: {
+    best: "This works out close to how you're hoping, with manageable friction along the way.",
+    worst: "The downside is real but recoverable within a reasonable timeframe.",
+    likely: "Results land somewhere between the two, shaped mostly by how well you plan for the transition.",
+  },
+  frameworkFit: {
+    suitable: true,
+    alternative: "10-10-10 Rule",
+    reason: "This framework fits your situation, though a time-horizon check could add useful contrast.",
+  },
+  confidence: {
+    level: "medium",
+    missing: ["A clearer worst-case cost estimate", "Input from someone directly affected by the outcome"],
+  },
+  clarityScore: {
+    score: 7,
+    explanation: "Your inputs are consistent and specific, though a couple of blind spots remain unaddressed.",
+  },
+  nextStep: "Within 24 hours, write down the one assumption this decision depends on most, and test it.",
+  questions: [
+    "What would have to be true for the opposite choice to be correct?",
+    "Whose opinion are you most avoiding on this?",
+    "What does your gut say versus what does this analysis say?",
+  ],
+};
+
 // Get database connection
 const getDb = () => {
   const dbUrl = Netlify.env.get("DATABASE_URL");
@@ -281,9 +345,10 @@ export default async (req: Request, context: Context) => {
     });
   }
 
-  // Get API key from environment
+  // Get API key from environment — only required when demo mode is off,
+  // since the demo path never calls Anthropic.
   const apiKey = Netlify.env.get("ANTHROPIC_API_KEY");
-  if (!apiKey) {
+  if (!DEMO_MODE && !apiKey) {
     return new Response(
       JSON.stringify({ error: "AI service not configured" }),
       {
@@ -331,11 +396,34 @@ export default async (req: Request, context: Context) => {
       );
     }
 
-    const toolContext = toolPrompts[tool] || "You are analyzing a decision.";
-
-    // Select model and tokens based on tier
+    // Select model and tokens based on tier (used for the response's "model" field
+    // whether real or mocked, so the frontend display is consistent either way)
     const model = TIER_MODELS[plan];
     const maxTokens = TIER_MAX_TOKENS[plan];
+
+    // --- Demo mode: return a mock analysis, never call Anthropic. ---
+    // Everything above (auth, subscription lookup, rate limiting) is unchanged —
+    // only the paid Anthropic call itself is gated.
+    if (DEMO_MODE) {
+      const mockAnalysis = plan === "pro" ? MOCK_PRO_ANALYSIS : MOCK_FREE_ANALYSIS;
+      return new Response(
+        JSON.stringify({
+          success: true,
+          analysis: mockAnalysis,
+          model,
+          plan,
+          remaining: rateLimit.remaining,
+          resetDate: rateLimit.resetDate.toISOString(),
+        }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // --- Live implementation below, unreachable while DEMO_MODE=true ---
+    const toolContext = toolPrompts[tool] || "You are analyzing a decision.";
 
     const client = new Anthropic({ apiKey });
 
