@@ -2,8 +2,8 @@ import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-// import './assets/index.css'  // NEEDED??
-import './index.css'
+// style.css holds the Tailwind directives plus all custom styles (glass, gradient-mesh, FormKit, transitions)
+import './style.css'
 import { plugin, defaultConfig } from '@formkit/vue'
 import { generateClasses } from '@formkit/themes'
 
