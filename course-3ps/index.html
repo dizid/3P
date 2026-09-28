@@ -1,0 +1,2047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>De 3 P's: How It Works</title>
+
+  <!-- Google Fonts: Bricolage Grotesque · DM Sans · JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    :root {
+      --color-accent:       #D94F30;
+      --color-accent-hover: #C4432A;
+      --color-accent-light: #FDEEE9;
+      --color-accent-muted: #E8836C;
+    }
+  </style>
+
+  <script src="main.js" defer></script>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="progress-bar" id="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+    <div class="nav-inner">
+      <span class="nav-title">De 3 P's: How It Works</span>
+      <div class="nav-dots" id="nav-dots" role="tablist">
+        <button class="nav-dot" data-target="module-1" data-tooltip="Click to Result" role="tab" aria-label="Module 1: Click to Result"></button>
+        <button class="nav-dot" data-target="module-2" data-tooltip="Meet the Cast" role="tab" aria-label="Module 2: Meet the Cast"></button>
+        <button class="nav-dot" data-target="module-3" data-tooltip="How Pieces Talk" role="tab" aria-label="Module 3: How Pieces Talk"></button>
+        <button class="nav-dot" data-target="module-4" data-tooltip="The Outside World" role="tab" aria-label="Module 4: The Outside World"></button>
+        <button class="nav-dot" data-target="module-5" data-tooltip="Bugs & Battles" role="tab" aria-label="Module 5: Bugs & Battles"></button>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+    <!-- modules/*.html content is assembled here by build.sh -->
+<section class="module" id="module-1" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <!-- ===== HEADER ===== -->
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">Click &rarr; Result</h1>
+      <p class="module-subtitle">What actually happens in the two seconds between your click and your score.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ===== SCREEN 1 — What is De 3 P's? ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127911; First, what is De 3 P&apos;s?</h2>
+        <p>
+          De 3 P&apos;s is a decision-support web app. Eight different frameworks &mdash;
+          like <em>10-10-10 Rule</em>, <em>Regret Minimization</em>, and <em>Coin Flip Test</em>
+          &mdash; help you think through a hard choice. You fill out a short form, the app
+          calculates a score, and gives you a recommendation.
+        </p>
+        <p>
+          Your history is saved so you can revisit decisions later. That&apos;s the whole pitch. The
+          <em>interesting</em> part is what happens under the hood when you click.
+        </p>
+
+        <div class="callout callout-insight">
+          <strong>The hook:</strong> You open the app. You pick &ldquo;10-10-10 Rule&rdquo;. You drag three sliders.
+          A score appears. Feels instant, right? Here&apos;s what actually happens in those two seconds.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 2 — The Record Player Metaphor ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127926; The record player</h2>
+        <p>
+          Think of the app as a vinyl record on a turntable. The grooves were pressed when the app was
+          <span class="term" data-definition="The process of turning source code into the compact files a browser can download and run. Happens once, before users see the app.">built</span>
+          &mdash; every bit of logic is already there, waiting. But nothing plays until the needle drops.
+        </p>
+        <p>
+          That needle is <em>you</em>. Every click, keystroke, or page load is a needle drop. The vibration
+          then travels through a chain of parts &mdash; each one transforming the signal &mdash; until it
+          finally comes out the speakers as a score.
+        </p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128073;</div>
+            <h3>Needle</h3>
+            <p>Your click on a slider. The trigger for everything.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#127908;</div>
+            <h3>Tonearm</h3>
+            <p>The form
+              <span class="term" data-definition="A reusable piece of UI with its own HTML, styles, and logic. Like a LEGO brick you can snap into different places.">component</span>
+              &mdash; picks up the input.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128257;</div>
+            <h3>Amplifier</h3>
+            <p>The
+              <span class="term" data-definition="A shared bucket of state that multiple components can read from and write to.">store</span>
+              &mdash; recalculates and shares the new value.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128266;</div>
+            <h3>Speakers</h3>
+            <p>The result component &mdash; plays the verdict on screen.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-aha">
+          <strong>Aha:</strong> The app is a pile of small independent parts that only do something when
+          triggered. Nothing runs &ldquo;on its own&rdquo; &mdash; everything waits for a click, a keystroke, or a page load.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 3 — The Tech Stack Cast ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127914; Meet the tech stack</h2>
+        <p>
+          Five tools do the work. You don&apos;t need to master them &mdash; you just need to know what each one is
+          <em>responsible for</em> so you can point an AI assistant at the right one.
+        </p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#9889;</div>
+            <h3><span class="term" data-definition="A JavaScript framework for building interactive web apps. Competes with React and Svelte.">Vue 3</span></h3>
+            <p>The
+              <span class="term" data-definition="A pre-built structure that handles the boring parts so you can focus on what makes your app unique.">framework</span>
+              running in your browser. Turns code into HTML and updates the page automatically when data changes.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128640;</div>
+            <h3>Vite</h3>
+            <p>The build tool. Updates your browser in under a second during development, packs everything tight for production.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#129730;</div>
+            <h3><span class="term" data-definition="Vue&apos;s official state management library. The store system this app uses.">Pinia</span></h3>
+            <p>The shared memory. Components read and write through one central bucket so everyone stays in sync.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#127912;</div>
+            <h3>Tailwind CSS</h3>
+            <p>Styling. Instead of separate CSS files, you drop classes like <code>bg-blue-500</code> right into the HTML.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128209;</div>
+            <h3>Vue Router</h3>
+            <p>Navigation. When the URL changes, it swaps in the right component without a full page reload.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 4 — The Group Chat ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#128172; Listen in on the group chat</h2>
+        <p>
+          When you type <code>/tools/10-10-10</code> into the browser, three actors have a quick conversation
+          to figure out who shows what. Tap <em>Next Message</em> to eavesdrop.
+        </p>
+
+        <div class="chat-window" id="chat-module1">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="router" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Router</span>
+                <p>Hey, the URL says <code>/tools/10-10-10</code>. Who handles this?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="view" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">V</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">TenTenTenView</span>
+                <p>That&apos;s me. Let me load&hellip;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="router" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Router</span>
+                <p>Mounting you now.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="view" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">V</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">TenTenTenView</span>
+                <p>ToolsStore, are you there? I need your <code>tententen</code> state.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="store" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">ToolsStore</span>
+                <p>Here you go: <code>{ feel10min: 50, feel10months: 50, feel10years: 50 }</code></p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="view" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">V</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">TenTenTenView</span>
+                <p>Thanks! Rendering the form with those defaults now.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" id="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module1-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 5 — Data Flow Animation ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#128293; Now drag a slider &mdash; trace the signal</h2>
+        <p>
+          You&apos;re already on the 10-10-10 page. You drag the &ldquo;10 months&rdquo; slider from 50 to 80.
+          Here&apos;s the journey that number takes from your finger to the score on screen.
+        </p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"You drag the 10 months slider to 80."},
+          {"highlight":"flow-actor-2","label":"Form writes state.tententen.feel10months = 80.","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-2","label":"Form hands the new value to the store.","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"Store&apos;s tententenScore getter recalculates automatically."},
+          {"highlight":"flow-actor-4","label":"Result component re-renders with the new score.","packet":true,"from":"actor-3","to":"actor-4"},
+          {"highlight":"flow-actor-4","label":"You see: Go for it!"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon" style="background: var(--color-actor-4)">&#128100;</div>
+              <span>You</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon" style="background: var(--color-actor-2)">F</div>
+              <span>Form</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon" style="background: var(--color-actor-3)">S</div>
+              <span>ToolsStore</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon" style="background: var(--color-actor-5)">R</div>
+              <span>Result</span>
+            </div>
+          </div>
+
+          <div class="flow-packet" id="flow-packet"></div>
+
+          <div class="flow-step-label" id="flow-label">Click &ldquo;Next Step&rdquo; to drop the needle.</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-insight">
+          <strong>The magic word:</strong>
+          <span class="term" data-definition="When you change data, the screen updates automatically — no manual refresh needed.">reactivity</span>.
+          You never told the Result component &ldquo;please redraw&rdquo;. It redrew because the
+          <span class="term" data-definition="Data the app remembers. When it changes, the UI updates automatically.">state</span>
+          it depended on changed.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 6 — Code ↔ English Translation ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#128221; The formula, in plain English</h2>
+        <p>
+          The actual scoring lives in a <em>seven-line</em>
+          <span class="term" data-definition="A computed value that automatically updates when its source data changes. Like a spreadsheet formula.">getter</span>
+          inside <code>ToolsStore.js</code>. Left side: the real code from the repo. Right side: what each line is saying.
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-function">tententenScore</span>: (<span class="code-property">state</span>) <span class="code-operator">=&gt;</span> {</span>
+<span class="code-line">  <span class="code-keyword">return</span> <span class="code-function">Math.round</span>(</span>
+<span class="code-line">    (<span class="code-property">state</span>.tententen.feel10min <span class="code-operator">*</span> <span class="code-number">0.15</span>) <span class="code-operator">+</span></span>
+<span class="code-line">    (<span class="code-property">state</span>.tententen.feel10months <span class="code-operator">*</span> <span class="code-number">0.35</span>) <span class="code-operator">+</span></span>
+<span class="code-line">    (<span class="code-property">state</span>.tententen.feel10years <span class="code-operator">*</span> <span class="code-number">0.50</span>)</span>
+<span class="code-line">  )</span>
+<span class="code-line">},</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Here&apos;s a live number the store will calculate and share with anyone who asks.</p>
+              <p class="tl">Round the answer to a whole number &mdash; no decimals on screen.</p>
+              <p class="tl">Your short-term feelings (10 minutes) count for <strong>15%</strong>.</p>
+              <p class="tl">Medium-term feelings (10 months) count for <strong>35%</strong>.</p>
+              <p class="tl">Long-term feelings (10 years) count for <strong>50%</strong> &mdash; the future matters most.</p>
+              <p class="tl">Close the rounding. Total weight: 15 + 35 + 50 = <strong>100%</strong>.</p>
+              <p class="tl">Done. Whenever any of those three numbers change, this formula reruns automatically.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-aha">
+          <strong>Why this matters to you:</strong> If a user says &ldquo;the long-term feels don&apos;t count enough,&rdquo;
+          you now know exactly which <em>one line</em> to change. You can tell your AI assistant:
+          <em>&ldquo;in <code>ToolsStore.js</code>, in the <code>tententenScore</code> getter, change
+          <code>0.50</code> to <code>0.70</code>.&rdquo;</em>
+          That&apos;s a surgical instruction, not a vague wish.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 7 — Quiz ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#129504; Check yourself &mdash; 3 scenarios</h2>
+        <p>
+          No memorization. These are situations you&apos;ll actually face. Pick the answer that lines up
+          with what you just saw.
+        </p>
+
+        <div class="quiz-container" id="quiz-module1">
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Getters recalculate whenever their source state changes. If the score is frozen, the getter isn&apos;t seeing the updated state — that&apos;s the place to look."
+               data-explanation-wrong="Not quite. The template just displays whatever the store gives it, and CSS/router don&apos;t touch the math. The score itself is computed by the getter in the store — that&apos;s where a broken calculation would hide.">
+            <h3 class="quiz-question">A user reports: &ldquo;I&apos;m changing the sliders but the score doesn&apos;t update.&rdquo; Where do you look first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The HTML template of the result component</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Pinia getter that calculates the score</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The CSS styles</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The router configuration</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Right. State (the data field) lives in the store, and the UI (the slider) lives in the form component. Adding a new field means both have to know about it."
+               data-explanation-wrong="Not quite. The router only decides which page to show. The form alone can&apos;t hold data permanently — that&apos;s the store&apos;s job. Both the store AND the form need to change together.">
+            <h3 class="quiz-question">You want to add a 4th slider (say, &ldquo;10 days&rdquo;) to the tool. Which file(s) do you touch?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The router only</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The form component only</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Both the store AND the form component</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Vue config file</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Spot on. The () =&gt; import(...) syntax is lazy-loading: the code for that view isn&apos;t downloaded until someone actually visits the route. Direct links work fine."
+               data-explanation-wrong="Not quite. The route is defined in the router, so there&apos;s no 404 and no error. The () =&gt; import(...) pattern means the view&apos;s code is fetched on demand — it loads, then renders.">
+            <h3 class="quiz-question">A user opens <code>/tools/10-10-10</code> directly in a fresh browser tab. What does the
+              <span class="term" data-definition="A mapping from a URL path to which component to show. Like a phone book for your app.">router</span>
+              do?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Redirects them to the home page</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Shows a 404 error</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><span class="term" data-definition="Don&apos;t download a chunk of code until it&apos;s actually needed. Makes the app start faster.">Lazy-loads</span> <code>TenTenTenView.vue</code> and renders it</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Errors out because the app wasn&apos;t started from <code>/</code></span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 8 — Next up ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127919; What you can now say out loud</h2>
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128205;</div>
+            <h3>Where logic lives</h3>
+            <p>Scoring rules &rarr; the store. UI &rarr; the component. Navigation &rarr; the router.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128228;</div>
+            <h3>Why it updates</h3>
+            <p>Change state, the UI redraws itself. That&apos;s reactivity &mdash; no refresh button needed.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128736;</div>
+            <h3>How to instruct AI</h3>
+            <p>&ldquo;In <code>ToolsStore.js</code>, in the <code>tententenScore</code> getter, change X to Y.&rdquo; Precise beats vague.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-insight">
+          <strong>Next up &mdash; Module 2: Meet the Cast.</strong> You&apos;ve traced one flow. Now we zoom out and
+          introduce every actor in the show &mdash; views, components, stores, services &mdash; and what each one
+          is paid to do.
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-2" style="background: var(--color-bg);">
+  <div class="module-content">
+
+    <!-- ─────────── HEADER ─────────── -->
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">Meet the Cast</h1>
+      <p class="module-subtitle">Your app is a film production crew &mdash; every file has a job title.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ─────────── SCREEN 1: Transition + Metaphor ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Zooming out from one click</h2>
+        <p>
+          In Module 1 we followed <em>one</em> click from screen to score. Now let&rsquo;s pull the camera back. The 3 P&rsquo;s app has around <strong>60 code files</strong> &mdash; so who does what?
+        </p>
+        <p>
+          Think of the codebase as a <strong>film production crew</strong>. There&rsquo;s a director running the shoot, actors on camera, set pieces in the background, a script supervisor tracking every line, and off-set specialists you call when you need something from outside the studio.
+        </p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why this matters</strong>
+            <p>When you can name the roles, you can redirect the AI. &ldquo;Put the login logic in the <span class="term" data-definition="A store is a central data container shared across the whole app. Any view or component can read from it and write to it. Think: the production crew's shared clipboard.">store</span>, not the view&rdquo; is the kind of sentence that stops AI from making a mess.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 2: The Cast of Characters ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The cast of characters</h2>
+        <p>
+          Six roles. Each has one job. Click any card to see what that actor does in our app.
+        </p>
+
+        <div class="arch-diagram">
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">The Crew</h4>
+            <div class="pattern-cards">
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-1);"
+                   data-desc="App.vue is the layout shell. It renders the nav, the main content area, and the footer on every page. One file, loaded once, wraps everything else."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-1);">&#127916;</div>
+                <h4 class="pattern-title">App.vue</h4>
+                <p class="pattern-desc"><strong>The Director</strong><br>The layout shell everything else lives inside.</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-2);"
+                   data-desc="Views are the on-camera actors. There's one view per URL path in our app — HistoryView.vue, PricingView.vue, TenTenTenView.vue, and so on. A view's job is to compose smaller components together for one specific screen."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-2);">&#127916;</div>
+                <h4 class="pattern-title">Views</h4>
+                <p class="pattern-desc"><strong>On-camera actors</strong><br>One <span class="term" data-definition="A view is a component that maps 1-to-1 with a URL. If you navigate to /history, the HistoryView shows. If you go to /tools, the ToolsHomeView shows.">view</span> per URL &mdash; <code>src/views/*.vue</code>.</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-3);"
+                   data-desc="Shared components are reusable UI pieces that show up in many views — ToolCard, ToolHeader, GutCheck, PostDecisionCoach, SaveToHistoryButton. Pure UI, no business logic."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-3);">&#127912;</div>
+                <h4 class="pattern-title">Shared Components</h4>
+                <p class="pattern-desc"><strong>Set pieces</strong><br>Reusable UI blocks &mdash; <code>ToolCard</code>, <code>GutCheck</code>&hellip;</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-4);"
+                   data-desc="Tool-specific components are actors who only appear in one scene. TenTenTenForm and TenTenTenResult only show up in the 10-10-10 view. They live under src/components/{tool}/."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-4);">&#127917;</div>
+                <h4 class="pattern-title">Tool Components</h4>
+                <p class="pattern-desc"><strong>Specialist actors</strong><br>Only on one tool &mdash; <code>TenTenTenForm</code>, <code>PmiItemCard</code>&hellip;</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-5);"
+                   data-desc="Pinia stores are the script supervisors. They remember what's been said so anyone on set can ask them. ToolsStore holds all 8 tool states and the scoring math. HistoryStore tracks saved decisions. AuthStore, SubscriptionStore, and ThemeStore handle who's logged in, free-vs-Pro, and light/dark mode."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-5);">&#128221;</div>
+                <h4 class="pattern-title">Pinia Stores</h4>
+                <p class="pattern-desc"><strong>Script supervisors</strong><br><code>ToolsStore</code>, <code>HistoryStore</code>, <code>AuthStore</code>&hellip;</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-1);"
+                   data-desc="Services are plain JavaScript modules with no UI. They wrap calls to the outside world — aiService.js talks to Claude, stripeService.js handles billing. When a component needs something from outside the studio, it calls a service."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-1);">&#128222;</div>
+                <h4 class="pattern-title">Services</h4>
+                <p class="pattern-desc"><strong>Off-set specialists</strong><br><span class="term" data-definition="A service is a plain JavaScript module (no UI) that wraps external interactions — API calls, payments, third-party libraries.">Services</span> like <code>aiService.js</code>, <code>stripeService.js</code>.</p>
+              </div>
+
+            </div>
+          </div>
+          <div class="arch-description">Click any role above to see what they do in our codebase.</div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 3: A view is a thin wrapper ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">A view is surprisingly thin</h2>
+        <p>
+          A <span class="term" data-definition="A view is a component that maps 1-to-1 with a URL. If you navigate to /history, the HistoryView shows. If you go to /tools, the ToolsHomeView shows.">view</span> doesn&rsquo;t do much on its own. It just arranges other components and decides which one is visible. Here&rsquo;s the <strong>entire</strong> 10-10-10 view, side-by-side with plain English.
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE &mdash; TenTenTenView.vue</span>
+<pre><code><span class="code-line"><span class="code-tag">&lt;template&gt;</span></span>
+<span class="code-line">  <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-value">"min-h-screen py-8 px-4"</span><span class="code-tag">&gt;</span></span>
+<span class="code-line">    <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-value">"max-w-4xl mx-auto"</span><span class="code-tag">&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;ToolHeader</span></span>
+<span class="code-line">        <span class="code-attr">icon</span>=<span class="code-value">"&amp;#9200;"</span></span>
+<span class="code-line">        <span class="code-attr">title</span>=<span class="code-value">"10-10-10 Rule"</span></span>
+<span class="code-line">        <span class="code-attr">description</span>=<span class="code-value">"How will you feel in 10 minutes, 10 months, and 10 years?"</span></span>
+<span class="code-line">        <span class="code-attr">color</span>=<span class="code-value">"#3b82f6"</span></span>
+<span class="code-line">      <span class="code-tag">/&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;GutCheck</span> <span class="code-attr">v-if</span>=<span class="code-value">"!showResult"</span> <span class="code-attr">v-model</span>=<span class="code-value">"gutFeeling"</span> <span class="code-tag">/&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;TenTenTenForm</span> <span class="code-attr">v-if</span>=<span class="code-value">"!showResult"</span> <span class="code-attr">@complete</span>=<span class="code-value">"showResult = true"</span> <span class="code-tag">/&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;TenTenTenResult</span> <span class="code-attr">v-else</span> <span class="code-attr">@back</span>=<span class="code-value">"showResult = false"</span> <span class="code-attr">@reset</span>=<span class="code-value">"reset"</span> <span class="code-tag">/&gt;</span></span>
+<span class="code-line">    <span class="code-tag">&lt;/div&gt;</span></span>
+<span class="code-line">  <span class="code-tag">&lt;/div&gt;</span></span>
+<span class="code-line"><span class="code-tag">&lt;/template&gt;</span></span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Begin the <span class="term" data-definition="The HTML part of a Vue component. It describes what the user sees.">template</span> &mdash; the visible layout.</p>
+              <p class="tl">Outer wrapper: full screen height, some padding.</p>
+              <p class="tl">Inner box: max width, centered horizontally.</p>
+              <p class="tl">Render the <code>ToolHeader</code> set piece with these settings&hellip;</p>
+              <p class="tl">&hellip;use a stopwatch icon&hellip;</p>
+              <p class="tl">&hellip;show the title&hellip;</p>
+              <p class="tl">&hellip;show the description underneath&hellip;</p>
+              <p class="tl">&hellip;tint it blue. These are all <span class="term" data-definition="Data passed down from a parent component to a child component. Read-only from the child's perspective.">props</span> &mdash; data passed down to the child.</p>
+              <p class="tl">Self-closing tag &mdash; ToolHeader has no children.</p>
+              <p class="tl">Show <code>GutCheck</code> <strong>only if</strong> the result isn&rsquo;t showing yet. <span class="term" data-definition="v-model is two-way binding — when either side changes (user types OR data updates), the other follows automatically.">v-model</span> lets GutCheck read AND write <code>gutFeeling</code>.</p>
+              <p class="tl">Show the form <strong>only if</strong> we&rsquo;re not on the result screen. When it <span class="term" data-definition="An event is a message a child component sends up to its parent. The parent listens with @eventName.">emits</span> <code>complete</code>, flip the switch to true.</p>
+              <p class="tl"><span class="term" data-definition="A special attribute starting with v- (like v-if, v-model) that tells Vue to do something — show/hide, bind data, loop over a list.">v-else</span>: show the result screen instead. Back and reset events bubble up to the view.</p>
+              <p class="tl">Close the inner box.</p>
+              <p class="tl">Close the outer wrapper.</p>
+              <p class="tl">End of the template.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128269;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Notice what&rsquo;s missing</strong>
+            <p>No scoring math. No saving. No API calls. A view <em>composes</em>; it doesn&rsquo;t <em>compute</em>. The heavy lifting lives in stores and services.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 4: Group Chat — a decision saves ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Watch the cast talk: &ldquo;Save my decision&rdquo;</h2>
+        <p>
+          When you click <em>Save to History</em>, five actors light up and pass messages. Press <strong>Next Message</strong> to watch it unfold.
+        </p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="button" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-1);">B</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1);">SaveToHistoryButton</span>
+                <p>Hey HistoryStore, the user just clicked Save. Here&rsquo;s the decision data.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="store" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-5);">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5);">HistoryStore</span>
+                <p>Got it. First, I&rsquo;ll drop it into <span class="term" data-definition="A per-browser storage bucket. Persists between sessions but only on that one device.">localStorage</span> so it&rsquo;s instant &mdash; even offline.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="local" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">L</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">localStorage</span>
+                <p>Saved on this device. &#10003;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="store" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-5);">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5);">HistoryStore</span>
+                <p>User&rsquo;s logged in too &mdash; let me sync a copy to the server so it&rsquo;s on their other devices.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="fn" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Netlify Function</span>
+                <p>Received POST /api/decisions. Verifying the <span class="term" data-definition="JSON Web Token. A signed string that proves who you are to the server. Like a tamper-proof hall pass.">JWT</span>&hellip; looks good. Passing to the database.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="fn" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Netlify Function &rarr; Neon</span>
+                <p><code>INSERT INTO decisions&hellip;</code></p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="6" data-sender="neon" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-3);">N</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3);"><span class="term" data-definition="A cloud Postgres database. Stores data that needs to survive the user closing their browser.">Neon</span> Database</span>
+                <p>Row created. &#10003;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="7" data-sender="store" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-5);">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5);">HistoryStore</span>
+                <p>All synced. The UI already updated from localStorage &mdash; the server sync just happened quietly in the background.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" style="display:none;">
+            <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#127919;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The key insight</strong>
+            <p>The button never talks to the database directly. It talks to its <em>script supervisor</em> (the store), who handles local storage, then delegates the remote sync to a <span class="term" data-definition="A tiny piece of server code that runs on-demand when called. No server to manage. Covered in Module 4.">Netlify Function</span>. Each actor only knows its neighbor.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 5: Quiz ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Quick check: where does this belong?</h2>
+        <p>
+          You&rsquo;ve met the cast. Now: given a new task, can you pick the right actor? No wrong answers &mdash; just thinking exercises.
+        </p>
+
+        <div class="quiz-container" id="quiz-module2">
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Generating PDFs is an I/O-ish, reusable capability — exactly what services are for. The result component would just call it. This keeps UI code focused on UI."
+               data-explanation-wrong="Tempting, but the result component should stay focused on showing things. PDF generation is a reusable capability — put it in a service (the &ldquo;off-set specialist&rdquo;) so any tool can call it.">
+            <h3 class="quiz-question">You&rsquo;re asked to add a &ldquo;Download as PDF&rdquo; button. The PDF generation logic itself &mdash; where should it go?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the result component that shows the decision</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In a new service (like <code>pdfService.js</code>)</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the Pinia store</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the router</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Even one-off UI pieces belong as components. Views are for composing — they shouldn&rsquo;t contain large chunks of markup themselves. &ldquo;Reusable&rdquo; isn&rsquo;t the only reason to make a component; clean separation is reason enough."
+               data-explanation-wrong="&ldquo;Reusability&rdquo; isn&rsquo;t the real test. Components are the right home for UI pieces even when they&rsquo;re used only once &mdash; they keep views thin and readable.">
+            <h3 class="quiz-question">A fancy pricing-plan card that only appears on the pricing page &mdash; is it a component or part of the view?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Part of the view &mdash; it&rsquo;s a page-specific chunk of markup</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>A component &mdash; but <em>only</em> because it might be reused later</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>A component, even though it&rsquo;s used once &mdash; views compose, components <em>are</em> the UI pieces</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Put it directly in <code>App.vue</code></span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Scoring logic lives in the store. The view and the form just read the computed result; they don&rsquo;t recompute. Change the math in one place &mdash; every screen that uses it updates automatically."
+               data-explanation-wrong="If scoring lived in the UI, you&rsquo;d change it in several places and some would drift out of sync. Stores centralize derived values so there&rsquo;s one source of truth.">
+            <h3 class="quiz-question">The <code>tententenScore</code> formula changes &mdash; the weights shift from 15/35/50 to 20/30/50. Where do you edit?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The view (<code>TenTenTenView.vue</code>)</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The form component (<code>TenTenTenForm.vue</code>)</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The store getter in <code>ToolsStore.js</code></span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>All three &mdash; keep them in sync manually</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Saving decisions is HistoryStore&rsquo;s job &mdash; it handles both local and server-side persistence. That&rsquo;s always the first place to look when things don&rsquo;t save."
+               data-explanation-wrong="Close, but remember the group chat: the view and ToolsStore handle the current decision. HistoryStore is the one responsible for persisting saved decisions. It&rsquo;s the prime suspect.">
+            <h3 class="quiz-question">A user reports &ldquo;my decision wasn&rsquo;t saved.&rdquo; Which actor is the prime suspect?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The View</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><code>ToolsStore</code></span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><code>HistoryStore</code></span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Vue Router</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128073;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Coming up next</strong>
+            <p>You&rsquo;ve met the cast. Module 3 shows <em>how they talk</em> &mdash; props down, events up, reactive state, and router hops. The grammar of the conversation.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-3" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">How the Pieces Talk</h1>
+      <p class="module-subtitle">Reactivity, props, and events &mdash; the three ways our components stay in sync.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ======================= SCREEN 1: Hook + Metaphor ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">From a Cast to a Band</h2>
+
+        <p>Module 2 introduced the cast &mdash; views, components, <span class="term" data-definition="A Pinia store is a central box for shared data. Any component can read from it or write to it, and everyone stays in sync automatically.">stores</span>, the router. But a cast standing on stage does nothing. This module is about how they actually perform together.</p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#127931;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The Marching Band</strong>
+            <p>The <strong>drum major</strong> (the store) keeps time. When the tempo changes, every musician hears it instantly and adjusts. Trumpets cue trombones. Flutes answer clarinets. Nobody checks a whiteboard &mdash; they <em>react</em> to what they hear.</p>
+          </div>
+        </div>
+
+        <p>When you drag a slider in the app, the score at the bottom updates instantly. No refresh, no waiting. How? Three patterns: <strong>reactivity</strong>, <strong>props</strong>, and <strong>events</strong>. You&rsquo;ll know all three by the end of this screen&rsquo;s siblings.</p>
+      </section>
+
+      <!-- ======================= SCREEN 2: Reactivity ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Pattern 1 &mdash; Reactivity: The Tempo Everyone Hears</h2>
+
+        <p><span class="term" data-definition="Data that Vue watches. When it changes, the UI updates automatically &mdash; no manual refresh needed.">Reactive</span> data is data Vue watches. Change it, and anything depending on it updates on its own. Think of it like a spreadsheet: edit cell A1, and every formula pointing at A1 recalculates without you lifting a finger.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-property">tententenScore</span>: (<span class="code-property">state</span>) =&gt; {</span>
+<span class="code-line">  <span class="code-keyword">return</span> <span class="code-function">Math</span>.<span class="code-function">round</span>(</span>
+<span class="code-line">    (state.tententen.feel10min * <span class="code-number">0.15</span>) +</span>
+<span class="code-line">    (state.tententen.feel10months * <span class="code-number">0.35</span>) +</span>
+<span class="code-line">    (state.tententen.feel10years * <span class="code-number">0.50</span>)</span>
+<span class="code-line">  )</span>
+<span class="code-line">},</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A live score called <code>tententenScore</code>. It reads three slider values from the store.</p>
+              <p class="tl">It&rsquo;s a <span class="term" data-definition="A value derived from other reactive values. It auto-recalculates whenever any input changes &mdash; like a spreadsheet formula.">computed</span> value &mdash; not stored, but calculated on demand from other values.</p>
+              <p class="tl">The moment any of the three sliders changes, this formula re-runs by itself.</p>
+              <p class="tl">Anywhere in the app that shows the score sees the new number immediately.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">&#9888;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The #1 Bug: Data Outside the Reactive System</strong>
+            <p>If you write <code>let total = 0</code> at the top of a component, Vue doesn&rsquo;t watch it. Change it &mdash; the UI shrugs. You need <span class="term" data-definition="Wraps a plain value (string, number, object) to make it reactive. Example: const count = ref(0); read it with count.value.">ref()</span> or a store. When AI writes Vue that &ldquo;looks right&rdquo; but nothing updates, this is the cause 90% of the time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 3: Props & Events ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Pattern 2 &amp; 3 &mdash; Props Down, Events Up</h2>
+
+        <p>Components talk in two directions. Parents hand data <em>down</em> to children as <strong>props</strong>. Children shout messages <em>up</em> to parents as <strong>events</strong>. It&rsquo;s a strict one-way street, and the strictness is what keeps the app sane.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">&darr;</div>
+            <h4 class="pattern-title">Parent &rarr; Child (props)</h4>
+            <p class="pattern-desc"><strong>What:</strong> A parent hands read-only data to a child.</p>
+            <p class="pattern-desc"><strong>Example:</strong> <code>&lt;ToolHeader title=&quot;10-10-10 Rule&quot; /&gt;</code></p>
+            <p class="pattern-desc"><strong>Use when:</strong> The child just needs to display or use the value.</p>
+            <p class="pattern-desc"><strong>Don&rsquo;t:</strong> Try to change a prop from inside the child &mdash; Vue will yell.</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">&uarr;</div>
+            <h4 class="pattern-title">Child &rarr; Parent (events)</h4>
+            <p class="pattern-desc"><strong>What:</strong> A child fires a named signal the parent listens for.</p>
+            <p class="pattern-desc"><strong>Example:</strong> <code>emit(&#39;update:modelValue&#39;, 80)</code></p>
+            <p class="pattern-desc"><strong>Use when:</strong> A user did something the parent needs to know about.</p>
+            <p class="pattern-desc"><strong>Don&rsquo;t:</strong> Reach up and mutate the parent directly &mdash; emit instead.</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">&harr;</div>
+            <h4 class="pattern-title">Anywhere &harr; Anywhere (store)</h4>
+            <p class="pattern-desc"><strong>What:</strong> A shared box any component can read or write.</p>
+            <p class="pattern-desc"><strong>Example:</strong> <code>toolsStore.tententen.feel10min = 7</code></p>
+            <p class="pattern-desc"><strong>Use when:</strong> Two distant components need the same data.</p>
+            <p class="pattern-desc"><strong>Don&rsquo;t:</strong> Use a store for data only one component cares about.</p>
+          </div>
+        </div>
+
+        <h3 class="screen-heading" style="margin-top: var(--space-10); font-size: var(--text-xl)">Real code: a child that talks back</h3>
+
+        <p>Here&rsquo;s <code>GutCheck.vue</code> &mdash; the little &ldquo;Lean Yes / Lean No / No Idea&rdquo; picker. It receives a value and reports changes back, but never edits the value itself.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-keyword">const</span> <span class="code-property">props</span> = <span class="code-function">defineProps</span>({</span>
+<span class="code-line">  <span class="code-property">modelValue</span>: { <span class="code-property">type</span>: <span class="code-function">String</span>, <span class="code-property">default</span>: <span class="code-string">&#39;&#39;</span> }</span>
+<span class="code-line">})</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">const</span> <span class="code-property">emit</span> = <span class="code-function">defineEmits</span>([<span class="code-string">&#39;update:modelValue&#39;</span>])</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">const</span> <span class="code-property">options</span> = [</span>
+<span class="code-line">  { <span class="code-property">value</span>: <span class="code-string">&#39;yes&#39;</span>,    <span class="code-property">label</span>: <span class="code-string">&#39;Lean Yes \u2713&#39;</span> },</span>
+<span class="code-line">  { <span class="code-property">value</span>: <span class="code-string">&#39;no&#39;</span>,     <span class="code-property">label</span>: <span class="code-string">&#39;Lean No \u2717&#39;</span> },</span>
+<span class="code-line">  { <span class="code-property">value</span>: <span class="code-string">&#39;unsure&#39;</span>, <span class="code-property">label</span>: <span class="code-string">&#39;No Idea ?&#39;</span> }</span>
+<span class="code-line">]</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">function</span> <span class="code-function">select</span>(<span class="code-property">value</span>) {</span>
+<span class="code-line">  <span class="code-function">emit</span>(<span class="code-string">&#39;update:modelValue&#39;</span>, props.modelValue === value ? <span class="code-string">&#39;&#39;</span> : value)</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl"><strong>&ldquo;The parent gives me a value called <code>modelValue</code>.&rdquo;</strong> I can read it but I&rsquo;m not allowed to change it directly.</p>
+              <p class="tl"><strong>&ldquo;I promise I&rsquo;ll send an event called <code>update:modelValue</code>&rdquo;</strong> whenever the value should change. Think of it as filing paperwork.</p>
+              <p class="tl">Three button options the user can pick from. Just a plain list.</p>
+              <p class="tl"><strong>&ldquo;Hey parent &mdash; please update the value to this.&rdquo;</strong> I <span class="term" data-definition="Send a custom event up to the parent. The parent listens with @eventName. Children can't change parent data directly &mdash; they ask politely via emit.">emit</span> the new choice (or empty if the user clicked the same one twice).</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="screen-heading" style="margin-top: var(--space-10); font-size: var(--text-xl)">v-model: the two patterns, combined</h3>
+
+        <p>Props down + events up is such a common combo that Vue has a shortcut: <span class="term" data-definition="A shortcut that combines 'prop down' with 'event up' into one line, creating two-way binding. Under the hood it's still just props and events &mdash; no magic.">v-model</span>. One line, two-way binding.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-tag">&lt;GutCheck</span> <span class="code-attr">v-if</span>=<span class="code-value">&quot;!showResult&quot;</span> <span class="code-attr">v-model</span>=<span class="code-value">&quot;gutFeeling&quot;</span> <span class="code-tag">/&gt;</span></span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Show the <code>GutCheck</code> picker, but only if the result isn&rsquo;t showing yet.</p>
+              <p class="tl"><code>v-model=&quot;gutFeeling&quot;</code> means: &ldquo;pass <code>gutFeeling</code> down as a prop, AND listen for the emit to update it.&rdquo;</p>
+              <p class="tl">Two-way binding in one attribute. No manual wiring. This is the syntactic sugar that makes sliders feel magical.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 4: Data Flow Animation ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Watch It Happen: Dragging a Slider</h2>
+
+        <p>Here&rsquo;s the full round trip when a user drags a slider in the 10-10-10 tool. Click <em>Next Step</em> to march through it.</p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"User drags slider to 80. The Slider component captures the new value."},
+          {"highlight":"flow-actor-1","label":"Slider emits update:modelValue with 80 \u2192 heading up to the parent.","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-2","label":"Parent View assigns the new value into store.tententen.feel10months.","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"Store sees a dependency change. The tententenScore getter recalculates. Sparkles."},
+          {"highlight":"flow-actor-3","label":"Result component reads the new score from the store.","packet":true,"from":"actor-3","to":"actor-4"},
+          {"highlight":"flow-actor-4","label":"Result re-renders. The number on screen updates. No refresh."}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon" style="background: var(--color-actor-1)">&#127903;</div>
+              <span>Slider<br><small>child component</small></span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon" style="background: var(--color-actor-2)">&#128083;</div>
+              <span>Parent View<br><small>TenTenTenView.vue</small></span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon" style="background: var(--color-actor-4)">&#127897;</div>
+              <span>ToolsStore<br><small>drum major</small></span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon" style="background: var(--color-actor-5)">&#128202;</div>
+              <span>Result<br><small>displays score</small></span>
+            </div>
+          </div>
+
+          <div class="flow-packet" id="flow-packet"></div>
+
+          <div class="flow-step-label" id="flow-label">Click &ldquo;Next Step&rdquo; to drag a slider.</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why this matters for AI coding</strong>
+            <p>This app is <span class="term" data-definition="You describe WHAT the UI should look like based on the data. The framework figures out HOW to update the screen. Opposite of imperative (telling the browser step-by-step).">declarative</span>. Nobody tells the Result to refresh &mdash; it just does when data changes. When an AI tool writes imperative DOM updates (manually setting text), it&rsquo;s fighting the framework. Push back.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 5: Quiz ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check Your Instinct</h2>
+
+        <p>Four scenarios. Pick the one that fits what you just learned.</p>
+
+        <div class="quiz-container" id="quiz-module3">
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Plain variables aren't watched by Vue. You need ref() or a store to make data reactive. This is the single most common 'why isn't the UI updating?' bug."
+               data-explanation-wrong="Not quite. A plain `let` variable isn't reactive &mdash; Vue doesn't know it changed. You'd need ref(0) or a store for the UI to update. Plain JS variables update, but the screen never hears about it.">
+            <h3 class="quiz-question">You add <code>let totalClicks = 0</code> at the top of a <code>&lt;script setup&gt;</code>. You increment it on every click and display <code>{{ totalClicks }}</code> in the template. Does the UI update?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes &mdash; Vue watches every variable in <code>&lt;script setup&gt;</code>.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>No &mdash; plain variables aren&rsquo;t reactive. You need <code>ref(0)</code> or store state.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes, but only after a page refresh.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Only in production builds.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Props down, events up. The child never mutates the parent directly &mdash; it politely emits a signal and lets the parent decide what to do."
+               data-explanation-wrong="Think about direction. Data flows down as props (read-only), and signals flow up as events. A child shouldn't reach up into its parent or mutate what it was given.">
+            <h3 class="quiz-question">A child component needs to tell its parent &ldquo;a form was submitted.&rdquo; Which pattern?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Mutate a prop directly.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Import the parent component and call its function.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Emit an event the parent listens for.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Save the submission to <code>localStorage</code> and hope the parent checks.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Right. For simple cases a shared parent works, but a Pinia store is cleaner once things grow &mdash; and it scales without turning the parent into a middleman."
+               data-explanation-wrong="Think about who owns the data. A global window variable works in demos but breaks reactivity. Parent-passing works but gets messy fast. Stores exist precisely for cross-component sharing.">
+            <h3 class="quiz-question">You have two sibling components that need to share data. What&rsquo;s best?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Pass it through their common parent via props/events.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Always use a Pinia store, no matter the size.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Both work, but a store is cleaner for anything non-trivial.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Use <code>window.globalData</code>.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Classic reactivity miss. The click handler runs, the assignment happens, but Vue isn't watching that object &mdash; so the UI never hears the news. Wrap it in ref() or move it into a store."
+               data-explanation-wrong="The symptom &mdash; code runs, data changes, UI stays stale &mdash; is the fingerprint of a reactivity bug. Typos and missing semicolons would break the handler entirely. The data is being changed; the screen just isn't being told.">
+            <h3 class="quiz-question">A user reports: &ldquo;I click Login and nothing happens.&rdquo; You check &mdash; the click handler <em>does</em> run and sets <code>user.email = &#39;foo@bar.com&#39;</code>. But the UI still says &ldquo;Guest.&rdquo; Most likely cause?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Typo in the email address.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><code>user</code> isn&rsquo;t reactive &mdash; it&rsquo;s a plain object, not <code>ref()</code> or in a store.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The server rejected the login silently.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Missing semicolon at the end of the handler.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+
+        <p style="margin-top: var(--space-10); color: var(--color-text-secondary)">Next up: the band plays great indoors &mdash; but what happens when the music has to travel to a server, a database, or Stripe? That&rsquo;s Module 4.</p>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-4" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">The Outside World</h1>
+      <p class="module-subtitle">How the app talks to Claude AI, a database, and Stripe &mdash; and what happens when the radio crackles.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ======================= SCREEN 1: Hook + Metaphor ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Lighthouse Keeper&rsquo;s Radio</h2>
+
+        <p>Module 3 showed the pieces talking to each other <em>inside your browser</em> &mdash; reactivity, props, events. All local, all instant. This module steps outside.</p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128225;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The Keeper and the Radio</strong>
+            <p>Most of a lighthouse keeper&rsquo;s work is <em>inside</em> the lighthouse &mdash; polishing the lens, trimming the wicks, logging the weather. But when a ship calls on the radio, he talks to the outside. Each call drains battery, can fail from static, and takes real time. The lighthouse works fine without the radio &mdash; but it&rsquo;s <em>much</em> more useful when the radio works.</p>
+          </div>
+        </div>
+
+        <p>The app talks to three outside services: <span class="term" data-definition="A large language model made by Anthropic. The AI used in this app to write decision advice.">Claude</span> for smart advice, a <span class="term" data-definition="A popular open-source database. Neon is a cloud-hosted Postgres service that this app uses to store decisions.">Postgres</span> database to remember your decisions across devices, and <span class="term" data-definition="A payment processor. Handles credit cards, subscriptions, and refunds so you don't have to build any of that yourself.">Stripe</span> to charge money. Each call has a cost. Each one can fail.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why should I care?</strong>
+            <p>When AI writes code that calls an external service, ask three questions: <strong>What happens if it fails? What if it&rsquo;s slow? Does this cost money per call?</strong> Those three questions catch 80% of production bugs.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 2: Architecture diagram ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Two Worlds, One App</h2>
+
+        <p>Everything on the left runs on your device &mdash; free, instant, offline-capable. Everything on the right runs somewhere else &mdash; slower, sometimes costly, sometimes unreachable.</p>
+
+        <div class="arch-diagram">
+          <div class="arch-zone arch-zone-browser">
+            <h4 class="arch-zone-label">In Your Browser</h4>
+            <div class="arch-component" data-desc="Vue components render the UI: sliders, buttons, result cards. All the 'what you see' lives here." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128187;</div>
+              <span>Vue Components</span>
+            </div>
+            <div class="arch-component" data-desc="Pinia stores hold the app's shared state: your slider values, computed scores, your history list." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128230;</div>
+              <span>Pinia Stores</span>
+            </div>
+            <div class="arch-component" data-desc="localStorage: a built-in browser key-value box. Persists across page refreshes. Your decisions survive even when you're offline." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128190;</div>
+              <span>localStorage</span>
+            </div>
+            <div class="arch-component" data-desc="The fetch() function: the browser's built-in tool for making HTTP requests to the outside world." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128225;</div>
+              <span>fetch() calls</span>
+            </div>
+          </div>
+
+          <div class="arch-zone arch-zone-external">
+            <h4 class="arch-zone-label">Outside World</h4>
+            <div class="arch-component" data-desc="Netlify Functions: small server programs that run on-demand when the frontend calls /api/something. Cost: pennies per thousand calls. Purpose: the safe middleman between your browser and paid services." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#9889;</div>
+              <span>Netlify Functions</span>
+            </div>
+            <div class="arch-component" data-desc="Claude API (Anthropic): sends decision data in, gets AI advice out. Cost: fractions of a cent per analysis (more for Sonnet, less for Haiku)." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#129302;</div>
+              <span>Claude API</span>
+            </div>
+            <div class="arch-component" data-desc="Neon Postgres: a cloud database that remembers your decisions across devices. Cost: free tier covers small apps; scales to pennies per query." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128451;</div>
+              <span>Neon Postgres</span>
+            </div>
+            <div class="arch-component" data-desc="Stripe: handles checkout, subscriptions, and billing. Cost: ~2.9% + 30c per successful charge &mdash; nothing if no one pays." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128179;</div>
+              <span>Stripe</span>
+            </div>
+          </div>
+
+          <div class="arch-description" id="arch-desc">Click any box to see what it does &mdash; and what it costs.</div>
+        </div>
+
+        <p>Notice the shape: the browser never talks directly to Claude, Neon, or Stripe. Every outside call goes through a <span class="term" data-definition="Code that runs on someone else's server only when called. You don't manage the server, don't pay when idle, and it scales automatically. Netlify Functions are one flavor.">serverless</span> function first. That&rsquo;s where the secrets live.</p>
+      </section>
+
+      <!-- ======================= SCREEN 3: Offline-first translation ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Offline-First: Save Locally, Sync Later</h2>
+
+        <p>When you save a decision, the app does something clever: it saves it <em>twice</em>. Once to your browser instantly, once to the server in the background. If the server is unreachable, you never notice.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-comment">// Always save locally</span></span>
+<span class="code-line"><span class="code-keyword">this</span>.decisions.<span class="code-function">push</span>(newDecision)</span>
+<span class="code-line"><span class="code-keyword">this</span>.<span class="code-function">saveToLocalStorage</span>()</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">// If authenticated, also save to server</span></span>
+<span class="code-line"><span class="code-keyword">if</span> (authStore.isAuthenticated) {</span>
+<span class="code-line">  <span class="code-keyword">try</span> {</span>
+<span class="code-line">    <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<span class="code-string">`${API_BASE}/api/decisions`</span>, {</span>
+<span class="code-line">      <span class="code-property">method</span>: <span class="code-string">'POST'</span>,</span>
+<span class="code-line">      <span class="code-property">headers</span>: <span class="code-function">getHeaders</span>(),</span>
+<span class="code-line">      <span class="code-property">body</span>: <span class="code-function">JSON</span>.<span class="code-function">stringify</span>({</span>
+<span class="code-line">        <span class="code-property">tool</span>: decision.tool,</span>
+<span class="code-line">        <span class="code-property">title</span>: decision.decision || decision.title || <span class="code-string">'Untitled Decision'</span>,</span>
+<span class="code-line">        <span class="code-property">description</span>: decision.recommendation || <span class="code-keyword">null</span>,</span>
+<span class="code-line">        <span class="code-property">data</span>: decision.data || {},</span>
+<span class="code-line">        <span class="code-property">score</span>: decision.score || <span class="code-keyword">null</span>,</span>
+<span class="code-line">        <span class="code-property">adviceType</span>: decision.recommendationType || <span class="code-keyword">null</span></span>
+<span class="code-line">      })</span>
+<span class="code-line">    })</span>
+<span class="code-line">  } <span class="code-keyword">catch</span> (err) {</span>
+<span class="code-line">    <span class="code-function">console</span>.<span class="code-function">error</span>(<span class="code-string">'Failed to sync decision to server:'</span>, err)</span>
+<span class="code-line">  }</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Add the new decision to the in-memory list <em>right now</em>. No waiting.</p>
+              <p class="tl">Write it to the browser&rsquo;s <span class="term" data-definition="A built-in browser key-value box that survives page refreshes and reboots. Free, instant, synchronous &mdash; but only on this device.">localStorage</span> so it survives a refresh.</p>
+              <p class="tl">Only bother with the server if the user is logged in.</p>
+              <p class="tl">Try to send the decision to our API <span class="term" data-definition="A specific URL an API exposes. /api/decisions is one endpoint; /api/analyze-decision is another.">endpoint</span> using <span class="term" data-definition="Built-in browser function to make HTTP requests. The modern replacement for XMLHttpRequest.">fetch</span>.</p>
+              <p class="tl"><span class="term" data-definition="A verb saying what you want to do: GET (read), POST (create), PATCH (update), DELETE (remove).">POST</span> means &ldquo;create a new thing,&rdquo; not &ldquo;just read something.&rdquo;</p>
+              <p class="tl">Attach <span class="term" data-definition="Metadata attached to a request: content type, authentication tokens, etc. Like the envelope of a letter.">headers</span> that prove who we are (includes the auth token).</p>
+              <p class="tl">Bundle up the decision as <span class="term" data-definition="JavaScript Object Notation: a plain-text format for data. Turns objects into strings the server can parse.">JSON</span> and send it along.</p>
+              <p class="tl">If the server call fails &mdash; offline, slow, 500 error &mdash; don&rsquo;t crash. Just log it.</p>
+              <p class="tl">The local save already worked. The user sees success either way.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <div class="callout-icon">&#10024;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The aha moment</strong>
+            <p>Saving <em>never</em> fails from the user&rsquo;s perspective, because the local save is synchronous and instant. The server sync is a bonus &mdash; a gift to future-you on a different device. If it fails, you lose cross-device sync on that one entry, not the decision itself.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 4: Group chat ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Tracing a Call to Claude</h2>
+
+        <p>You click &ldquo;Get AI Advice.&rdquo; What happens? Five actors, eight messages, one round-trip to an AI. Step through it.</p>
+
+        <div class="chat-window" id="chat-module4">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">U</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">User</span>
+                <p>*clicks &ldquo;Get AI Advice&rdquo; on the result screen*</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="frontend" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Frontend</span>
+                <p>POST /api/analyze-decision &mdash; here&rsquo;s the decision data plus the user&rsquo;s auth token.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="function" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">N</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Netlify Function</span>
+                <p>Let me verify the <span class="term" data-definition="JSON Web Token. A signed string proving you're logged in. Sent in the Authorization: Bearer ... header. If the signature doesn't match, we reject the request.">JWT</span>&hellip; signature checks out. Good.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="db" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">Netlify &rarr; Neon DB</span>
+                <p>Hey Neon &mdash; has user #8421 used their free analysis this month?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="db" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">Neon DB</span>
+                <p>Nope &mdash; 0 used of 1 allowed. Go ahead.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="claude" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">C</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Netlify &rarr; Claude</span>
+                <p>Hey Claude, here&rsquo;s a decision. Give me: insight, blind spots, next step. Max 400 <span class="term" data-definition="The AI's unit of text. Roughly 1 token = 4 characters. You pay per token in and per token out.">tokens</span>. Use <span class="term" data-definition="The small, cheap, fast size of Claude. Free users get Haiku; Pro users get Sonnet, which is smarter but costs more per token.">Haiku</span> (free tier).</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="6" data-sender="claude" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">C</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Claude</span>
+                <p>*thinks for 1.2 seconds, returns three paragraphs of advice*</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="7" data-sender="db" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">Netlify &rarr; Neon DB</span>
+                <p>Log this usage: user #8421, month 2026-04, +1.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="8" data-sender="function" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">N</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Netlify Function</span>
+                <p>Frontend &mdash; here&rsquo;s the analysis JSON. 200 OK.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="9" data-sender="frontend" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Frontend</span>
+                <p>Rendering it in the AiAdvicePanel component. Done.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" id="chat-typing" style="display:none">
+            <div class="chat-avatar" id="typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128274;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why the middleman?</strong>
+            <p>The browser never calls Claude directly. If it did, our <span class="term" data-definition="A secret value (like an API key or DB password) set on the server, not in your code. Accessed via Netlify.env.get(). Keeping keys out of the browser is rule #1 of API security.">environment variable</span> API key would leak to every visitor. The Netlify Function holds the key privately and enforces the <span class="term" data-definition="A cap on how often you can call an API. Prevents abuse and runaway bills. Free users here get 1 analysis/month.">rate limit</span> before spending money.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 5: Quiz ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check Your Instinct</h2>
+
+        <p>Four debugging and architecture scenarios. Pick the answer that matches how this world actually works.</p>
+
+        <div class="quiz-container" id="quiz-module4">
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly. CSS runs in the browser &mdash; it has nothing to do with outside calls. Slowness in an AI-backed endpoint comes from external suspects: the model itself, the DB call that precedes it, or the network between Netlify and Anthropic."
+               data-explanation-wrong="Think about where each thing runs. Claude slowness, database slowness, and network latency are all outside-world issues &mdash; they affect response time. CSS never leaves the browser, so it can't slow down a server response.">
+            <h3 class="quiz-question">Your serverless function calls Claude AI. A user reports it&rsquo;s suddenly slow (5 seconds instead of 1). What&rsquo;s <em>NOT</em> a likely cause?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Claude&rsquo;s servers are busy today.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The database query that runs before Claude is slow.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Your frontend CSS got bigger.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Network latency between Netlify and Anthropic.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Right. The natural Pro features are the ones with real marginal cost per use &mdash; AI tokens, PDF compute, bandwidth. 'PDF export' isn't just a button; server-side generation uses memory and libraries that cost money at scale."
+               data-explanation-wrong="Think about cost. Pro tiers exist to cover the cost of features that burn real resources per use. 'Because Pro users deserve more' isn't a principle &mdash; it's arbitrary. 'It's just a button' misses that the PDF itself is generated server-side.">
+            <h3 class="quiz-question">You want to add &ldquo;export to PDF&rdquo; as a paid feature. Which reasoning matches how this app tiers features?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>It should be free &mdash; it&rsquo;s just a button.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Pro, because PDF generation uses server compute and libraries &mdash; real costs per use.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Pro, because Pro users deserve more.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Doesn&rsquo;t matter &mdash; either tier is fine.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Secrets in code get pushed to GitHub, get leaked in logs, and can't be rotated without a redeploy. Environment variables live on the server and can be swapped without touching code."
+               data-explanation-wrong="Think about what happens when that code gets pushed to GitHub. A hardcoded DATABASE_URL = anyone with repo access owns your database. Environment variables keep the secret out of source control entirely.">
+            <h3 class="quiz-question">A Netlify Function reads <code>Netlify.env.get('DATABASE_URL')</code>. Why not just put the URL directly in the code?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Saves typing.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Environment variables are private &mdash; the URL stays out of git history and can be rotated without redeploying code.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Netlify doesn&rsquo;t allow hardcoded strings.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>TypeScript requires it.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="The classic 'paid-but-unprovisioned' bug. Stripe charges the card, fires a webhook to your server, and your server updates the DB. If the webhook fails silently, the money is real but the access flag is never flipped."
+               data-explanation-wrong="The pricing page, frontend, and router never know about a completed payment &mdash; they can't. Stripe tells your server via a webhook. If that webhook handler has a bug or the endpoint is down, the DB never gets the 'upgrade' signal.">
+            <h3 class="quiz-question">A user reports: &ldquo;I paid but I&rsquo;m still on the free plan.&rdquo; Where do you look first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The pricing page.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Stripe <span class="term" data-definition="A URL on your server that Stripe (or any third party) calls when something happens &mdash; e.g., 'a payment just completed.' If the webhook fails, your DB never learns about the event.">webhook</span> handler &mdash; Stripe tells your server when a payment completes, and if that fails, your DB never updates.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The frontend.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Vue Router.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128300;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Next up: Bugs and Battles</strong>
+            <p>You&rsquo;ve seen the app from the inside, between the pieces, and out to the edges of the world. Module 5 zooms into the messy reality &mdash; real git-history stories from this project: the nav overlap saga, the dark mode audit, the four-attempt fix.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>
+<section class="module" id="module-5" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Bugs and Battles</h1>
+      <p class="module-subtitle">Four failed attempts, one invisible rule &mdash; and the debugging habits that break AI bug loops.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ======================= SCREEN 1: Transition + Casebook hook ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Open the Casebook</h2>
+
+        <p>Module 4 showed the outside world &mdash; <span class="term" data-definition="Anthropic's API that powers the AI advice panel in the app. The frontend calls it through a serverless function to keep the API key secret.">Claude</span>, <span class="term" data-definition="A serverless Postgres database. Stores premium user subscription state.">Neon</span>, <span class="term" data-definition="The payments service that handles checkout, billing portal, and subscription webhooks.">Stripe</span> &mdash; talking to our app. This final module turns the lens inward: the bugs that actually happened in this codebase, and what they teach.</p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128269;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The Detective&rsquo;s Casebook</strong>
+            <p>Every bug is a case file. There&rsquo;s the <strong>symptom</strong>, the <strong>prime suspects</strong>, the <strong>interrogation</strong>, and the <strong>confession</strong>. Great detectives don&rsquo;t guess &mdash; they follow evidence. Same rules apply here.</p>
+          </div>
+        </div>
+
+        <p>The #1 failure mode in AI-assisted coding is the <span class="term" data-definition="When AI (or you) keeps trying related fixes that don't work, because you haven't identified the real cause. Breaking the loop requires reframing the problem.">bug loop</span>: AI suggests fix A, it doesn&rsquo;t work, AI suggests B (related to A), still broken, repeat. This module is a field manual for breaking the loop.</p>
+      </section>
+
+      <!-- ======================= SCREEN 2: The Nav Overlap Saga — Case File ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Case File #1 &mdash; The Nav That Wouldn&rsquo;t Stay On Top</h2>
+
+        <p><strong>The symptom:</strong> when you navigated between pages, the page content slid <em>over</em> the top navigation bar for a fraction of a second. Ugly, disorienting, and &mdash; as you&rsquo;re about to see &mdash; surprisingly stubborn.</p>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">&#128196;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Four attempts. Same bug every time.</strong>
+            <p>Here&rsquo;s the real <span class="term" data-definition="The history of commits. Reading it tells you the story of how the codebase evolved and what's been tried.">git log</span> from this project. Each row is a <span class="term" data-definition="A saved snapshot of your code at one moment, with a message explaining the change.">commit</span> that tried &mdash; and failed &mdash; to fix the same bug.</p>
+          </div>
+        </div>
+
+        <div class="case-file" style="background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-6); box-shadow: var(--shadow-md); margin: var(--space-8) 0; overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: var(--text-sm);">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--color-border);">
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">#</th>
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">Commit</th>
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">What was tried</th>
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">1</td>
+                <td style="padding: var(--space-3);"><code>df3e862</code></td>
+                <td style="padding: var(--space-3);">Make nav background opaque with <code>!important</code></td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">2</td>
+                <td style="padding: var(--space-3);"><code>ff98905</code></td>
+                <td style="padding: var(--space-3);">Add <code>isolate</code> to <code>&lt;main&gt;</code> (force new <span class="term" data-definition="A group of elements that share a single front-to-back ordering axis. CSS has rules for what creates one: transform, opacity < 1, position: fixed, and more. z-index only works within a context, not across contexts.">stacking context</span>)</td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">3</td>
+                <td style="padding: var(--space-3);"><em>unnumbered</em></td>
+                <td style="padding: var(--space-3);">Set <code>z-0</code> on <code>&lt;main&gt;</code></td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">4</td>
+                <td style="padding: var(--space-3);"><code>7b69ec5</code></td>
+                <td style="padding: var(--space-3);">Set <code>-z-10</code> on <code>&lt;main&gt;</code></td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped (user very frustrated)</td>
+              </tr>
+              <tr style="background: var(--color-success-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">5</td>
+                <td style="padding: var(--space-3);"><code>eec1314</code></td>
+                <td style="padding: var(--space-3);"><strong>Change nav from <code>sticky</code> to <code>fixed</code>; replace transform-based page transitions with opacity fades</strong></td>
+                <td style="padding: var(--space-3); color: var(--color-success); font-weight: 600;">&#10003; FIXED</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Attempts 1&ndash;4 all poked at <span class="term" data-definition="The CSS property that controls front-to-back ordering of elements. But only within the same stacking context &mdash; this is the subtle part that catches people out.">z-index</span> or layering tricks. All four failed. Why?</p>
+      </section>
+
+      <!-- ======================= SCREEN 3: The Confession — the invisible rule ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Confession</h2>
+
+        <p>CSS has an invisible rule that AI almost never volunteers: <strong><code>transform</code> creates a new stacking context.</strong> Our old page transitions used <code>transform: translateX()</code> for the slide-in effect. That transform built a brand-new layer &mdash; <em>and z-index comparisons only work within the same layer</em>.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why no z-index tweak could ever win</strong>
+            <p>The nav was <span class="term" data-definition="A CSS position value. The element stays in document flow and sticks to a threshold when scrolled past. Still &ldquo;inside&rdquo; the page, unlike fixed.">sticky</span> &mdash; still in <span class="term" data-definition="The normal top-to-bottom arrangement of elements on a page. position: fixed and absolute take elements OUT of the flow.">document flow</span>, living in the page&rsquo;s main stacking context. The transformed content had its <em>own</em> context, painted on top. No amount of setting z-index inside one context can beat an element in a different, higher context.</p>
+          </div>
+        </div>
+
+        <p><strong>Three signals should have shouted &ldquo;this isn&rsquo;t a z-index bug&rdquo;:</strong></p>
+
+        <div class="pattern-cards" style="margin: var(--space-6) 0;">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">1</div>
+            <h4 class="pattern-title">Same bug, every tweak</h4>
+            <p class="pattern-desc">Four z-index values produced the <em>identical</em> symptom. If the variable actually mattered, the behaviour would have shifted.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">2</div>
+            <h4 class="pattern-title">Only during transitions</h4>
+            <p class="pattern-desc">Static pages were fine. The bug only appeared while routes changed &mdash; pointing at the transition itself.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">3</div>
+            <h4 class="pattern-title">Transform is on the scene</h4>
+            <p class="pattern-desc">The transitions used <code>transform</code>. CSS has a well-known rule: transform creates a stacking context. Google it &mdash; it&rsquo;s the first result.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 4: The Fix — Code Translation ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Fix That Actually Worked</h2>
+
+        <p>Two small edits, both from commit <code>eec1314</code>. The nav moves <em>out of the document flow entirely</em>, and the page transitions drop transforms and fade with opacity instead.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-comment">&lt;!-- src/App.vue --&gt;</span>
+<span class="code-line"><span class="code-tag">&lt;nav</span> <span class="code-attr">class</span>=<span class="code-value">&quot;fixed top-0 left-0 right-0 z-50 ... nav-bar&quot;</span></span>
+<span class="code-line">     <span class="code-attr">aria-label</span>=<span class="code-value">&quot;Main navigation&quot;</span><span class="code-tag">&gt;</span></span>
+<span class="code-line">  ...</span>
+<span class="code-line"><span class="code-tag">&lt;/nav&gt;</span></span>
+
+<span class="code-line"><span class="code-tag">&lt;main</span> <span class="code-attr">id</span>=<span class="code-value">&quot;main-content&quot;</span> <span class="code-attr">class</span>=<span class="code-value">&quot;pt-16 sm:pt-20&quot;</span> <span class="code-attr">tabindex</span>=<span class="code-value">&quot;-1&quot;</span><span class="code-tag">&gt;</span></span>
+
+<span class="code-comment">/* src/style.css */</span>
+<span class="code-line">.page-enter-active,</span>
+<span class="code-line">.page-leave-active {</span>
+<span class="code-line">  <span class="code-property">transition</span>: <span class="code-function">opacity</span> <span class="code-number">0.25s</span> ease;</span>
+<span class="code-line">}</span>
+<span class="code-line">.page-enter-from { <span class="code-property">opacity</span>: <span class="code-number">0</span>; }</span>
+<span class="code-line">.page-leave-to { <span class="code-property">opacity</span>: <span class="code-number">0</span>; }</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl"><code>fixed top-0 left-0 right-0</code> &mdash; the nav is yanked <em>out</em> of the page&rsquo;s document flow and pinned to the viewport. It no longer cares what happens inside <code>&lt;main&gt;</code>.</p>
+              <p class="tl"><code>pt-16 sm:pt-20</code> &mdash; because the nav is out of flow, content would slip under it. So we add top padding to <code>&lt;main&gt;</code> to make room.</p>
+              <p class="tl">The transitions now fade with <code>opacity</code> only. No <code>transform</code>. No transform = no new <span class="term" data-definition="A group of elements that share a single front-to-back z-axis. Created by transform, opacity < 1, position: fixed, and more. z-index only works inside one context.">stacking context</span>. No overlap.</p>
+              <p class="tl">The whole class of bug is now structurally impossible &mdash; not just masked.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#127919;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Name the invisible rule, and the fix appears</strong>
+            <p>Attempts 1&ndash;4 treated a <em>layering</em> problem as a <em>numbering</em> problem. Once you see &ldquo;transform creates stacking contexts&rdquo;, every z-index fix looks absurd. The real move is to stop playing that game entirely.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 5: Group Chat — senior walks junior through it ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Senior &amp; Junior, Debugging In Real Time</h2>
+
+        <p>What does &ldquo;naming the invisible rule&rdquo; actually sound like? Here&rsquo;s a seasoned dev walking a junior through the same nav overlap &mdash; one question at a time.</p>
+
+        <div class="chat-window" id="chat-module5">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>I tried <code>z-index: 9999</code> and it still overlaps!</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>How does the overlapping content get its z-index?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>Wait&hellip; it doesn&rsquo;t have one.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>Right. So what&rsquo;s lifting it above your nav?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>&hellip;<code>transform: translateX(20px)</code> on the page transition?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>Bingo. <code>transform</code> creates a stacking context. Your <span class="term" data-definition="sticky stays inside document flow and sticks at a threshold when scrolled past. fixed is removed from document flow entirely and pinned to the viewport.">sticky</span> nav is stuck in the document&rsquo;s main stacking context; the transformed content has its own. z-index comparisons only work <em>within</em> the same context.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="6" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>So the fix is&hellip;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="7" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>Either remove the transform, or take the nav out of the <span class="term" data-definition="The normal top-to-bottom arrangement of elements on a page. position: fixed and position: absolute take elements OUT of the flow.">document flow</span> entirely with <code>position: fixed</code>. Your pick.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" id="chat-module5-typing" style="display:none;">
+            <div class="chat-avatar" id="chat-module5-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128172;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The senior&rsquo;s trick</strong>
+            <p>Notice what the senior never says: &ldquo;try this value&rdquo;. They just keep asking &ldquo;why should that even work?&rdquo; until the junior names the real rule. That&rsquo;s the move you want to steal when you&rsquo;re prompting AI.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 6: Pattern Cards — breaking the AI loop ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How to Break an AI Bug Loop</h2>
+
+        <p>When AI is suggesting cousins of fixes that didn&rsquo;t work, stop typing &ldquo;try again&rdquo;. Try one of these moves instead.</p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">&#128260;</div>
+            <h4 class="pattern-title">Reframe the question</h4>
+            <p class="pattern-desc">Stop asking &ldquo;how do I fix X?&rdquo; Start asking &ldquo;<em>what class of problem is this?</em>&rdquo; Nav overlap &rarr; stacking contexts. Stale data &rarr; reactivity. Flickering &rarr; layout shift.</p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">&#128065;</div>
+            <h4 class="pattern-title">Look for the invisible rule</h4>
+            <p class="pattern-desc">Every framework has unwritten rules AI doesn&rsquo;t volunteer. Vue reactivity, CSS stacking contexts, React&rsquo;s rules of hooks. Name the invisible rule and the fix usually follows.</p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3);">
+            <div class="pattern-icon" style="background: var(--color-actor-3);">&#128196;</div>
+            <h4 class="pattern-title">Check the git history</h4>
+            <p class="pattern-desc">If AI is going in circles, look at the last 5 commits that touched this file. You&rsquo;ll often see the same bug was fixed &mdash; or attempted &mdash; before.</p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">&#9889;</div>
+            <h4 class="pattern-title">Try the radical opposite</h4>
+            <p class="pattern-desc">If you&rsquo;ve tried z-index 10, 50, 100, 9999 &mdash; the problem isn&rsquo;t z-index. Switch approach entirely (<code>sticky</code> &rarr; <code>fixed</code>, <code>absolute</code> &rarr; flex, <code>useEffect</code> &rarr; <code>useMemo</code>).</p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">&#9888;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Spot the <span class="term" data-definition="A sign that something is off in the code, even if it works. Excessive !important, enormous functions, copy-paste patterns.">code smell</span></strong>
+            <p>When AI suggests adding <span class="term" data-definition="A CSS override that wins against regular rules. Overusing it usually means you've got the wrong selector specificity or the wrong layer.">!important</span> to &ldquo;just force it&rdquo;, treat that as a warning light. It almost always masks a deeper problem &mdash; wrong <span class="term" data-definition="How specific a CSS selector is. More specific selectors win over less specific ones. !important is a nuclear option that sidesteps this &mdash; which is why it compounds over time.">specificity</span>, wrong layer, wrong selector.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 7: Spot the Invisible Rule Quiz ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Quiz &mdash; Spot the Invisible Rule</h2>
+
+        <p>Four debugging scenarios. For each, pick the answer a detective (not a guesser) would give.</p>
+
+        <div class="quiz-container" id="quiz-module5">
+
+          <!-- Q1 -->
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly &mdash; this is a state propagation bug. After logout, a computed or component still points at the old user object. Check whether `user` is re-derived from the store after logout, and whether the component re-renders cleanly."
+               data-explanation-wrong="Not quite. A 1-second lag after logout isn't network or cache &mdash; the server already logged you out. The give-away is the browser still showing stale data, which points at reactivity: a computed still references the old user object, or the component hasn't re-rendered.">
+            <h3 class="quiz-question">1. A user reports: &ldquo;After I log out, the page still shows my name for a second.&rdquo; What&rsquo;s the invisible rule?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Slow network.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Reactive computed values may hold a stale reference to the old user object after logout, or the component hasn&rsquo;t re-rendered yet.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Database caching.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The server.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Nine times out of ten, it's env vars. Dev and prod use different API base URLs, different Stripe keys, different Claude keys. First thing to check: does the .env in dev match what Netlify has for prod?"
+               data-explanation-wrong="Unlikely &mdash; Vue versions and Tailwind don't silently differ between dev and prod on the same project. The classic culprit is environment variables: API base URLs, API keys, feature flags. They're different per environment, and if one is missing, the form will fail silently.">
+            <h3 class="quiz-question">2. A form works in dev but not production. What&rsquo;s the invisible rule most likely in play?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Different Vue version in prod.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><span class="term" data-definition="Environment variables (env vars) are settings that change between dev, staging, and prod &mdash; things like API keys and URLs. They live in .env files locally and in hosting dashboards (Netlify, Vercel) for production.">Env variables</span> (API_BASE, keys) differ between dev and prod.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Tailwind broke.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The server crashed.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. !important is a code smell &mdash; it usually means the real problem is elsewhere (wrong specificity, wrong layer, a selector collision). Every time you add one, you make the next bug harder. Accept it rarely, and only after understanding why."
+               data-explanation-wrong="Careful &mdash; !important wins against most rules but that's the problem, not the solution. It hides the real issue (specificity, layer, selector order) and compounds over time. Accepting it by default is how CSS codebases go feral.">
+            <h3 class="quiz-question">3. AI suggests adding <code>!important</code> to fix a CSS issue. Should you accept?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Always &mdash; <code>!important</code> always wins.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Almost never &mdash; it usually masks the real issue (wrong specificity, wrong layer) and compounds over time.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Only in dev.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Only in Tailwind.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="Yes. Mobile Safari has real, documented quirks: 100vh vs 100dvh (URL bar math), safe-area-inset for notches, and backdrop-filter weirdness. These are the first places to look when desktop works and Safari mobile doesn't."
+               data-explanation-wrong="That's an AI-loop trap &mdash; Vue and Tailwind work fine on Safari. When a bug only shows up on mobile Safari, it's almost always iOS-specific CSS: viewport units (100vh vs 100dvh), safe-area-insets for notches, or backdrop-filter rendering.">
+            <h3 class="quiz-question">4. Your app works on desktop but the nav overlaps content on mobile Safari only. What are you investigating?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>iOS-specific CSS quirks (100vh vs 100dvh, <code>safe-area-inset</code>, <code>backdrop-filter</code>).</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Vue doesn&rsquo;t work on Safari.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Tailwind has a mobile bug.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Tell the user to reinstall the app.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 8: What Now? — closing ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What Now?</h2>
+
+        <p>You&rsquo;ve toured the whole app: the click-to-result journey, the cast, how they talk, the outside world, and the debugging moves that keep you out of the weeds. The best way to cement this is to <em>build</em> on top of it. Here are three starter prompts you could hand to AI tomorrow.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">&#10133;</div>
+            <h4 class="pattern-title">Add a 9th decision tool</h4>
+            <p class="pattern-desc">&ldquo;Add a new tool called &lsquo;Eisenhower Matrix&rsquo;. Follow the same pattern as the existing 8 tools: route in <code>router/index.js</code>, state slice in <code>ToolsStore.js</code>, a Form and Result component under <code>src/components/eisenhower/</code>, and an entry in <code>templates.js</code>.&rdquo;</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">&#128293;</div>
+            <h4 class="pattern-title">Build a decision streak tracker</h4>
+            <p class="pattern-desc">&ldquo;Add a streak counter to the <code>HistoryStore</code>. Count consecutive days with at least one saved decision. Show it as a badge on the <code>/history</code> page. Reset at midnight when a day is skipped.&rdquo;</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">&#128276;</div>
+            <h4 class="pattern-title">Add outcome reminders</h4>
+            <p class="pattern-desc">&ldquo;Two weeks after a decision is saved, show a gentle prompt asking the user to log the actual outcome. Use the existing <code>OutcomeModal</code>. Persist &lsquo;reminded&rsquo; state on the history entry so we don&rsquo;t nag twice.&rdquo;</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent" style="margin-top: var(--space-12);">
+          <div class="callout-icon">&#128075;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Thanks for following along.</strong>
+            <p>You came in wondering how a Vue app holds itself together. You&rsquo;re leaving with the vocabulary &mdash; <span class="term" data-definition="Data Vue watches. When it changes, the UI updates automatically.">reactivity</span>, <span class="term" data-definition="A central Pinia box for shared data. Components read and write, and everyone stays in sync.">stores</span>, <span class="term" data-definition="Read-only data passed from parent component to child.">props</span>, <span class="term" data-definition="Named signals that bubble up from a child component so the parent can react.">events</span>, <span class="term" data-definition="Serverless functions are small backend snippets that run on demand, so secret keys (like Stripe or Claude) never touch the browser.">serverless functions</span>, <span class="term" data-definition="The Document Object Model &mdash; the live tree of HTML elements that makes up the page. Vue updates the DOM for you.">DOM</span>, stacking contexts &mdash; to actually direct AI instead of just asking it for favors.</p>
+          </div>
+        </div>
+
+        <p style="text-align: center; font-family: var(--font-display); font-weight: 700; font-size: var(--text-3xl); color: var(--color-accent); margin-top: var(--space-12); line-height: var(--leading-tight);">You&rsquo;ve got the map. Go explore.</p>
+      </section>
+
+    </div>
+  </div>
+</section>
+  </main>
+
+</body>
+</html>

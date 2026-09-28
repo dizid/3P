@@ -203,14 +203,14 @@ const adviceText = computed(() => {
 })
 
 const resultIcon = computed(() => {
-  if (store.coinFlip.reaction === 'neutral') return '&#129300;'
-  return '&#128161;'
+  if (store.coinFlip.reaction === 'neutral') return '🤔'
+  return '💡'
 })
 
 const reactionEmoji = computed(() => {
-  if (store.coinFlip.reaction === 'relieved') return '&#128524;'
-  if (store.coinFlip.reaction === 'disappointed') return '&#128532;'
-  return '&#128528;'
+  if (store.coinFlip.reaction === 'relieved') return '😌'
+  if (store.coinFlip.reaction === 'disappointed') return '😔'
+  return '😐'
 })
 
 const headerClass = computed(() => {

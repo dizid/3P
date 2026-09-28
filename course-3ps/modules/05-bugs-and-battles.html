@@ -1,0 +1,473 @@
+<section class="module" id="module-5" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">05</span>
+      <h1 class="module-title">Bugs and Battles</h1>
+      <p class="module-subtitle">Four failed attempts, one invisible rule &mdash; and the debugging habits that break AI bug loops.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ======================= SCREEN 1: Transition + Casebook hook ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Open the Casebook</h2>
+
+        <p>Module 4 showed the outside world &mdash; <span class="term" data-definition="Anthropic's API that powers the AI advice panel in the app. The frontend calls it through a serverless function to keep the API key secret.">Claude</span>, <span class="term" data-definition="A serverless Postgres database. Stores premium user subscription state.">Neon</span>, <span class="term" data-definition="The payments service that handles checkout, billing portal, and subscription webhooks.">Stripe</span> &mdash; talking to our app. This final module turns the lens inward: the bugs that actually happened in this codebase, and what they teach.</p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128269;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The Detective&rsquo;s Casebook</strong>
+            <p>Every bug is a case file. There&rsquo;s the <strong>symptom</strong>, the <strong>prime suspects</strong>, the <strong>interrogation</strong>, and the <strong>confession</strong>. Great detectives don&rsquo;t guess &mdash; they follow evidence. Same rules apply here.</p>
+          </div>
+        </div>
+
+        <p>The #1 failure mode in AI-assisted coding is the <span class="term" data-definition="When AI (or you) keeps trying related fixes that don't work, because you haven't identified the real cause. Breaking the loop requires reframing the problem.">bug loop</span>: AI suggests fix A, it doesn&rsquo;t work, AI suggests B (related to A), still broken, repeat. This module is a field manual for breaking the loop.</p>
+      </section>
+
+      <!-- ======================= SCREEN 2: The Nav Overlap Saga — Case File ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Case File #1 &mdash; The Nav That Wouldn&rsquo;t Stay On Top</h2>
+
+        <p><strong>The symptom:</strong> when you navigated between pages, the page content slid <em>over</em> the top navigation bar for a fraction of a second. Ugly, disorienting, and &mdash; as you&rsquo;re about to see &mdash; surprisingly stubborn.</p>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">&#128196;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Four attempts. Same bug every time.</strong>
+            <p>Here&rsquo;s the real <span class="term" data-definition="The history of commits. Reading it tells you the story of how the codebase evolved and what's been tried.">git log</span> from this project. Each row is a <span class="term" data-definition="A saved snapshot of your code at one moment, with a message explaining the change.">commit</span> that tried &mdash; and failed &mdash; to fix the same bug.</p>
+          </div>
+        </div>
+
+        <div class="case-file" style="background: var(--color-surface); border-radius: var(--radius-md); padding: var(--space-6); box-shadow: var(--shadow-md); margin: var(--space-8) 0; overflow-x: auto;">
+          <table style="width: 100%; border-collapse: collapse; font-size: var(--text-sm);">
+            <thead>
+              <tr style="border-bottom: 2px solid var(--color-border);">
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">#</th>
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">Commit</th>
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">What was tried</th>
+                <th style="text-align: left; padding: var(--space-3); font-family: var(--font-display); color: var(--color-text-secondary);">Result</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">1</td>
+                <td style="padding: var(--space-3);"><code>df3e862</code></td>
+                <td style="padding: var(--space-3);">Make nav background opaque with <code>!important</code></td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">2</td>
+                <td style="padding: var(--space-3);"><code>ff98905</code></td>
+                <td style="padding: var(--space-3);">Add <code>isolate</code> to <code>&lt;main&gt;</code> (force new <span class="term" data-definition="A group of elements that share a single front-to-back ordering axis. CSS has rules for what creates one: transform, opacity < 1, position: fixed, and more. z-index only works within a context, not across contexts.">stacking context</span>)</td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">3</td>
+                <td style="padding: var(--space-3);"><em>unnumbered</em></td>
+                <td style="padding: var(--space-3);">Set <code>z-0</code> on <code>&lt;main&gt;</code></td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped</td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--color-border-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">4</td>
+                <td style="padding: var(--space-3);"><code>7b69ec5</code></td>
+                <td style="padding: var(--space-3);">Set <code>-z-10</code> on <code>&lt;main&gt;</code></td>
+                <td style="padding: var(--space-3); color: var(--color-error);">&#10007; Still overlapped (user very frustrated)</td>
+              </tr>
+              <tr style="background: var(--color-success-light);">
+                <td style="padding: var(--space-3); font-weight: 600;">5</td>
+                <td style="padding: var(--space-3);"><code>eec1314</code></td>
+                <td style="padding: var(--space-3);"><strong>Change nav from <code>sticky</code> to <code>fixed</code>; replace transform-based page transitions with opacity fades</strong></td>
+                <td style="padding: var(--space-3); color: var(--color-success); font-weight: 600;">&#10003; FIXED</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Attempts 1&ndash;4 all poked at <span class="term" data-definition="The CSS property that controls front-to-back ordering of elements. But only within the same stacking context &mdash; this is the subtle part that catches people out.">z-index</span> or layering tricks. All four failed. Why?</p>
+      </section>
+
+      <!-- ======================= SCREEN 3: The Confession — the invisible rule ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Confession</h2>
+
+        <p>CSS has an invisible rule that AI almost never volunteers: <strong><code>transform</code> creates a new stacking context.</strong> Our old page transitions used <code>transform: translateX()</code> for the slide-in effect. That transform built a brand-new layer &mdash; <em>and z-index comparisons only work within the same layer</em>.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why no z-index tweak could ever win</strong>
+            <p>The nav was <span class="term" data-definition="A CSS position value. The element stays in document flow and sticks to a threshold when scrolled past. Still &ldquo;inside&rdquo; the page, unlike fixed.">sticky</span> &mdash; still in <span class="term" data-definition="The normal top-to-bottom arrangement of elements on a page. position: fixed and absolute take elements OUT of the flow.">document flow</span>, living in the page&rsquo;s main stacking context. The transformed content had its <em>own</em> context, painted on top. No amount of setting z-index inside one context can beat an element in a different, higher context.</p>
+          </div>
+        </div>
+
+        <p><strong>Three signals should have shouted &ldquo;this isn&rsquo;t a z-index bug&rdquo;:</strong></p>
+
+        <div class="pattern-cards" style="margin: var(--space-6) 0;">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">1</div>
+            <h4 class="pattern-title">Same bug, every tweak</h4>
+            <p class="pattern-desc">Four z-index values produced the <em>identical</em> symptom. If the variable actually mattered, the behaviour would have shifted.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">2</div>
+            <h4 class="pattern-title">Only during transitions</h4>
+            <p class="pattern-desc">Static pages were fine. The bug only appeared while routes changed &mdash; pointing at the transition itself.</p>
+          </div>
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">3</div>
+            <h4 class="pattern-title">Transform is on the scene</h4>
+            <p class="pattern-desc">The transitions used <code>transform</code>. CSS has a well-known rule: transform creates a stacking context. Google it &mdash; it&rsquo;s the first result.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 4: The Fix — Code Translation ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Fix That Actually Worked</h2>
+
+        <p>Two small edits, both from commit <code>eec1314</code>. The nav moves <em>out of the document flow entirely</em>, and the page transitions drop transforms and fade with opacity instead.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-comment">&lt;!-- src/App.vue --&gt;</span>
+<span class="code-line"><span class="code-tag">&lt;nav</span> <span class="code-attr">class</span>=<span class="code-value">&quot;fixed top-0 left-0 right-0 z-50 ... nav-bar&quot;</span></span>
+<span class="code-line">     <span class="code-attr">aria-label</span>=<span class="code-value">&quot;Main navigation&quot;</span><span class="code-tag">&gt;</span></span>
+<span class="code-line">  ...</span>
+<span class="code-line"><span class="code-tag">&lt;/nav&gt;</span></span>
+
+<span class="code-line"><span class="code-tag">&lt;main</span> <span class="code-attr">id</span>=<span class="code-value">&quot;main-content&quot;</span> <span class="code-attr">class</span>=<span class="code-value">&quot;pt-16 sm:pt-20&quot;</span> <span class="code-attr">tabindex</span>=<span class="code-value">&quot;-1&quot;</span><span class="code-tag">&gt;</span></span>
+
+<span class="code-comment">/* src/style.css */</span>
+<span class="code-line">.page-enter-active,</span>
+<span class="code-line">.page-leave-active {</span>
+<span class="code-line">  <span class="code-property">transition</span>: <span class="code-function">opacity</span> <span class="code-number">0.25s</span> ease;</span>
+<span class="code-line">}</span>
+<span class="code-line">.page-enter-from { <span class="code-property">opacity</span>: <span class="code-number">0</span>; }</span>
+<span class="code-line">.page-leave-to { <span class="code-property">opacity</span>: <span class="code-number">0</span>; }</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl"><code>fixed top-0 left-0 right-0</code> &mdash; the nav is yanked <em>out</em> of the page&rsquo;s document flow and pinned to the viewport. It no longer cares what happens inside <code>&lt;main&gt;</code>.</p>
+              <p class="tl"><code>pt-16 sm:pt-20</code> &mdash; because the nav is out of flow, content would slip under it. So we add top padding to <code>&lt;main&gt;</code> to make room.</p>
+              <p class="tl">The transitions now fade with <code>opacity</code> only. No <code>transform</code>. No transform = no new <span class="term" data-definition="A group of elements that share a single front-to-back z-axis. Created by transform, opacity < 1, position: fixed, and more. z-index only works inside one context.">stacking context</span>. No overlap.</p>
+              <p class="tl">The whole class of bug is now structurally impossible &mdash; not just masked.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#127919;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Name the invisible rule, and the fix appears</strong>
+            <p>Attempts 1&ndash;4 treated a <em>layering</em> problem as a <em>numbering</em> problem. Once you see &ldquo;transform creates stacking contexts&rdquo;, every z-index fix looks absurd. The real move is to stop playing that game entirely.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 5: Group Chat — senior walks junior through it ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Senior &amp; Junior, Debugging In Real Time</h2>
+
+        <p>What does &ldquo;naming the invisible rule&rdquo; actually sound like? Here&rsquo;s a seasoned dev walking a junior through the same nav overlap &mdash; one question at a time.</p>
+
+        <div class="chat-window" id="chat-module5">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>I tried <code>z-index: 9999</code> and it still overlaps!</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>How does the overlapping content get its z-index?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>Wait&hellip; it doesn&rsquo;t have one.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>Right. So what&rsquo;s lifting it above your nav?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>&hellip;<code>transform: translateX(20px)</code> on the page transition?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>Bingo. <code>transform</code> creates a stacking context. Your <span class="term" data-definition="sticky stays inside document flow and sticks at a threshold when scrolled past. fixed is removed from document flow entirely and pinned to the viewport.">sticky</span> nav is stuck in the document&rsquo;s main stacking context; the transformed content has its own. z-index comparisons only work <em>within</em> the same context.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="6" data-sender="junior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">J</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">Junior</span>
+                <p>So the fix is&hellip;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="7" data-sender="senior" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Senior</span>
+                <p>Either remove the transform, or take the nav out of the <span class="term" data-definition="The normal top-to-bottom arrangement of elements on a page. position: fixed and position: absolute take elements OUT of the flow.">document flow</span> entirely with <code>position: fixed</code>. Your pick.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" id="chat-module5-typing" style="display:none;">
+            <div class="chat-avatar" id="chat-module5-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128172;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The senior&rsquo;s trick</strong>
+            <p>Notice what the senior never says: &ldquo;try this value&rdquo;. They just keep asking &ldquo;why should that even work?&rdquo; until the junior names the real rule. That&rsquo;s the move you want to steal when you&rsquo;re prompting AI.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 6: Pattern Cards — breaking the AI loop ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">How to Break an AI Bug Loop</h2>
+
+        <p>When AI is suggesting cousins of fixes that didn&rsquo;t work, stop typing &ldquo;try again&rdquo;. Try one of these moves instead.</p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">&#128260;</div>
+            <h4 class="pattern-title">Reframe the question</h4>
+            <p class="pattern-desc">Stop asking &ldquo;how do I fix X?&rdquo; Start asking &ldquo;<em>what class of problem is this?</em>&rdquo; Nav overlap &rarr; stacking contexts. Stale data &rarr; reactivity. Flickering &rarr; layout shift.</p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">&#128065;</div>
+            <h4 class="pattern-title">Look for the invisible rule</h4>
+            <p class="pattern-desc">Every framework has unwritten rules AI doesn&rsquo;t volunteer. Vue reactivity, CSS stacking contexts, React&rsquo;s rules of hooks. Name the invisible rule and the fix usually follows.</p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-3);">
+            <div class="pattern-icon" style="background: var(--color-actor-3);">&#128196;</div>
+            <h4 class="pattern-title">Check the git history</h4>
+            <p class="pattern-desc">If AI is going in circles, look at the last 5 commits that touched this file. You&rsquo;ll often see the same bug was fixed &mdash; or attempted &mdash; before.</p>
+          </div>
+
+          <div class="pattern-card animate-in" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">&#9889;</div>
+            <h4 class="pattern-title">Try the radical opposite</h4>
+            <p class="pattern-desc">If you&rsquo;ve tried z-index 10, 50, 100, 9999 &mdash; the problem isn&rsquo;t z-index. Switch approach entirely (<code>sticky</code> &rarr; <code>fixed</code>, <code>absolute</code> &rarr; flex, <code>useEffect</code> &rarr; <code>useMemo</code>).</p>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">&#9888;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Spot the <span class="term" data-definition="A sign that something is off in the code, even if it works. Excessive !important, enormous functions, copy-paste patterns.">code smell</span></strong>
+            <p>When AI suggests adding <span class="term" data-definition="A CSS override that wins against regular rules. Overusing it usually means you've got the wrong selector specificity or the wrong layer.">!important</span> to &ldquo;just force it&rdquo;, treat that as a warning light. It almost always masks a deeper problem &mdash; wrong <span class="term" data-definition="How specific a CSS selector is. More specific selectors win over less specific ones. !important is a nuclear option that sidesteps this &mdash; which is why it compounds over time.">specificity</span>, wrong layer, wrong selector.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 7: Spot the Invisible Rule Quiz ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Quiz &mdash; Spot the Invisible Rule</h2>
+
+        <p>Four debugging scenarios. For each, pick the answer a detective (not a guesser) would give.</p>
+
+        <div class="quiz-container" id="quiz-module5">
+
+          <!-- Q1 -->
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly &mdash; this is a state propagation bug. After logout, a computed or component still points at the old user object. Check whether `user` is re-derived from the store after logout, and whether the component re-renders cleanly."
+               data-explanation-wrong="Not quite. A 1-second lag after logout isn't network or cache &mdash; the server already logged you out. The give-away is the browser still showing stale data, which points at reactivity: a computed still references the old user object, or the component hasn't re-rendered.">
+            <h3 class="quiz-question">1. A user reports: &ldquo;After I log out, the page still shows my name for a second.&rdquo; What&rsquo;s the invisible rule?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Slow network.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Reactive computed values may hold a stale reference to the old user object after logout, or the component hasn&rsquo;t re-rendered yet.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Database caching.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The server.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Nine times out of ten, it's env vars. Dev and prod use different API base URLs, different Stripe keys, different Claude keys. First thing to check: does the .env in dev match what Netlify has for prod?"
+               data-explanation-wrong="Unlikely &mdash; Vue versions and Tailwind don't silently differ between dev and prod on the same project. The classic culprit is environment variables: API base URLs, API keys, feature flags. They're different per environment, and if one is missing, the form will fail silently.">
+            <h3 class="quiz-question">2. A form works in dev but not production. What&rsquo;s the invisible rule most likely in play?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Different Vue version in prod.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><span class="term" data-definition="Environment variables (env vars) are settings that change between dev, staging, and prod &mdash; things like API keys and URLs. They live in .env files locally and in hosting dashboards (Netlify, Vercel) for production.">Env variables</span> (API_BASE, keys) differ between dev and prod.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Tailwind broke.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The server crashed.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. !important is a code smell &mdash; it usually means the real problem is elsewhere (wrong specificity, wrong layer, a selector collision). Every time you add one, you make the next bug harder. Accept it rarely, and only after understanding why."
+               data-explanation-wrong="Careful &mdash; !important wins against most rules but that's the problem, not the solution. It hides the real issue (specificity, layer, selector order) and compounds over time. Accepting it by default is how CSS codebases go feral.">
+            <h3 class="quiz-question">3. AI suggests adding <code>!important</code> to fix a CSS issue. Should you accept?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Always &mdash; <code>!important</code> always wins.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Almost never &mdash; it usually masks the real issue (wrong specificity, wrong layer) and compounds over time.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Only in dev.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Only in Tailwind.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="quiz-question-block"
+               data-correct="option-a"
+               data-explanation-right="Yes. Mobile Safari has real, documented quirks: 100vh vs 100dvh (URL bar math), safe-area-inset for notches, and backdrop-filter weirdness. These are the first places to look when desktop works and Safari mobile doesn't."
+               data-explanation-wrong="That's an AI-loop trap &mdash; Vue and Tailwind work fine on Safari. When a bug only shows up on mobile Safari, it's almost always iOS-specific CSS: viewport units (100vh vs 100dvh), safe-area-insets for notches, or backdrop-filter rendering.">
+            <h3 class="quiz-question">4. Your app works on desktop but the nav overlaps content on mobile Safari only. What are you investigating?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>iOS-specific CSS quirks (100vh vs 100dvh, <code>safe-area-inset</code>, <code>backdrop-filter</code>).</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Vue doesn&rsquo;t work on Safari.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Tailwind has a mobile bug.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Tell the user to reinstall the app.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module5')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module5')">Try Again</button>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 8: What Now? — closing ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">What Now?</h2>
+
+        <p>You&rsquo;ve toured the whole app: the click-to-result journey, the cast, how they talk, the outside world, and the debugging moves that keep you out of the weeds. The best way to cement this is to <em>build</em> on top of it. Here are three starter prompts you could hand to AI tomorrow.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1);">
+            <div class="pattern-icon" style="background: var(--color-actor-1);">&#10133;</div>
+            <h4 class="pattern-title">Add a 9th decision tool</h4>
+            <p class="pattern-desc">&ldquo;Add a new tool called &lsquo;Eisenhower Matrix&rsquo;. Follow the same pattern as the existing 8 tools: route in <code>router/index.js</code>, state slice in <code>ToolsStore.js</code>, a Form and Result component under <code>src/components/eisenhower/</code>, and an entry in <code>templates.js</code>.&rdquo;</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2);">
+            <div class="pattern-icon" style="background: var(--color-actor-2);">&#128293;</div>
+            <h4 class="pattern-title">Build a decision streak tracker</h4>
+            <p class="pattern-desc">&ldquo;Add a streak counter to the <code>HistoryStore</code>. Count consecutive days with at least one saved decision. Show it as a badge on the <code>/history</code> page. Reset at midnight when a day is skipped.&rdquo;</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4);">
+            <div class="pattern-icon" style="background: var(--color-actor-4);">&#128276;</div>
+            <h4 class="pattern-title">Add outcome reminders</h4>
+            <p class="pattern-desc">&ldquo;Two weeks after a decision is saved, show a gentle prompt asking the user to log the actual outcome. Use the existing <code>OutcomeModal</code>. Persist &lsquo;reminded&rsquo; state on the history entry so we don&rsquo;t nag twice.&rdquo;</p>
+          </div>
+        </div>
+
+        <div class="callout callout-accent" style="margin-top: var(--space-12);">
+          <div class="callout-icon">&#128075;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Thanks for following along.</strong>
+            <p>You came in wondering how a Vue app holds itself together. You&rsquo;re leaving with the vocabulary &mdash; <span class="term" data-definition="Data Vue watches. When it changes, the UI updates automatically.">reactivity</span>, <span class="term" data-definition="A central Pinia box for shared data. Components read and write, and everyone stays in sync.">stores</span>, <span class="term" data-definition="Read-only data passed from parent component to child.">props</span>, <span class="term" data-definition="Named signals that bubble up from a child component so the parent can react.">events</span>, <span class="term" data-definition="Serverless functions are small backend snippets that run on demand, so secret keys (like Stripe or Claude) never touch the browser.">serverless functions</span>, <span class="term" data-definition="The Document Object Model &mdash; the live tree of HTML elements that makes up the page. Vue updates the DOM for you.">DOM</span>, stacking contexts &mdash; to actually direct AI instead of just asking it for favors.</p>
+          </div>
+        </div>
+
+        <p style="text-align: center; font-family: var(--font-display); font-weight: 700; font-size: var(--text-3xl); color: var(--color-accent); margin-top: var(--space-12); line-height: var(--leading-tight);">You&rsquo;ve got the map. Go explore.</p>
+      </section>
+
+    </div>
+  </div>
+</section>

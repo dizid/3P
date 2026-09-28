@@ -211,11 +211,11 @@ const isPositive = computed(() => store.pmiNetScore >= 3)
 const isNeutral = computed(() => store.pmiNetScore >= -3 && store.pmiNetScore < 3)
 
 const resultIcon = computed(() => {
-  if (store.pmiNetScore >= 10) return '&#128640;'
-  if (store.pmiNetScore >= 3) return '&#128077;'
-  if (store.pmiNetScore >= -3) return '&#129300;'
-  if (store.pmiNetScore >= -10) return '&#128078;'
-  return '&#128683;'
+  if (store.pmiNetScore >= 10) return '🚀'
+  if (store.pmiNetScore >= 3) return '👍'
+  if (store.pmiNetScore >= -3) return '🤔'
+  if (store.pmiNetScore >= -10) return '👎'
+  return '🚫'
 })
 
 const headerClass = computed(() => {

@@ -2,7 +2,7 @@
  * Analytics utility for Google Analytics 4
  *
  * Track user behavior and conversion events.
- * GA4 Measurement ID should be set in index.html (G-XXXXXXXXXX)
+ * GA4 Measurement ID is set in index.html (G-7G2Z0W3YQ5)
  */
 
 /**

@@ -75,7 +75,7 @@ const copyLink = async () => {
 }
 
 const shareTwitter = () => {
-  const text = `I just made a decision using De 3 P's!${props.score ? ` Score: ${props.score}/100` : ''}`
+  const text = `I just made a decision using The 3 P's!${props.score ? ` Score: ${props.score}/100` : ''}`
   const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl.value)}`
   window.open(url, '_blank', 'width=550,height=420')
 }

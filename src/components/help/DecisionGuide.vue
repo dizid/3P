@@ -138,7 +138,7 @@ const recommendations = computed(() => {
   if (!selectedType.value || !selectedTime.value) return []
 
   const allTools = {
-    threeps: { name: "De 3 P's", icon: '&#128176;', path: '/tools/3ps', color: '#6366f1', colorDark: '#4f46e5' },
+    threeps: { name: "The 3 P's", icon: '&#128176;', path: '/tools/3ps', color: '#6366f1', colorDark: '#4f46e5' },
     tententen: { name: '10-10-10 Rule', icon: '&#9200;', path: '/tools/10-10-10', color: '#3b82f6', colorDark: '#1d4ed8' },
     regret: { name: 'Regret Minimization', icon: '&#129300;', path: '/tools/regret', color: '#8b5cf6', colorDark: '#6d28d9' },
     pmi: { name: 'PMI Analysis', icon: '&#9878;', path: '/tools/pmi', color: '#10b981', colorDark: '#059669' },

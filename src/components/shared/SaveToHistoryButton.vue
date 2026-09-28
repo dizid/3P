@@ -8,7 +8,7 @@
       : 'bg-white/80 text-gray-700 hover:bg-amber-100 hover:text-amber-700 border border-gray-200 hover:border-amber-300'
     "
   >
-    <span class="text-lg">{{ saved ? '&#10003;' : '&#128218;' }}</span>
+    <span class="text-lg">{{ saved ? '✓' : '📚' }}</span>
     {{ saved ? 'Saved!' : 'Save to History' }}
   </button>
 </template>

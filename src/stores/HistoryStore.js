@@ -262,7 +262,7 @@ export const toolMeta = {
     color: '#ef4444'
   },
   threeps: {
-    name: 'De 3 P\'s',
+    name: 'The 3 P\'s',
     icon: '&#128176;',
     color: '#6366f1'
   }

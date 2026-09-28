@@ -207,9 +207,9 @@ const isPositive = computed(() => store.opportunityNetScore >= 3)
 const isNeutral = computed(() => store.opportunityNetScore >= -3 && store.opportunityNetScore < 3)
 
 const resultIcon = computed(() => {
-  if (isPositive.value) return '&#128176;'
-  if (isNeutral.value) return '&#9878;'
-  return '&#128184;'
+  if (isPositive.value) return '💰'
+  if (isNeutral.value) return '⚖'
+  return '💸'
 })
 
 const headerClass = computed(() => {

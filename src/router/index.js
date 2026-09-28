@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/AuthStore'
 import { useSubscriptionStore } from '@/stores/SubscriptionStore'
+import { applySeo } from '@/utils/seo'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -132,6 +133,12 @@ router.beforeEach((to) => {
       return { name: 'pricing', query: { reason: 'upgrade-required' } }
     }
   }
+})
+
+// Update title/meta before the URL changes, so GA4's history-based
+// page_view (enhanced measurement) records the new page title
+router.beforeResolve((to) => {
+  applySeo(to.path)
 })
 
 export default router

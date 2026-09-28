@@ -22,7 +22,7 @@
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-bold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
         >
           <span>&#128176;</span>
-          <span>Start with De 3 P's</span>
+          <span>Start with The 3 P's</span>
         </RouterLink>
 
         <RouterLink

@@ -156,7 +156,7 @@ import { RouterLink } from 'vue-router'
 const tools = {
   coinFlip:    { name: 'Coin Flip Test',       route: '/tools/coin-flip',         icon: '&#129689;', time: '2 min' },
   tententen:   { name: '10-10-10 Rule',         route: '/tools/10-10-10',          icon: '&#9200;',   time: '2 min' },
-  threeps:     { name: "De 3 P's",              route: '/tools/3ps',               icon: '&#128176;', time: '4 min' },
+  threeps:     { name: "The 3 P's",              route: '/tools/3ps',               icon: '&#128176;', time: '4 min' },
   regret:      { name: 'Regret Minimization',   route: '/tools/regret',            icon: '&#129300;', time: '3 min' },
   pmi:         { name: 'PMI Analysis',          route: '/tools/pmi',               icon: '&#9878;',   time: '6 min' },
   swot:        { name: 'SWOT Analysis',         route: '/tools/swot',              icon: '&#127919;', time: '6 min' },

@@ -94,7 +94,7 @@ const getDb = () => {
 
 // Tool-specific prompts for better analysis
 const toolPrompts: Record<string, string> = {
-  threeps: `You are analyzing a decision using "De 3 P's" framework (Poen/Money, Pret/Fun, Prestige/Status).
+  threeps: `You are analyzing a decision using "The 3 P's" framework (Pay/Money, Play/Fun, Prestige/Status). In the data, Poen = Pay and Pret = Play.
 The user rated their baseline importance for each P (0-100) and how the project affects each P (0-100).
 Score = sum of (baseline × project) for each P. Threshold for "go": 6000.`,
 

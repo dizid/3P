@@ -21,7 +21,7 @@ A decision support application with 8 decision-making tools, premium features, a
 |-------|---------|
 | `/` | Marketing landing page |
 | `/tools` | Tool selection hub (8 tools) |
-| `/tools/3ps` | De 3 P's (featured) |
+| `/tools/3ps` | The 3 P's (featured) |
 | `/history` | Decision history (10 free, unlimited premium) |
 | `/insights` | Analytics dashboard (premium only) |
 | `/help` | Tool explanations & guides |
@@ -32,7 +32,7 @@ A decision support application with 8 decision-making tools, premium features, a
 
 | Tool | Route | Store Key | Scoring Formula |
 |------|-------|-----------|-----------------|
-| **De 3 P's** | `/tools/3ps` | `threeps` | (baseline × project) per P, threshold: 6000 |
+| **The 3 P's** (Pay, Play & Prestige) | `/tools/3ps` | `threeps` | (baseline × project) per P, threshold: 6000 |
 | **10-10-10 Rule** | `/tools/10-10-10` | `tententen` | 15% (10min) + 35% (10mo) + 50% (10yr) |
 | **Regret Minimization** | `/tools/regret` | `regret` | 40% regret + 15% reversibility + 25% values + 20% age80 |
 | **PMI Analysis** | `/tools/pmi` | `pmi` | Plus - Minus + (Interesting × 0.5) |
@@ -128,6 +128,14 @@ src/components/
 - **Feature gating**: Wrap premium content with `<FeatureGate feature="featureName">`
 - **History saving**: Use `SaveToHistoryButton` component in results
 
+## SEO
+
+- **Single source of truth:** [src/data/seo-pages.json](src/data/seo-pages.json) holds titles, descriptions, content, FAQ and steps for every public page
+- **Runtime:** [src/utils/seo.js](src/utils/seo.js) updates head tags in `router.beforeResolve`
+- **Build:** [scripts/prerender.mjs](scripts/prerender.mjs) runs after `vite build` and writes `dist/<route>.html` (static crawler content + JSON-LD), `app-shell.html` (noindex SPA fallback), `sitemap.xml`, `llms.txt`
+- The 3 P's UI says Pay/Play/Prestige; store keys stay `baselinePoen`/`baselinePret` etc. for saved-data compatibility
+- New public route → add it to `seo-pages.json`
+
 ## Path Alias
 
 `@` maps to `./src` (configured in vite.config.js)
@@ -135,7 +143,8 @@ src/components/
 ## Deployment
 
 - **Netlify site ID:** `a5e53b4a-5519-4c1e-b21e-0ad9c9846503` (de3ps)
-- **Netlify URL:** https://3p.tnxz.nl
+- **Netlify URL / production domain:** https://3p.tnxz.nl (de3ps.nl is NOT ours — it redirects to an unrelated site)
+- **GA4 measurement ID:** `G-7G2Z0W3YQ5`
 - **Neon project ID:** `holy-mouse-05375084` (crypto-prediction — shared DB)
 - **Neon database:** `neondb` (default)
 - **Neon region:** aws-ap-southeast-1

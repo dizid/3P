@@ -79,12 +79,13 @@ export default async (req: Request, context: Context) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        from: "3PS <noreply@3p.tnxz.nl>",
+        // Shared verified Resend domain (Resend plan allows only 2 domains)
+        from: Netlify.env.get("EMAIL_FROM") || "The 3 P's <login@notifications.dizid.com>",
         to: [normalizedEmail],
-        subject: "Log in to 3PS - Decision Support",
+        subject: "Your login link for The 3 P's",
         html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; max-width: 480px; margin: 0 auto; padding: 40px 20px;">
-            <h2 style="color: #1f2937; margin-bottom: 8px;">Log in to 3PS</h2>
+            <h2 style="color: #1f2937; margin-bottom: 8px;">Log in to The 3 P's</h2>
             <p style="color: #6b7280; margin-bottom: 24px;">Click the button below to log in. This link expires in 15 minutes.</p>
             <a href="${magicLink}" style="display: inline-block; background: #3b82f6; color: white; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 600;">Log In</a>
             <p style="color: #9ca3af; font-size: 14px; margin-top: 24px;">If you didn't request this, you can safely ignore this email.</p>

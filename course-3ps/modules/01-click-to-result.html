@@ -1,0 +1,421 @@
+<section class="module" id="module-1" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <!-- ===== HEADER ===== -->
+    <header class="module-header animate-in">
+      <span class="module-number">01</span>
+      <h1 class="module-title">Click &rarr; Result</h1>
+      <p class="module-subtitle">What actually happens in the two seconds between your click and your score.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ===== SCREEN 1 — What is De 3 P's? ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127911; First, what is De 3 P&apos;s?</h2>
+        <p>
+          De 3 P&apos;s is a decision-support web app. Eight different frameworks &mdash;
+          like <em>10-10-10 Rule</em>, <em>Regret Minimization</em>, and <em>Coin Flip Test</em>
+          &mdash; help you think through a hard choice. You fill out a short form, the app
+          calculates a score, and gives you a recommendation.
+        </p>
+        <p>
+          Your history is saved so you can revisit decisions later. That&apos;s the whole pitch. The
+          <em>interesting</em> part is what happens under the hood when you click.
+        </p>
+
+        <div class="callout callout-insight">
+          <strong>The hook:</strong> You open the app. You pick &ldquo;10-10-10 Rule&rdquo;. You drag three sliders.
+          A score appears. Feels instant, right? Here&apos;s what actually happens in those two seconds.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 2 — The Record Player Metaphor ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127926; The record player</h2>
+        <p>
+          Think of the app as a vinyl record on a turntable. The grooves were pressed when the app was
+          <span class="term" data-definition="The process of turning source code into the compact files a browser can download and run. Happens once, before users see the app.">built</span>
+          &mdash; every bit of logic is already there, waiting. But nothing plays until the needle drops.
+        </p>
+        <p>
+          That needle is <em>you</em>. Every click, keystroke, or page load is a needle drop. The vibration
+          then travels through a chain of parts &mdash; each one transforming the signal &mdash; until it
+          finally comes out the speakers as a score.
+        </p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128073;</div>
+            <h3>Needle</h3>
+            <p>Your click on a slider. The trigger for everything.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#127908;</div>
+            <h3>Tonearm</h3>
+            <p>The form
+              <span class="term" data-definition="A reusable piece of UI with its own HTML, styles, and logic. Like a LEGO brick you can snap into different places.">component</span>
+              &mdash; picks up the input.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128257;</div>
+            <h3>Amplifier</h3>
+            <p>The
+              <span class="term" data-definition="A shared bucket of state that multiple components can read from and write to.">store</span>
+              &mdash; recalculates and shares the new value.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128266;</div>
+            <h3>Speakers</h3>
+            <p>The result component &mdash; plays the verdict on screen.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-aha">
+          <strong>Aha:</strong> The app is a pile of small independent parts that only do something when
+          triggered. Nothing runs &ldquo;on its own&rdquo; &mdash; everything waits for a click, a keystroke, or a page load.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 3 — The Tech Stack Cast ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127914; Meet the tech stack</h2>
+        <p>
+          Five tools do the work. You don&apos;t need to master them &mdash; you just need to know what each one is
+          <em>responsible for</em> so you can point an AI assistant at the right one.
+        </p>
+
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#9889;</div>
+            <h3><span class="term" data-definition="A JavaScript framework for building interactive web apps. Competes with React and Svelte.">Vue 3</span></h3>
+            <p>The
+              <span class="term" data-definition="A pre-built structure that handles the boring parts so you can focus on what makes your app unique.">framework</span>
+              running in your browser. Turns code into HTML and updates the page automatically when data changes.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128640;</div>
+            <h3>Vite</h3>
+            <p>The build tool. Updates your browser in under a second during development, packs everything tight for production.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#129730;</div>
+            <h3><span class="term" data-definition="Vue&apos;s official state management library. The store system this app uses.">Pinia</span></h3>
+            <p>The shared memory. Components read and write through one central bucket so everyone stays in sync.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#127912;</div>
+            <h3>Tailwind CSS</h3>
+            <p>Styling. Instead of separate CSS files, you drop classes like <code>bg-blue-500</code> right into the HTML.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128209;</div>
+            <h3>Vue Router</h3>
+            <p>Navigation. When the URL changes, it swaps in the right component without a full page reload.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 4 — The Group Chat ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#128172; Listen in on the group chat</h2>
+        <p>
+          When you type <code>/tools/10-10-10</code> into the browser, three actors have a quick conversation
+          to figure out who shows what. Tap <em>Next Message</em> to eavesdrop.
+        </p>
+
+        <div class="chat-window" id="chat-module1">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="router" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Router</span>
+                <p>Hey, the URL says <code>/tools/10-10-10</code>. Who handles this?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="view" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">V</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">TenTenTenView</span>
+                <p>That&apos;s me. Let me load&hellip;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="router" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">R</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Router</span>
+                <p>Mounting you now.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="view" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">V</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">TenTenTenView</span>
+                <p>ToolsStore, are you there? I need your <code>tententen</code> state.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="store" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">S</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">ToolsStore</span>
+                <p>Here you go: <code>{ feel10min: 50, feel10months: 50, feel10years: 50 }</code></p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="view" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">V</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">TenTenTenView</span>
+                <p>Thanks! Rendering the form with those defaults now.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" id="chat-typing" style="display:none">
+            <div class="chat-avatar" id="chat-module1-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 5 — Data Flow Animation ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#128293; Now drag a slider &mdash; trace the signal</h2>
+        <p>
+          You&apos;re already on the 10-10-10 page. You drag the &ldquo;10 months&rdquo; slider from 50 to 80.
+          Here&apos;s the journey that number takes from your finger to the score on screen.
+        </p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"You drag the 10 months slider to 80."},
+          {"highlight":"flow-actor-2","label":"Form writes state.tententen.feel10months = 80.","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-2","label":"Form hands the new value to the store.","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"Store&apos;s tententenScore getter recalculates automatically."},
+          {"highlight":"flow-actor-4","label":"Result component re-renders with the new score.","packet":true,"from":"actor-3","to":"actor-4"},
+          {"highlight":"flow-actor-4","label":"You see: Go for it!"}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon" style="background: var(--color-actor-4)">&#128100;</div>
+              <span>You</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon" style="background: var(--color-actor-2)">F</div>
+              <span>Form</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon" style="background: var(--color-actor-3)">S</div>
+              <span>ToolsStore</span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon" style="background: var(--color-actor-5)">R</div>
+              <span>Result</span>
+            </div>
+          </div>
+
+          <div class="flow-packet" id="flow-packet"></div>
+
+          <div class="flow-step-label" id="flow-label">Click &ldquo;Next Step&rdquo; to drop the needle.</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-insight">
+          <strong>The magic word:</strong>
+          <span class="term" data-definition="When you change data, the screen updates automatically — no manual refresh needed.">reactivity</span>.
+          You never told the Result component &ldquo;please redraw&rdquo;. It redrew because the
+          <span class="term" data-definition="Data the app remembers. When it changes, the UI updates automatically.">state</span>
+          it depended on changed.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 6 — Code ↔ English Translation ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#128221; The formula, in plain English</h2>
+        <p>
+          The actual scoring lives in a <em>seven-line</em>
+          <span class="term" data-definition="A computed value that automatically updates when its source data changes. Like a spreadsheet formula.">getter</span>
+          inside <code>ToolsStore.js</code>. Left side: the real code from the repo. Right side: what each line is saying.
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-function">tententenScore</span>: (<span class="code-property">state</span>) <span class="code-operator">=&gt;</span> {</span>
+<span class="code-line">  <span class="code-keyword">return</span> <span class="code-function">Math.round</span>(</span>
+<span class="code-line">    (<span class="code-property">state</span>.tententen.feel10min <span class="code-operator">*</span> <span class="code-number">0.15</span>) <span class="code-operator">+</span></span>
+<span class="code-line">    (<span class="code-property">state</span>.tententen.feel10months <span class="code-operator">*</span> <span class="code-number">0.35</span>) <span class="code-operator">+</span></span>
+<span class="code-line">    (<span class="code-property">state</span>.tententen.feel10years <span class="code-operator">*</span> <span class="code-number">0.50</span>)</span>
+<span class="code-line">  )</span>
+<span class="code-line">},</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Here&apos;s a live number the store will calculate and share with anyone who asks.</p>
+              <p class="tl">Round the answer to a whole number &mdash; no decimals on screen.</p>
+              <p class="tl">Your short-term feelings (10 minutes) count for <strong>15%</strong>.</p>
+              <p class="tl">Medium-term feelings (10 months) count for <strong>35%</strong>.</p>
+              <p class="tl">Long-term feelings (10 years) count for <strong>50%</strong> &mdash; the future matters most.</p>
+              <p class="tl">Close the rounding. Total weight: 15 + 35 + 50 = <strong>100%</strong>.</p>
+              <p class="tl">Done. Whenever any of those three numbers change, this formula reruns automatically.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-aha">
+          <strong>Why this matters to you:</strong> If a user says &ldquo;the long-term feels don&apos;t count enough,&rdquo;
+          you now know exactly which <em>one line</em> to change. You can tell your AI assistant:
+          <em>&ldquo;in <code>ToolsStore.js</code>, in the <code>tententenScore</code> getter, change
+          <code>0.50</code> to <code>0.70</code>.&rdquo;</em>
+          That&apos;s a surgical instruction, not a vague wish.
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 7 — Quiz ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#129504; Check yourself &mdash; 3 scenarios</h2>
+        <p>
+          No memorization. These are situations you&apos;ll actually face. Pick the answer that lines up
+          with what you just saw.
+        </p>
+
+        <div class="quiz-container" id="quiz-module1">
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Getters recalculate whenever their source state changes. If the score is frozen, the getter isn&apos;t seeing the updated state — that&apos;s the place to look."
+               data-explanation-wrong="Not quite. The template just displays whatever the store gives it, and CSS/router don&apos;t touch the math. The score itself is computed by the getter in the store — that&apos;s where a broken calculation would hide.">
+            <h3 class="quiz-question">A user reports: &ldquo;I&apos;m changing the sliders but the score doesn&apos;t update.&rdquo; Where do you look first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The HTML template of the result component</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Pinia getter that calculates the score</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The CSS styles</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The router configuration</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Right. State (the data field) lives in the store, and the UI (the slider) lives in the form component. Adding a new field means both have to know about it."
+               data-explanation-wrong="Not quite. The router only decides which page to show. The form alone can&apos;t hold data permanently — that&apos;s the store&apos;s job. Both the store AND the form need to change together.">
+            <h3 class="quiz-question">You want to add a 4th slider (say, &ldquo;10 days&rdquo;) to the tool. Which file(s) do you touch?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The router only</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The form component only</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Both the store AND the form component</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Vue config file</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Spot on. The () =&gt; import(...) syntax is lazy-loading: the code for that view isn&apos;t downloaded until someone actually visits the route. Direct links work fine."
+               data-explanation-wrong="Not quite. The route is defined in the router, so there&apos;s no 404 and no error. The () =&gt; import(...) pattern means the view&apos;s code is fetched on demand — it loads, then renders.">
+            <h3 class="quiz-question">A user opens <code>/tools/10-10-10</code> directly in a fresh browser tab. What does the
+              <span class="term" data-definition="A mapping from a URL path to which component to show. Like a phone book for your app.">router</span>
+              do?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Redirects them to the home page</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Shows a 404 error</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><span class="term" data-definition="Don&apos;t download a chunk of code until it&apos;s actually needed. Makes the app start faster.">Lazy-loads</span> <code>TenTenTenView.vue</code> and renders it</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Errors out because the app wasn&apos;t started from <code>/</code></span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module1')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module1')">Try Again</button>
+        </div>
+      </section>
+
+      <!-- ===== SCREEN 8 — Next up ===== -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">&#127919; What you can now say out loud</h2>
+        <div class="pattern-cards stagger-children">
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128205;</div>
+            <h3>Where logic lives</h3>
+            <p>Scoring rules &rarr; the store. UI &rarr; the component. Navigation &rarr; the router.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128228;</div>
+            <h3>Why it updates</h3>
+            <p>Change state, the UI redraws itself. That&apos;s reactivity &mdash; no refresh button needed.</p>
+          </div>
+          <div class="pattern-card animate-in">
+            <div class="pattern-icon">&#128736;</div>
+            <h3>How to instruct AI</h3>
+            <p>&ldquo;In <code>ToolsStore.js</code>, in the <code>tententenScore</code> getter, change X to Y.&rdquo; Precise beats vague.</p>
+          </div>
+        </div>
+
+        <div class="callout callout-insight">
+          <strong>Next up &mdash; Module 2: Meet the Cast.</strong> You&apos;ve traced one flow. Now we zoom out and
+          introduce every actor in the show &mdash; views, components, stores, services &mdash; and what each one
+          is paid to do.
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

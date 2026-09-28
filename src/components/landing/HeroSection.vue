@@ -52,7 +52,7 @@
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-bold rounded-xl border border-white/30 hover:bg-white/20 transform hover:scale-105 transition-all duration-300"
         >
           <span>&#128176;</span>
-          <span>Try De 3 P's</span>
+          <span>Try The 3 P's</span>
         </RouterLink>
       </div>
 

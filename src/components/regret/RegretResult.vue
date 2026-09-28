@@ -199,9 +199,9 @@ const isPositive = computed(() => store.regretScore >= 65)
 const isNeutral = computed(() => store.regretScore >= 45 && store.regretScore < 65)
 
 const resultIcon = computed(() => {
-  if (isPositive.value) return '&#128640;'
-  if (isNeutral.value) return '&#129300;'
-  return '&#128528;'
+  if (isPositive.value) return '🚀'
+  if (isNeutral.value) return '🤔'
+  return '😐'
 })
 
 const headerClass = computed(() => {

@@ -10,7 +10,7 @@ const decision = ref(null)
 
 // Tool display names
 const toolNames = {
-  threeps: 'De 3 P\'s',
+  threeps: 'The 3 P\'s',
   tententen: '10-10-10 Rule',
   regret: 'Regret Minimization',
   pmi: 'PMI Analysis',
@@ -95,7 +95,7 @@ onMounted(async () => {
           to="/tools"
           class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-shadow"
         >
-          Try De 3 P's Yourself
+          Try The 3 P's Yourself
           <span>&#8594;</span>
         </RouterLink>
       </div>
@@ -156,7 +156,7 @@ onMounted(async () => {
             Make Better Decisions
           </h2>
           <p class="text-gray-600 dark:text-gray-400 mb-6">
-            Use De 3 P's and 7 other decision-making tools to clarify your thinking.
+            Use The 3 P's and 7 other decision-making tools to clarify your thinking.
           </p>
           <RouterLink
             to="/tools"
@@ -169,7 +169,7 @@ onMounted(async () => {
 
         <!-- Footer -->
         <p class="text-center text-sm text-gray-500 dark:text-gray-400">
-          Shared via <RouterLink to="/" class="text-indigo-600 dark:text-indigo-400 hover:underline">De 3 P's</RouterLink>
+          Shared via <RouterLink to="/" class="text-indigo-600 dark:text-indigo-400 hover:underline">The 3 P's</RouterLink>
         </p>
       </div>
     </div>

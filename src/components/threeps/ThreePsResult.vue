@@ -40,9 +40,9 @@
             {{ store.threepsAdvice.text }}
           </h1>
           <p class="text-lg sm:text-xl opacity-95 leading-relaxed max-w-2xl mx-auto">
-            Op basis van jouw waarden en project
+            Based on your values and the project
             <span class="font-bold underline decoration-2 underline-offset-4">"{{ store.threeps.project }}"</span>
-            is het advies: <span class="font-extrabold text-2xl">{{ adviceWord }}</span> doen.
+            the advice is: <span class="font-extrabold text-2xl">{{ adviceWord }}</span>
           </p>
         </div>
       </div>
@@ -58,7 +58,7 @@
               <AnimatedCounter :value="store.threepsScore" :duration="2000" />
             </div>
             <div class="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-widest font-semibold">
-              Totale Score
+              Total Score
             </div>
           </div>
         </div>
@@ -83,13 +83,13 @@
               style="left: 20%"
             >
               <div class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-bold text-gray-600 dark:text-gray-400 whitespace-nowrap">
-                6.000
+                6,000
               </div>
             </div>
           </div>
           <div class="flex justify-between text-xs text-gray-400 dark:text-gray-500 mt-1">
             <span>0</span>
-            <span>30.000</span>
+            <span>30,000</span>
           </div>
         </div>
       </div>
@@ -101,7 +101,7 @@
         </h2>
 
         <div class="space-y-4">
-          <!-- Poen -->
+          <!-- Pay -->
           <div class="glass p-5 sm:p-6 rounded-2xl border border-green-200/50 dark:border-green-800/50 card-lift animate-on-enter stagger-1">
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-3 sm:gap-4">
@@ -109,25 +109,25 @@
                   &#128176;
                 </div>
                 <div>
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Poen</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Financiele waarde</p>
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Pay</h3>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Financial value</p>
                 </div>
               </div>
               <div class="text-right">
                 <div class="text-2xl sm:text-3xl font-bold text-green-600">
                   <AnimatedCounter :value="poenScore" :delay="200" />
                 </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">{{ poenPercentage }}% van totaal</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">{{ poenPercentage }}% of total</div>
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
               <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-3 text-center">
-                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Jouw waarde</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Your value</div>
                 <div class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">{{ store.threeps.baselinePoen }}</div>
               </div>
               <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-3 text-center">
-                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Project waarde</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Project value</div>
                 <div class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">{{ store.threeps.projectPoen }}</div>
               </div>
             </div>
@@ -140,7 +140,7 @@
             </div>
           </div>
 
-          <!-- Pret -->
+          <!-- Play -->
           <div class="glass p-5 sm:p-6 rounded-2xl border border-blue-200/50 dark:border-blue-800/50 card-lift animate-on-enter stagger-2">
             <div class="flex items-center justify-between mb-4">
               <div class="flex items-center gap-3 sm:gap-4">
@@ -148,25 +148,25 @@
                   &#127881;
                 </div>
                 <div>
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Pret</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Plezier & zingeving</p>
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Play</h3>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Fun & meaning</p>
                 </div>
               </div>
               <div class="text-right">
                 <div class="text-2xl sm:text-3xl font-bold text-blue-600">
                   <AnimatedCounter :value="pretScore" :delay="400" />
                 </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">{{ pretPercentage }}% van totaal</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">{{ pretPercentage }}% of total</div>
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
               <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-3 text-center">
-                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Jouw waarde</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Your value</div>
                 <div class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">{{ store.threeps.baselinePret }}</div>
               </div>
               <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-3 text-center">
-                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Project waarde</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Project value</div>
                 <div class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">{{ store.threeps.projectPret }}</div>
               </div>
             </div>
@@ -188,24 +188,24 @@
                 </div>
                 <div>
                   <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Prestige</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Status & erkenning</p>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Status & recognition</p>
                 </div>
               </div>
               <div class="text-right">
                 <div class="text-2xl sm:text-3xl font-bold text-purple-600">
                   <AnimatedCounter :value="prestigeScore" :delay="600" />
                 </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">{{ prestigePercentage }}% van totaal</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">{{ prestigePercentage }}% of total</div>
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-3 sm:gap-4 mb-4">
               <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-3 text-center">
-                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Jouw waarde</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Your value</div>
                 <div class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">{{ store.threeps.baselinePrestige }}</div>
               </div>
               <div class="bg-white/60 dark:bg-slate-800/60 rounded-xl p-3 text-center">
-                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Project waarde</div>
+                <div class="text-xs text-gray-500 dark:text-gray-400 mb-1">Project value</div>
                 <div class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100">{{ store.threeps.projectPrestige }}</div>
               </div>
             </div>
@@ -223,25 +223,25 @@
       <!-- Advice Section -->
       <div class="p-6 sm:p-8 bg-gray-50 dark:bg-slate-800 border-t dark:border-slate-700 animate-on-enter stagger-4">
         <h2 class="text-xl sm:text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
-          <span>&#128172;</span> Wat betekent dit?
+          <span>&#128172;</span> What does this mean?
         </h2>
         <div class="prose prose-lg max-w-none text-gray-700 dark:text-gray-300">
           <p v-if="isPositive" class="leading-relaxed">
-            <span class="text-emerald-600 font-semibold">Geweldig nieuws!</span>
-            Dit project sluit uitstekend aan bij jouw persoonlijke waarden.
-            De combinatie van wat jij belangrijk vindt en wat dit project biedt,
-            geeft een sterke match. Ga vol vertrouwen door met dit project!
+            <span class="text-emerald-600 font-semibold">Great news!</span>
+            This project aligns very well with your personal values.
+            The combination of what matters to you and what this project offers
+            makes a strong match. Go ahead with confidence!
           </p>
           <p v-else-if="isNeutral" class="leading-relaxed">
-            <span class="text-amber-600 font-semibold">Het is kantje boord...</span>
-            Dit project heeft potentie, maar sluit niet perfect aan bij al je waarden.
-            Overweeg wat je kunt aanpassen of waar je compromissen wilt maken.
+            <span class="text-amber-600 font-semibold">It's a close call...</span>
+            This project has potential, but doesn't fully match all your values.
+            Consider what you could adjust or where you're willing to compromise.
           </p>
           <p v-else class="leading-relaxed">
-            <span class="text-rose-600 font-semibold">Even nadenken...</span>
-            Op basis van deze analyse lijkt dit project minder goed aan te sluiten
-            bij wat jij belangrijk vindt. Dit betekent niet dat het project slecht is,
-            maar dat het mogelijk niet het beste gebruik is van jouw tijd en energie.
+            <span class="text-rose-600 font-semibold">Think it over...</span>
+            Based on this analysis, this project seems a weaker fit
+            with what matters to you. That doesn't mean the project is bad,
+            but it may not be the best use of your time and energy.
           </p>
         </div>
       </div>
@@ -259,7 +259,7 @@
         class="glass hover:bg-white/80 dark:hover:bg-slate-700/80 text-gray-700 dark:text-gray-200 font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl shadow-lg border border-gray-200 dark:border-gray-600 transform transition-all duration-200 hover:scale-105"
       >
         <span class="flex items-center justify-center gap-2">
-          &#8592; Aanpassen
+          &#8592; Adjust
         </span>
       </button>
       <SaveToHistoryButton
@@ -275,7 +275,7 @@
         class="btn-ripple bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-3 sm:py-4 px-6 sm:px-8 rounded-xl shadow-lg transform transition-all duration-200 hover:scale-105"
       >
         <span class="flex items-center justify-center gap-2">
-          &#128260; Nieuw Project
+          &#128260; New Project
         </span>
       </button>
     </div>
@@ -314,7 +314,7 @@ const prestigeScore = computed(() => store.threeps.baselinePrestige * store.thre
 const isPositive = computed(() => store.threepsScore >= 6000)
 const isNeutral = computed(() => store.threepsScore >= 4500 && store.threepsScore < 6000)
 
-const adviceWord = computed(() => isPositive.value ? 'wel' : 'niet')
+const adviceWord = computed(() => isPositive.value ? 'Do it' : "Don't do it")
 
 const poenPercentage = computed(() =>
   store.threepsScore > 0 ? Math.round((poenScore.value / store.threepsScore) * 100) : 0
@@ -330,9 +330,9 @@ const scorePercentage = computed(() =>
 )
 
 const resultIcon = computed(() => {
-  if (isPositive.value) return '&#127881;'
-  if (isNeutral.value) return '&#129300;'
-  return '&#128528;'
+  if (isPositive.value) return '🎉'
+  if (isNeutral.value) return '🤔'
+  return '😐'
 })
 
 const headerClass = computed(() => {

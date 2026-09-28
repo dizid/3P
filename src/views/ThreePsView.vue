@@ -3,8 +3,8 @@
     <div class="max-w-4xl mx-auto">
       <ToolHeader
         icon="&#128176;"
-        title="De 3 P's"
-        description="Evalueer projecten op basis van Poen, Pret en Prestige. Ontdek of dit project past bij jouw persoonlijke waarden."
+        title="The 3 P's"
+        description="Evaluate projects on Pay, Play & Prestige. Find out whether this project fits your personal values."
         color="#6366f1"
         color-dark="#4f46e5"
       />

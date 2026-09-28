@@ -1,6 +1,6 @@
 {
-  "name": "De 3 P's - Decision Making Toolkit",
-  "short_name": "De 3 P's",
+  "name": "The 3 P's - Decision Making Toolkit",
+  "short_name": "The 3 P's",
   "description": "Make better decisions with proven frameworks. Analyze choices using 10-10-10 Rule, Regret Minimization, PMI Analysis, SWOT, and more.",
   "start_url": "/",
   "display": "standalone",
@@ -27,14 +27,14 @@
       "src": "/og-image.svg",
       "sizes": "1200x630",
       "type": "image/svg+xml",
-      "label": "De 3 P's Decision-Making Toolkit"
+      "label": "The 3 P's Decision-Making Toolkit"
     }
   ],
   "shortcuts": [
     {
       "name": "3 P's Tool",
       "short_name": "3 P's",
-      "description": "Evaluate using Poen, Pret, Prestige",
+      "description": "Evaluate using Pay, Play & Prestige",
       "url": "/tools/3ps",
       "icons": [{"src": "/icons/3ps.svg", "sizes": "64x64", "type": "image/svg+xml"}]
     },

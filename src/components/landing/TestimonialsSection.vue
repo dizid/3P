@@ -23,10 +23,10 @@ const testimonials = [
     avatar: null
   },
   {
-    quote: "Simple but powerful. De 3 P's helped me evaluate a job offer in terms I actually care about - money, enjoyment, and growth.",
+    quote: "Simple but powerful. The 3 P's helped me evaluate a job offer in terms I actually care about - money, enjoyment, and growth.",
     author: "David L.",
     role: "Software Engineer",
-    tool: "De 3 P's",
+    tool: "The 3 P's",
     avatar: null
   }
 ]

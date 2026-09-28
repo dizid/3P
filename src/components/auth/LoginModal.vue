@@ -56,11 +56,11 @@ watch(() => authStore.isAuthenticated, (isAuth) => {
 
           <!-- Email input step -->
           <div v-if="!authStore.magicLinkSent">
-            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Log in to 3PS</h2>
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Log in to The 3 P's</h2>
             <p class="text-gray-600 dark:text-gray-400 mb-1">
               {{ message || 'Enter your email to get a magic login link.' }}
             </p>
-            <p class="text-sm text-gray-500 dark:text-gray-500 mb-6">No password needed — we\'ll email you a link.</p>
+            <p class="text-sm text-gray-500 dark:text-gray-500 mb-6">No password needed — we'll email you a link.</p>
 
             <form @submit.prevent="handleSubmitEmail">
               <input

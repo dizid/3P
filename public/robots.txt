@@ -1,0 +1,33 @@
+# robots.txt for The 3 P's - https://3p.tnxz.nl
+
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /.netlify/
+
+# AI search & answer engines are explicitly welcome (GEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://3p.tnxz.nl/sitemap.xml

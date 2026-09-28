@@ -1,0 +1,214 @@
+{
+  "site": {
+    "name": "The 3 P's",
+    "url": "https://3p.tnxz.nl",
+    "image": "https://3p.tnxz.nl/og-image.png",
+    "imageAlt": "The 3 P's - Pay, Play & Prestige decision-making toolkit",
+    "tagline": "Free decision-making toolkit with 8 proven frameworks",
+    "description": "The 3 P's is a free decision-making toolkit with 8 proven frameworks: The 3 P's (Pay, Play & Prestige), the 10-10-10 Rule, Regret Minimization, PMI Analysis, SWOT, Opportunity Cost, Coin Flip Test and Fear vs Regret."
+  },
+  "pages": [
+    {
+      "path": "/",
+      "title": "The 3 P's - Free Decision-Making Tools | 8 Frameworks",
+      "description": "Make better decisions with 8 free frameworks: Pay, Play & Prestige, the 10-10-10 Rule, Regret Minimization, PMI, SWOT and more. No signup needed.",
+      "h1": "Make better decisions with 8 proven frameworks",
+      "intro": [
+        "The 3 P's is a free, mobile-friendly decision-making toolkit. Pick a framework, answer a few guided questions and get a clear, scored recommendation.",
+        "Our signature tool, The 3 P's, rates any project on Pay (money), Play (fun) and Prestige (status) against your personal values. Seven more classic frameworks cover life choices, business strategy and gut checks."
+      ],
+      "faq": [
+        { "q": "What are The 3 P's?", "a": "The 3 P's is a framework for evaluating projects and opportunities on three motivations: Pay (money), Play (fun) and Prestige (status). You rate how important each P is to you, then how much the project delivers on each. The tool multiplies and adds these into a match score; above 6,000 means the project fits your values." },
+        { "q": "Is The 3 P's decision toolkit free?", "a": "Yes. All 8 decision tools, tool comparison and history for up to 10 decisions are free. Premium adds unlimited history, an insights dashboard, AI advice and PDF/JSON export." },
+        { "q": "Which decision-making framework should I use?", "a": "Use The 3 P's for projects and job offers, the 10-10-10 Rule for emotional decisions, Regret Minimization for big life choices, PMI or SWOT for thorough analysis, Opportunity Cost for trade-offs, and the Coin Flip Test or Fear vs Regret when you feel stuck." }
+      ]
+    },
+    {
+      "path": "/tools",
+      "title": "8 Decision-Making Tools & Frameworks | The 3 P's",
+      "description": "Choose from 8 free decision-making tools: The 3 P's, 10-10-10 Rule, Regret Minimization, PMI, SWOT, Opportunity Cost, Coin Flip and Fear vs Regret.",
+      "h1": "Decision-making tools",
+      "intro": ["Choose the framework that fits your decision. Every tool guides you step by step and ends with a scored recommendation you can save and compare."],
+      "linksToTools": true
+    },
+    {
+      "path": "/tools/3ps",
+      "tool": true,
+      "name": "The 3 P's: Pay, Play & Prestige",
+      "title": "The 3 P's: Pay, Play & Prestige Project Evaluator",
+      "description": "Should you take on this project? Rate Pay (money), Play (fun) and Prestige (status) against your own values and get a clear go / no-go score.",
+      "h1": "The 3 P's: Pay, Play & Prestige",
+      "intro": [
+        "The 3 P's helps you decide whether a project, job offer or freelance gig is worth your time. It weighs three motivations that drive almost every career choice: Pay (money), Play (fun and meaning) and Prestige (status and recognition).",
+        "The framework started as a Dutch rule of thumb, Poen, Pret & Prestige, and works just as well in English."
+      ],
+      "steps": [
+        { "name": "Rate your values", "text": "Rate from 1 to 100 how important Pay, Play and Prestige are to you personally." },
+        { "name": "Rate the project", "text": "Rate from 1 to 100 how much the project delivers on each of the three P's." },
+        { "name": "Get your score", "text": "Each of your values is multiplied by the project value and the three results are added up. A score above 6,000 means the project fits your values." }
+      ],
+      "faq": [
+        { "q": "How is The 3 P's score calculated?", "a": "Score = (your Pay × project Pay) + (your Play × project Play) + (your Prestige × project Prestige). With ratings from 1 to 100 the maximum is 30,000; 6,000 or more is a go, 4,500 to 6,000 is borderline." },
+        { "q": "What does Pay, Play & Prestige mean?", "a": "Pay is the financial reward, Play is how enjoyable and meaningful the work is, and Prestige is the status, reputation and recognition it brings." },
+        { "q": "What is the Dutch origin of The 3 P's?", "a": "In Dutch the framework is called Poen, Pret & Prestige (money, fun and prestige). Pay, Play & Prestige is the English version that keeps the alliteration." }
+      ]
+    },
+    {
+      "path": "/tools/10-10-10",
+      "tool": true,
+      "name": "10-10-10 Rule",
+      "title": "10-10-10 Rule Decision Tool (Suzy Welch) | The 3 P's",
+      "description": "How will you feel about this decision in 10 minutes, 10 months and 10 years? Use Suzy Welch's 10-10-10 Rule free online and get a weighted score.",
+      "h1": "10-10-10 Rule",
+      "intro": ["The 10-10-10 Rule, created by Suzy Welch, helps you look at a decision across three time horizons so short-term emotions don't dominate important choices."],
+      "steps": [
+        { "name": "Describe your decision", "text": "Write down the choice you are facing." },
+        { "name": "Rate three time horizons", "text": "Rate how you expect to feel about it in 10 minutes, 10 months and 10 years." },
+        { "name": "Get your weighted score", "text": "The long term counts most: 15% for 10 minutes, 35% for 10 months and 50% for 10 years." }
+      ],
+      "faq": [
+        { "q": "What is the 10-10-10 Rule?", "a": "The 10-10-10 Rule by Suzy Welch asks how you will feel about a decision in 10 minutes, 10 months and 10 years. It shifts focus from immediate emotions to long-term impact." },
+        { "q": "When should I use the 10-10-10 Rule?", "a": "It works best for emotional decisions, impulse control and preventing regret: situations where what feels good now may not feel good later." }
+      ]
+    },
+    {
+      "path": "/tools/regret",
+      "tool": true,
+      "name": "Regret Minimization Framework",
+      "title": "Regret Minimization Framework (Jeff Bezos) | The 3 P's",
+      "description": "Imagine yourself at 80 looking back. Which choice would you regret not making? Use Jeff Bezos' Regret Minimization Framework free online.",
+      "h1": "Regret Minimization",
+      "intro": ["The Regret Minimization Framework, famously used by Jeff Bezos when he decided to start Amazon, asks you to project yourself to age 80 and pick the option you would regret least."],
+      "steps": [
+        { "name": "Describe your decision", "text": "Write down the choice and what taking the leap would mean." },
+        { "name": "Rate regret, reversibility and values", "text": "Rate how much you would regret not acting, how reversible the decision is, how well it fits your values, and how your 80-year-old self would see it." },
+        { "name": "Get your score", "text": "The score weights regret 40%, values 25%, the age-80 view 20% and reversibility 15%." }
+      ],
+      "faq": [
+        { "q": "What is Jeff Bezos' Regret Minimization Framework?", "a": "It asks: when you are 80 years old looking back on your life, which choice would you regret NOT taking? This long-term view helps cut through fear and overthinking for major life decisions." },
+        { "q": "When should I use Regret Minimization?", "a": "Use it for major life decisions such as career changes, moving abroad or starting a business, especially when fear is holding you back." }
+      ]
+    },
+    {
+      "path": "/tools/pmi",
+      "tool": true,
+      "name": "PMI Analysis (Plus, Minus, Interesting)",
+      "title": "PMI Analysis Tool: Plus, Minus, Interesting | The 3 P's",
+      "description": "Edward de Bono's PMI method: list the Plus, Minus and Interesting points of a decision, weigh them, and see the overall picture. Free online tool.",
+      "h1": "PMI Analysis",
+      "intro": ["PMI (Plus, Minus, Interesting) is a structured thinking method by Edward de Bono. Unlike a simple pros and cons list, it adds an Interesting category for notable points that are neither good nor bad."],
+      "steps": [
+        { "name": "List the Plus points", "text": "Write down every positive aspect of the decision and give each a weight." },
+        { "name": "List the Minus points", "text": "Write down every negative aspect and give each a weight." },
+        { "name": "List the Interesting points", "text": "Add neutral but notable observations. The score is Plus minus Minus plus half of Interesting." }
+      ],
+      "faq": [
+        { "q": "What is PMI Analysis?", "a": "PMI stands for Plus, Minus, Interesting. Edward de Bono created it to explore all sides of a decision, including neutral observations a pros and cons list would miss." },
+        { "q": "How is the PMI score calculated?", "a": "Score = total Plus − total Minus + (total Interesting × 0.5)." }
+      ]
+    },
+    {
+      "path": "/tools/swot",
+      "tool": true,
+      "name": "SWOT Analysis",
+      "title": "Free SWOT Analysis Tool for Decisions | The 3 P's",
+      "description": "Map the Strengths, Weaknesses, Opportunities and Threats of any decision in a 2x2 grid and get a scored result. Free online SWOT analysis tool.",
+      "h1": "SWOT Analysis",
+      "intro": ["SWOT is a classic strategic planning framework. Strengths and weaknesses are internal factors you control; opportunities and threats are external factors you don't."],
+      "steps": [
+        { "name": "List Strengths and Weaknesses", "text": "Write down the internal positives and negatives of your situation." },
+        { "name": "List Opportunities and Threats", "text": "Write down the external positives and risks." },
+        { "name": "Get your score", "text": "Score = Strengths + Opportunities − Weaknesses − Threats." }
+      ],
+      "faq": [
+        { "q": "What is a SWOT analysis?", "a": "SWOT stands for Strengths, Weaknesses, Opportunities and Threats. It gives a full strategic picture of a business or personal decision in a 2x2 grid." },
+        { "q": "Can I use SWOT for personal decisions?", "a": "Yes. SWOT works for career moves, big purchases and life choices as well as business strategy." }
+      ]
+    },
+    {
+      "path": "/tools/opportunity-cost",
+      "tool": true,
+      "name": "Opportunity Cost Calculator",
+      "title": "Opportunity Cost Decision Calculator | The 3 P's",
+      "description": "Every choice has a trade-off. Compare what you gain with what you give up in time, money and other options, and see if the exchange is worth it.",
+      "h1": "Opportunity Cost",
+      "intro": ["Opportunity cost is the value of the best alternative you give up when you make a choice. This tool makes those hidden trade-offs visible."],
+      "steps": [
+        { "name": "List your gains", "text": "Write down what you gain by taking action." },
+        { "name": "List your sacrifices", "text": "Write down what you give up: time, money, energy and other opportunities." },
+        { "name": "Compare", "text": "The tool compares gains with sacrifices to show whether the trade is worth it." }
+      ],
+      "faq": [
+        { "q": "What is opportunity cost?", "a": "Opportunity cost is what you give up by choosing one option over the best alternative, including intangible costs like stress and time." }
+      ]
+    },
+    {
+      "path": "/tools/coin-flip",
+      "tool": true,
+      "name": "Coin Flip Test",
+      "title": "Coin Flip Decision Test: Check Your Gut | The 3 P's",
+      "description": "Stuck between two options? Flip a coin and notice your gut reaction to the result. Disappointed or relieved? That tells you what you really want.",
+      "h1": "Coin Flip Test",
+      "intro": ["The Coin Flip Test isn't about letting chance decide. The moment the coin lands, your gut reaction shows which option you were secretly hoping for."],
+      "steps": [
+        { "name": "Assign your options", "text": "Assign one option to heads and the other to tails." },
+        { "name": "Flip the coin", "text": "Flip and watch the result." },
+        { "name": "Notice your reaction", "text": "Record whether you feel relieved or disappointed. That feeling is your real preference." }
+      ],
+      "faq": [
+        { "q": "Does flipping a coin help make decisions?", "a": "Yes, as a gut check. Your emotional reaction to the result, relief or disappointment, reveals the option you actually prefer. It works best as a tie-breaker after analysis." }
+      ]
+    },
+    {
+      "path": "/tools/fear-regret",
+      "tool": true,
+      "name": "Fear vs Regret Matrix",
+      "title": "Fear vs Regret Matrix: Overcome Decision Fear | The 3 P's",
+      "description": "Weigh your fear of acting against your fear of not acting. Find out which one is stronger and stop letting fear make your decisions for you.",
+      "h1": "Fear vs Regret",
+      "intro": ["Every decision involves two kinds of fear: fear of what could go wrong if you act, and fear of what you'll miss if you don't. This matrix puts both side by side."],
+      "steps": [
+        { "name": "List fears of action", "text": "Write down what could go wrong if you do it." },
+        { "name": "List fears of inaction", "text": "Write down what you would miss or regret if you don't." },
+        { "name": "Compare", "text": "Score = fear of inaction − fear of action. A positive score favours acting." }
+      ],
+      "faq": [
+        { "q": "How do I stop fear from blocking a decision?", "a": "Compare fear of action with fear of inaction. Fears of inaction are often underestimated, and action fears tend to be temporary while regrets about inaction linger." }
+      ]
+    },
+    {
+      "path": "/compare",
+      "title": "Compare Decision-Making Frameworks Side by Side | The 3 P's",
+      "description": "Run the same decision through several frameworks and compare the results side by side. See where the 3 P's, 10-10-10, SWOT and others agree.",
+      "h1": "Compare decision tools",
+      "intro": ["Run one decision through several frameworks and compare the outcomes side by side. When different methods agree, you can decide with more confidence."],
+      "linksToTools": true
+    },
+    {
+      "path": "/help",
+      "title": "How to Choose a Decision-Making Framework | The 3 P's",
+      "description": "Guides to all 8 decision tools: how each framework works, what it's best for and tips to get honest, useful results.",
+      "h1": "Help & guides",
+      "intro": ["Not sure which framework fits your decision? These guides explain how each tool works, what it's best for, and how to get honest results."],
+      "linksToTools": true
+    },
+    {
+      "path": "/about",
+      "title": "About The 3 P's: Pay, Play & Prestige Framework",
+      "description": "The 3 P's weighs Pay (money), Play (fun) and Prestige (status) to decide if a project fits your values. Learn the framework and the formula.",
+      "h1": "About The 3 P's",
+      "intro": [
+        "The 3 P's is a simple but powerful framework for deciding whether to take on a project. It is built on three motivations: Pay (money), Play (fun) and Prestige (status).",
+        "It started as a Dutch rule of thumb, Poen, Pret & Prestige. Score = (your Pay × project Pay) + (your Play × project Play) + (your Prestige × project Prestige); above 6,000 is a good fit."
+      ]
+    },
+    {
+      "path": "/pricing",
+      "title": "Pricing: Free Decision Tools + Premium | The 3 P's",
+      "description": "All 8 decision tools are free. Premium (from €5.75/month billed yearly) adds unlimited history, insights, AI advice and PDF export.",
+      "h1": "Pricing",
+      "intro": ["All 8 decision tools are free forever. Premium costs €7.99 per month, or €5.75 per month billed yearly, and adds unlimited decision history, an insights dashboard, AI-powered advice and PDF/JSON export."]
+    }
+  ],
+  "noindex": ["/history", "/insights", "/success", "/shared", "/auth"]
+}

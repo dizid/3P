@@ -14,8 +14,8 @@
                 <span class="text-lg font-bold text-white">3P</span>
               </div>
               <div>
-                <h3 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">De 3 P's</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Projecten Beoordelen</p>
+                <h3 class="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">The 3 P's</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Evaluate Projects</p>
               </div>
             </div>
             <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed max-w-xs">
@@ -27,7 +27,7 @@
           <div>
             <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Tools</h4>
             <ul class="space-y-2.5">
-              <li><RouterLink to="/tools/3ps" class="footer-link">De 3 P's</RouterLink></li>
+              <li><RouterLink to="/tools/3ps" class="footer-link">The 3 P's</RouterLink></li>
               <li><RouterLink to="/tools/10-10-10" class="footer-link">10-10-10 Rule</RouterLink></li>
               <li><RouterLink to="/tools/regret" class="footer-link">Regret Minimization</RouterLink></li>
               <li><RouterLink to="/tools/pmi" class="footer-link">PMI Analysis</RouterLink></li>
@@ -53,10 +53,10 @@
 
           <!-- About Column -->
           <div>
-            <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">Over Ons</h4>
+            <h4 class="text-sm font-semibold text-gray-900 dark:text-gray-100 uppercase tracking-wider mb-4">About</h4>
             <ul class="space-y-2.5">
-              <li><RouterLink to="/about" class="footer-link">Over De 3 P's</RouterLink></li>
-              <li><RouterLink to="/help" class="footer-link">Hoe het werkt</RouterLink></li>
+              <li><RouterLink to="/about" class="footer-link">About The 3 P's</RouterLink></li>
+              <li><RouterLink to="/help" class="footer-link">How It Works</RouterLink></li>
             </ul>
           </div>
         </div>
@@ -65,11 +65,11 @@
         <div class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700/50">
           <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p class="text-sm text-gray-500 dark:text-gray-400">
-              &copy; {{ currentYear }} De 3 P's &mdash; Made by
+              &copy; {{ currentYear }} The 3 P's &mdash; Made by
               <a href="https://dizid.com" target="_blank" rel="noopener" class="text-indigo-600 dark:text-indigo-400 hover:underline">Dizid</a>
             </p>
             <p class="text-xs text-gray-400 dark:text-gray-500">
-              Beslissingstools voor slimmere keuzes
+              Decision tools for smarter choices
             </p>
           </div>
         </div>

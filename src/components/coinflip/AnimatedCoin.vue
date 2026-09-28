@@ -34,11 +34,11 @@ const showHeads = computed(() => !props.isFlipping && props.result === 'A')
 const showTails = computed(() => !props.isFlipping && props.result === 'B')
 
 const optionAIcon = computed(() => {
-  return '&#127919;' // Target
+  return '🎯' // Target
 })
 
 const optionBIcon = computed(() => {
-  return '&#128260;' // Arrows
+  return '🔄' // Arrows
 })
 </script>
 

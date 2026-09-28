@@ -1,6 +1,8 @@
 # Logs
 
 *.txt
+# Crawler files must be deployed despite the *.txt rule
+!public/robots.txt
 *.env
 logs
 *.log

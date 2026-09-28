@@ -1,0 +1,385 @@
+<section class="module" id="module-2" style="background: var(--color-bg);">
+  <div class="module-content">
+
+    <!-- ─────────── HEADER ─────────── -->
+    <header class="module-header animate-in">
+      <span class="module-number">02</span>
+      <h1 class="module-title">Meet the Cast</h1>
+      <p class="module-subtitle">Your app is a film production crew &mdash; every file has a job title.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ─────────── SCREEN 1: Transition + Metaphor ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Zooming out from one click</h2>
+        <p>
+          In Module 1 we followed <em>one</em> click from screen to score. Now let&rsquo;s pull the camera back. The 3 P&rsquo;s app has around <strong>60 code files</strong> &mdash; so who does what?
+        </p>
+        <p>
+          Think of the codebase as a <strong>film production crew</strong>. There&rsquo;s a director running the shoot, actors on camera, set pieces in the background, a script supervisor tracking every line, and off-set specialists you call when you need something from outside the studio.
+        </p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why this matters</strong>
+            <p>When you can name the roles, you can redirect the AI. &ldquo;Put the login logic in the <span class="term" data-definition="A store is a central data container shared across the whole app. Any view or component can read from it and write to it. Think: the production crew's shared clipboard.">store</span>, not the view&rdquo; is the kind of sentence that stops AI from making a mess.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 2: The Cast of Characters ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The cast of characters</h2>
+        <p>
+          Six roles. Each has one job. Click any card to see what that actor does in our app.
+        </p>
+
+        <div class="arch-diagram">
+          <div class="arch-zone">
+            <h4 class="arch-zone-label">The Crew</h4>
+            <div class="pattern-cards">
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-1);"
+                   data-desc="App.vue is the layout shell. It renders the nav, the main content area, and the footer on every page. One file, loaded once, wraps everything else."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-1);">&#127916;</div>
+                <h4 class="pattern-title">App.vue</h4>
+                <p class="pattern-desc"><strong>The Director</strong><br>The layout shell everything else lives inside.</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-2);"
+                   data-desc="Views are the on-camera actors. There's one view per URL path in our app — HistoryView.vue, PricingView.vue, TenTenTenView.vue, and so on. A view's job is to compose smaller components together for one specific screen."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-2);">&#127916;</div>
+                <h4 class="pattern-title">Views</h4>
+                <p class="pattern-desc"><strong>On-camera actors</strong><br>One <span class="term" data-definition="A view is a component that maps 1-to-1 with a URL. If you navigate to /history, the HistoryView shows. If you go to /tools, the ToolsHomeView shows.">view</span> per URL &mdash; <code>src/views/*.vue</code>.</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-3);"
+                   data-desc="Shared components are reusable UI pieces that show up in many views — ToolCard, ToolHeader, GutCheck, PostDecisionCoach, SaveToHistoryButton. Pure UI, no business logic."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-3);">&#127912;</div>
+                <h4 class="pattern-title">Shared Components</h4>
+                <p class="pattern-desc"><strong>Set pieces</strong><br>Reusable UI blocks &mdash; <code>ToolCard</code>, <code>GutCheck</code>&hellip;</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-4);"
+                   data-desc="Tool-specific components are actors who only appear in one scene. TenTenTenForm and TenTenTenResult only show up in the 10-10-10 view. They live under src/components/{tool}/."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-4);">&#127917;</div>
+                <h4 class="pattern-title">Tool Components</h4>
+                <p class="pattern-desc"><strong>Specialist actors</strong><br>Only on one tool &mdash; <code>TenTenTenForm</code>, <code>PmiItemCard</code>&hellip;</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-5);"
+                   data-desc="Pinia stores are the script supervisors. They remember what's been said so anyone on set can ask them. ToolsStore holds all 8 tool states and the scoring math. HistoryStore tracks saved decisions. AuthStore, SubscriptionStore, and ThemeStore handle who's logged in, free-vs-Pro, and light/dark mode."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-5);">&#128221;</div>
+                <h4 class="pattern-title">Pinia Stores</h4>
+                <p class="pattern-desc"><strong>Script supervisors</strong><br><code>ToolsStore</code>, <code>HistoryStore</code>, <code>AuthStore</code>&hellip;</p>
+              </div>
+
+              <div class="arch-component pattern-card" style="border-top: 3px solid var(--color-actor-1);"
+                   data-desc="Services are plain JavaScript modules with no UI. They wrap calls to the outside world — aiService.js talks to Claude, stripeService.js handles billing. When a component needs something from outside the studio, it calls a service."
+                   onclick="(function(el){var d=el.closest('.arch-diagram');d.querySelectorAll('.arch-component').forEach(function(c){c.classList.remove('active');});el.classList.add('active');var desc=d.querySelector('.arch-description');if(desc)desc.textContent=el.dataset.desc;})(this)">
+                <div class="pattern-icon" style="background: var(--color-actor-1);">&#128222;</div>
+                <h4 class="pattern-title">Services</h4>
+                <p class="pattern-desc"><strong>Off-set specialists</strong><br><span class="term" data-definition="A service is a plain JavaScript module (no UI) that wraps external interactions — API calls, payments, third-party libraries.">Services</span> like <code>aiService.js</code>, <code>stripeService.js</code>.</p>
+              </div>
+
+            </div>
+          </div>
+          <div class="arch-description">Click any role above to see what they do in our codebase.</div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 3: A view is a thin wrapper ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">A view is surprisingly thin</h2>
+        <p>
+          A <span class="term" data-definition="A view is a component that maps 1-to-1 with a URL. If you navigate to /history, the HistoryView shows. If you go to /tools, the ToolsHomeView shows.">view</span> doesn&rsquo;t do much on its own. It just arranges other components and decides which one is visible. Here&rsquo;s the <strong>entire</strong> 10-10-10 view, side-by-side with plain English.
+        </p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE &mdash; TenTenTenView.vue</span>
+<pre><code><span class="code-line"><span class="code-tag">&lt;template&gt;</span></span>
+<span class="code-line">  <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-value">"min-h-screen py-8 px-4"</span><span class="code-tag">&gt;</span></span>
+<span class="code-line">    <span class="code-tag">&lt;div</span> <span class="code-attr">class</span>=<span class="code-value">"max-w-4xl mx-auto"</span><span class="code-tag">&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;ToolHeader</span></span>
+<span class="code-line">        <span class="code-attr">icon</span>=<span class="code-value">"&amp;#9200;"</span></span>
+<span class="code-line">        <span class="code-attr">title</span>=<span class="code-value">"10-10-10 Rule"</span></span>
+<span class="code-line">        <span class="code-attr">description</span>=<span class="code-value">"How will you feel in 10 minutes, 10 months, and 10 years?"</span></span>
+<span class="code-line">        <span class="code-attr">color</span>=<span class="code-value">"#3b82f6"</span></span>
+<span class="code-line">      <span class="code-tag">/&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;GutCheck</span> <span class="code-attr">v-if</span>=<span class="code-value">"!showResult"</span> <span class="code-attr">v-model</span>=<span class="code-value">"gutFeeling"</span> <span class="code-tag">/&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;TenTenTenForm</span> <span class="code-attr">v-if</span>=<span class="code-value">"!showResult"</span> <span class="code-attr">@complete</span>=<span class="code-value">"showResult = true"</span> <span class="code-tag">/&gt;</span></span>
+<span class="code-line">      <span class="code-tag">&lt;TenTenTenResult</span> <span class="code-attr">v-else</span> <span class="code-attr">@back</span>=<span class="code-value">"showResult = false"</span> <span class="code-attr">@reset</span>=<span class="code-value">"reset"</span> <span class="code-tag">/&gt;</span></span>
+<span class="code-line">    <span class="code-tag">&lt;/div&gt;</span></span>
+<span class="code-line">  <span class="code-tag">&lt;/div&gt;</span></span>
+<span class="code-line"><span class="code-tag">&lt;/template&gt;</span></span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Begin the <span class="term" data-definition="The HTML part of a Vue component. It describes what the user sees.">template</span> &mdash; the visible layout.</p>
+              <p class="tl">Outer wrapper: full screen height, some padding.</p>
+              <p class="tl">Inner box: max width, centered horizontally.</p>
+              <p class="tl">Render the <code>ToolHeader</code> set piece with these settings&hellip;</p>
+              <p class="tl">&hellip;use a stopwatch icon&hellip;</p>
+              <p class="tl">&hellip;show the title&hellip;</p>
+              <p class="tl">&hellip;show the description underneath&hellip;</p>
+              <p class="tl">&hellip;tint it blue. These are all <span class="term" data-definition="Data passed down from a parent component to a child component. Read-only from the child's perspective.">props</span> &mdash; data passed down to the child.</p>
+              <p class="tl">Self-closing tag &mdash; ToolHeader has no children.</p>
+              <p class="tl">Show <code>GutCheck</code> <strong>only if</strong> the result isn&rsquo;t showing yet. <span class="term" data-definition="v-model is two-way binding — when either side changes (user types OR data updates), the other follows automatically.">v-model</span> lets GutCheck read AND write <code>gutFeeling</code>.</p>
+              <p class="tl">Show the form <strong>only if</strong> we&rsquo;re not on the result screen. When it <span class="term" data-definition="An event is a message a child component sends up to its parent. The parent listens with @eventName.">emits</span> <code>complete</code>, flip the switch to true.</p>
+              <p class="tl"><span class="term" data-definition="A special attribute starting with v- (like v-if, v-model) that tells Vue to do something — show/hide, bind data, loop over a list.">v-else</span>: show the result screen instead. Back and reset events bubble up to the view.</p>
+              <p class="tl">Close the inner box.</p>
+              <p class="tl">Close the outer wrapper.</p>
+              <p class="tl">End of the template.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128269;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Notice what&rsquo;s missing</strong>
+            <p>No scoring math. No saving. No API calls. A view <em>composes</em>; it doesn&rsquo;t <em>compute</em>. The heavy lifting lives in stores and services.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 4: Group Chat — a decision saves ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Watch the cast talk: &ldquo;Save my decision&rdquo;</h2>
+        <p>
+          When you click <em>Save to History</em>, five actors light up and pass messages. Press <strong>Next Message</strong> to watch it unfold.
+        </p>
+
+        <div class="chat-window" id="chat-module2">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="button" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-1);">B</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1);">SaveToHistoryButton</span>
+                <p>Hey HistoryStore, the user just clicked Save. Here&rsquo;s the decision data.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="store" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-5);">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5);">HistoryStore</span>
+                <p>Got it. First, I&rsquo;ll drop it into <span class="term" data-definition="A per-browser storage bucket. Persists between sessions but only on that one device.">localStorage</span> so it&rsquo;s instant &mdash; even offline.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="local" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-4);">L</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4);">localStorage</span>
+                <p>Saved on this device. &#10003;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="store" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-5);">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5);">HistoryStore</span>
+                <p>User&rsquo;s logged in too &mdash; let me sync a copy to the server so it&rsquo;s on their other devices.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="fn" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Netlify Function</span>
+                <p>Received POST /api/decisions. Verifying the <span class="term" data-definition="JSON Web Token. A signed string that proves who you are to the server. Like a tamper-proof hall pass.">JWT</span>&hellip; looks good. Passing to the database.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="fn" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-2);">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2);">Netlify Function &rarr; Neon</span>
+                <p><code>INSERT INTO decisions&hellip;</code></p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="6" data-sender="neon" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-3);">N</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3);"><span class="term" data-definition="A cloud Postgres database. Stores data that needs to survive the user closing their browser.">Neon</span> Database</span>
+                <p>Row created. &#10003;</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="7" data-sender="store" style="display:none;">
+              <div class="chat-avatar" style="background: var(--color-actor-5);">H</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5);">HistoryStore</span>
+                <p>All synced. The UI already updated from localStorage &mdash; the server sync just happened quietly in the background.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" style="display:none;">
+            <div class="chat-avatar" id="chat-module2-typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#127919;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The key insight</strong>
+            <p>The button never talks to the database directly. It talks to its <em>script supervisor</em> (the store), who handles local storage, then delegates the remote sync to a <span class="term" data-definition="A tiny piece of server code that runs on-demand when called. No server to manage. Covered in Module 4.">Netlify Function</span>. Each actor only knows its neighbor.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ─────────── SCREEN 5: Quiz ─────────── -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Quick check: where does this belong?</h2>
+        <p>
+          You&rsquo;ve met the cast. Now: given a new task, can you pick the right actor? No wrong answers &mdash; just thinking exercises.
+        </p>
+
+        <div class="quiz-container" id="quiz-module2">
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Generating PDFs is an I/O-ish, reusable capability — exactly what services are for. The result component would just call it. This keeps UI code focused on UI."
+               data-explanation-wrong="Tempting, but the result component should stay focused on showing things. PDF generation is a reusable capability — put it in a service (the &ldquo;off-set specialist&rdquo;) so any tool can call it.">
+            <h3 class="quiz-question">You&rsquo;re asked to add a &ldquo;Download as PDF&rdquo; button. The PDF generation logic itself &mdash; where should it go?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the result component that shows the decision</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In a new service (like <code>pdfService.js</code>)</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the Pinia store</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>In the router</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Even one-off UI pieces belong as components. Views are for composing — they shouldn&rsquo;t contain large chunks of markup themselves. &ldquo;Reusable&rdquo; isn&rsquo;t the only reason to make a component; clean separation is reason enough."
+               data-explanation-wrong="&ldquo;Reusability&rdquo; isn&rsquo;t the real test. Components are the right home for UI pieces even when they&rsquo;re used only once &mdash; they keep views thin and readable.">
+            <h3 class="quiz-question">A fancy pricing-plan card that only appears on the pricing page &mdash; is it a component or part of the view?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Part of the view &mdash; it&rsquo;s a page-specific chunk of markup</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>A component &mdash; but <em>only</em> because it might be reused later</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>A component, even though it&rsquo;s used once &mdash; views compose, components <em>are</em> the UI pieces</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Put it directly in <code>App.vue</code></span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Scoring logic lives in the store. The view and the form just read the computed result; they don&rsquo;t recompute. Change the math in one place &mdash; every screen that uses it updates automatically."
+               data-explanation-wrong="If scoring lived in the UI, you&rsquo;d change it in several places and some would drift out of sync. Stores centralize derived values so there&rsquo;s one source of truth.">
+            <h3 class="quiz-question">The <code>tententenScore</code> formula changes &mdash; the weights shift from 15/35/50 to 20/30/50. Where do you edit?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The view (<code>TenTenTenView.vue</code>)</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The form component (<code>TenTenTenForm.vue</code>)</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The store getter in <code>ToolsStore.js</code></span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>All three &mdash; keep them in sync manually</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Saving decisions is HistoryStore&rsquo;s job &mdash; it handles both local and server-side persistence. That&rsquo;s always the first place to look when things don&rsquo;t save."
+               data-explanation-wrong="Close, but remember the group chat: the view and ToolsStore handle the current decision. HistoryStore is the one responsible for persisting saved decisions. It&rsquo;s the prime suspect.">
+            <h3 class="quiz-question">A user reports &ldquo;my decision wasn&rsquo;t saved.&rdquo; Which actor is the prime suspect?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The View</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><code>ToolsStore</code></span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><code>HistoryStore</code></span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Vue Router</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module2')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module2')">Try Again</button>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128073;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Coming up next</strong>
+            <p>You&rsquo;ve met the cast. Module 3 shows <em>how they talk</em> &mdash; props down, events up, reactive state, and router hops. The grammar of the conversation.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

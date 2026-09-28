@@ -95,7 +95,7 @@ const dontShowAgain = ref(false)
 const steps = [
   {
     icon: '&#128075;',
-    title: 'Welcome to De 3 P\'s!',
+    title: 'Welcome to The 3 P\'s!',
     description: 'Your personal decision-making toolkit. Make better choices with proven frameworks used by professionals worldwide.',
     features: []
   },

@@ -53,7 +53,7 @@
 <script setup>
 const tools = [
   {
-    name: "De 3 P's",
+    name: "The 3 P's",
     icon: '&#128176;',
     path: '/tools/3ps',
     color: '#6366f1',

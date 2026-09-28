@@ -188,9 +188,9 @@ const isPositive = computed(() => store.tententenScore >= 60)
 const isNeutral = computed(() => store.tententenScore >= 40 && store.tententenScore < 60)
 
 const resultIcon = computed(() => {
-  if (isPositive.value) return '&#127881;'
-  if (isNeutral.value) return '&#129300;'
-  return '&#128528;'
+  if (isPositive.value) return '🎉'
+  if (isNeutral.value) return '🤔'
+  return '😐'
 })
 
 const headerClass = computed(() => {

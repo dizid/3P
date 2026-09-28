@@ -17,7 +17,7 @@
       <!-- Tool Recommendation Quiz -->
       <ToolQuiz />
 
-      <!-- Featured Tool: De 3 P's -->
+      <!-- Featured Tool: The 3 P's -->
       <div class="mb-6 animate-on-enter">
         <RouterLink
           to="/tools/3ps"
@@ -34,11 +34,11 @@
             </div>
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-1">
-                <h3 class="text-2xl font-bold">De 3 P's</h3>
+                <h3 class="text-2xl font-bold">The 3 P's</h3>
                 <span class="px-2 py-0.5 bg-white/20 rounded-full text-xs font-semibold uppercase tracking-wide">Featured</span>
               </div>
               <p class="text-white/90">
-                Evalueer projecten op basis van Poen, Pret en Prestige. Past dit project bij jouw waarden?
+                Evaluate projects on Pay, Play & Prestige. Does this project fit your values?
               </p>
             </div>
             <div class="flex-shrink-0 opacity-0 group-hover:opacity-100 transform translate-x-2 group-hover:translate-x-0 transition-all duration-300">

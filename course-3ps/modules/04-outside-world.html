@@ -1,0 +1,392 @@
+<section class="module" id="module-4" style="background: var(--color-bg)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">04</span>
+      <h1 class="module-title">The Outside World</h1>
+      <p class="module-subtitle">How the app talks to Claude AI, a database, and Stripe &mdash; and what happens when the radio crackles.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ======================= SCREEN 1: Hook + Metaphor ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">The Lighthouse Keeper&rsquo;s Radio</h2>
+
+        <p>Module 3 showed the pieces talking to each other <em>inside your browser</em> &mdash; reactivity, props, events. All local, all instant. This module steps outside.</p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128225;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The Keeper and the Radio</strong>
+            <p>Most of a lighthouse keeper&rsquo;s work is <em>inside</em> the lighthouse &mdash; polishing the lens, trimming the wicks, logging the weather. But when a ship calls on the radio, he talks to the outside. Each call drains battery, can fail from static, and takes real time. The lighthouse works fine without the radio &mdash; but it&rsquo;s <em>much</em> more useful when the radio works.</p>
+          </div>
+        </div>
+
+        <p>The app talks to three outside services: <span class="term" data-definition="A large language model made by Anthropic. The AI used in this app to write decision advice.">Claude</span> for smart advice, a <span class="term" data-definition="A popular open-source database. Neon is a cloud-hosted Postgres service that this app uses to store decisions.">Postgres</span> database to remember your decisions across devices, and <span class="term" data-definition="A payment processor. Handles credit cards, subscriptions, and refunds so you don't have to build any of that yourself.">Stripe</span> to charge money. Each call has a cost. Each one can fail.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why should I care?</strong>
+            <p>When AI writes code that calls an external service, ask three questions: <strong>What happens if it fails? What if it&rsquo;s slow? Does this cost money per call?</strong> Those three questions catch 80% of production bugs.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 2: Architecture diagram ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Two Worlds, One App</h2>
+
+        <p>Everything on the left runs on your device &mdash; free, instant, offline-capable. Everything on the right runs somewhere else &mdash; slower, sometimes costly, sometimes unreachable.</p>
+
+        <div class="arch-diagram">
+          <div class="arch-zone arch-zone-browser">
+            <h4 class="arch-zone-label">In Your Browser</h4>
+            <div class="arch-component" data-desc="Vue components render the UI: sliders, buttons, result cards. All the 'what you see' lives here." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128187;</div>
+              <span>Vue Components</span>
+            </div>
+            <div class="arch-component" data-desc="Pinia stores hold the app's shared state: your slider values, computed scores, your history list." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128230;</div>
+              <span>Pinia Stores</span>
+            </div>
+            <div class="arch-component" data-desc="localStorage: a built-in browser key-value box. Persists across page refreshes. Your decisions survive even when you're offline." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128190;</div>
+              <span>localStorage</span>
+            </div>
+            <div class="arch-component" data-desc="The fetch() function: the browser's built-in tool for making HTTP requests to the outside world." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128225;</div>
+              <span>fetch() calls</span>
+            </div>
+          </div>
+
+          <div class="arch-zone arch-zone-external">
+            <h4 class="arch-zone-label">Outside World</h4>
+            <div class="arch-component" data-desc="Netlify Functions: small server programs that run on-demand when the frontend calls /api/something. Cost: pennies per thousand calls. Purpose: the safe middleman between your browser and paid services." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#9889;</div>
+              <span>Netlify Functions</span>
+            </div>
+            <div class="arch-component" data-desc="Claude API (Anthropic): sends decision data in, gets AI advice out. Cost: fractions of a cent per analysis (more for Sonnet, less for Haiku)." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#129302;</div>
+              <span>Claude API</span>
+            </div>
+            <div class="arch-component" data-desc="Neon Postgres: a cloud database that remembers your decisions across devices. Cost: free tier covers small apps; scales to pennies per query." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128451;</div>
+              <span>Neon Postgres</span>
+            </div>
+            <div class="arch-component" data-desc="Stripe: handles checkout, subscriptions, and billing. Cost: ~2.9% + 30c per successful charge &mdash; nothing if no one pays." onclick="showArchDesc(this)">
+              <div class="arch-icon">&#128179;</div>
+              <span>Stripe</span>
+            </div>
+          </div>
+
+          <div class="arch-description" id="arch-desc">Click any box to see what it does &mdash; and what it costs.</div>
+        </div>
+
+        <p>Notice the shape: the browser never talks directly to Claude, Neon, or Stripe. Every outside call goes through a <span class="term" data-definition="Code that runs on someone else's server only when called. You don't manage the server, don't pay when idle, and it scales automatically. Netlify Functions are one flavor.">serverless</span> function first. That&rsquo;s where the secrets live.</p>
+      </section>
+
+      <!-- ======================= SCREEN 3: Offline-first translation ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Offline-First: Save Locally, Sync Later</h2>
+
+        <p>When you save a decision, the app does something clever: it saves it <em>twice</em>. Once to your browser instantly, once to the server in the background. If the server is unreachable, you never notice.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-comment">// Always save locally</span></span>
+<span class="code-line"><span class="code-keyword">this</span>.decisions.<span class="code-function">push</span>(newDecision)</span>
+<span class="code-line"><span class="code-keyword">this</span>.<span class="code-function">saveToLocalStorage</span>()</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-comment">// If authenticated, also save to server</span></span>
+<span class="code-line"><span class="code-keyword">if</span> (authStore.isAuthenticated) {</span>
+<span class="code-line">  <span class="code-keyword">try</span> {</span>
+<span class="code-line">    <span class="code-keyword">await</span> <span class="code-function">fetch</span>(<span class="code-string">`${API_BASE}/api/decisions`</span>, {</span>
+<span class="code-line">      <span class="code-property">method</span>: <span class="code-string">'POST'</span>,</span>
+<span class="code-line">      <span class="code-property">headers</span>: <span class="code-function">getHeaders</span>(),</span>
+<span class="code-line">      <span class="code-property">body</span>: <span class="code-function">JSON</span>.<span class="code-function">stringify</span>({</span>
+<span class="code-line">        <span class="code-property">tool</span>: decision.tool,</span>
+<span class="code-line">        <span class="code-property">title</span>: decision.decision || decision.title || <span class="code-string">'Untitled Decision'</span>,</span>
+<span class="code-line">        <span class="code-property">description</span>: decision.recommendation || <span class="code-keyword">null</span>,</span>
+<span class="code-line">        <span class="code-property">data</span>: decision.data || {},</span>
+<span class="code-line">        <span class="code-property">score</span>: decision.score || <span class="code-keyword">null</span>,</span>
+<span class="code-line">        <span class="code-property">adviceType</span>: decision.recommendationType || <span class="code-keyword">null</span></span>
+<span class="code-line">      })</span>
+<span class="code-line">    })</span>
+<span class="code-line">  } <span class="code-keyword">catch</span> (err) {</span>
+<span class="code-line">    <span class="code-function">console</span>.<span class="code-function">error</span>(<span class="code-string">'Failed to sync decision to server:'</span>, err)</span>
+<span class="code-line">  }</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Add the new decision to the in-memory list <em>right now</em>. No waiting.</p>
+              <p class="tl">Write it to the browser&rsquo;s <span class="term" data-definition="A built-in browser key-value box that survives page refreshes and reboots. Free, instant, synchronous &mdash; but only on this device.">localStorage</span> so it survives a refresh.</p>
+              <p class="tl">Only bother with the server if the user is logged in.</p>
+              <p class="tl">Try to send the decision to our API <span class="term" data-definition="A specific URL an API exposes. /api/decisions is one endpoint; /api/analyze-decision is another.">endpoint</span> using <span class="term" data-definition="Built-in browser function to make HTTP requests. The modern replacement for XMLHttpRequest.">fetch</span>.</p>
+              <p class="tl"><span class="term" data-definition="A verb saying what you want to do: GET (read), POST (create), PATCH (update), DELETE (remove).">POST</span> means &ldquo;create a new thing,&rdquo; not &ldquo;just read something.&rdquo;</p>
+              <p class="tl">Attach <span class="term" data-definition="Metadata attached to a request: content type, authentication tokens, etc. Like the envelope of a letter.">headers</span> that prove who we are (includes the auth token).</p>
+              <p class="tl">Bundle up the decision as <span class="term" data-definition="JavaScript Object Notation: a plain-text format for data. Turns objects into strings the server can parse.">JSON</span> and send it along.</p>
+              <p class="tl">If the server call fails &mdash; offline, slow, 500 error &mdash; don&rsquo;t crash. Just log it.</p>
+              <p class="tl">The local save already worked. The user sees success either way.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-success">
+          <div class="callout-icon">&#10024;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The aha moment</strong>
+            <p>Saving <em>never</em> fails from the user&rsquo;s perspective, because the local save is synchronous and instant. The server sync is a bonus &mdash; a gift to future-you on a different device. If it fails, you lose cross-device sync on that one entry, not the decision itself.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 4: Group chat ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Tracing a Call to Claude</h2>
+
+        <p>You click &ldquo;Get AI Advice.&rdquo; What happens? Five actors, eight messages, one round-trip to an AI. Step through it.</p>
+
+        <div class="chat-window" id="chat-module4">
+          <div class="chat-messages">
+
+            <div class="chat-message" data-msg="0" data-sender="user" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-4)">U</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-4)">User</span>
+                <p>*clicks &ldquo;Get AI Advice&rdquo; on the result screen*</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="1" data-sender="frontend" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Frontend</span>
+                <p>POST /api/analyze-decision &mdash; here&rsquo;s the decision data plus the user&rsquo;s auth token.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="2" data-sender="function" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">N</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Netlify Function</span>
+                <p>Let me verify the <span class="term" data-definition="JSON Web Token. A signed string proving you're logged in. Sent in the Authorization: Bearer ... header. If the signature doesn't match, we reject the request.">JWT</span>&hellip; signature checks out. Good.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="3" data-sender="db" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">Netlify &rarr; Neon DB</span>
+                <p>Hey Neon &mdash; has user #8421 used their free analysis this month?</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="4" data-sender="db" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">Neon DB</span>
+                <p>Nope &mdash; 0 used of 1 allowed. Go ahead.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="5" data-sender="claude" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">C</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Netlify &rarr; Claude</span>
+                <p>Hey Claude, here&rsquo;s a decision. Give me: insight, blind spots, next step. Max 400 <span class="term" data-definition="The AI's unit of text. Roughly 1 token = 4 characters. You pay per token in and per token out.">tokens</span>. Use <span class="term" data-definition="The small, cheap, fast size of Claude. Free users get Haiku; Pro users get Sonnet, which is smarter but costs more per token.">Haiku</span> (free tier).</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="6" data-sender="claude" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-5)">C</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-5)">Claude</span>
+                <p>*thinks for 1.2 seconds, returns three paragraphs of advice*</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="7" data-sender="db" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-3)">D</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-3)">Netlify &rarr; Neon DB</span>
+                <p>Log this usage: user #8421, month 2026-04, +1.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="8" data-sender="function" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-2)">N</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-2)">Netlify Function</span>
+                <p>Frontend &mdash; here&rsquo;s the analysis JSON. 200 OK.</p>
+              </div>
+            </div>
+
+            <div class="chat-message" data-msg="9" data-sender="frontend" style="display:none">
+              <div class="chat-avatar" style="background: var(--color-actor-1)">F</div>
+              <div class="chat-bubble">
+                <span class="chat-sender" style="color: var(--color-actor-1)">Frontend</span>
+                <p>Rendering it in the AiAdvicePanel component. Done.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="chat-typing" id="chat-typing" style="display:none">
+            <div class="chat-avatar" id="typing-avatar">?</div>
+            <div class="chat-typing-dots">
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+              <span class="typing-dot"></span>
+            </div>
+          </div>
+
+          <div class="chat-controls">
+            <button class="btn chat-next-btn">Next Message</button>
+            <button class="btn chat-all-btn">Play All</button>
+            <button class="btn chat-reset-btn">Replay</button>
+            <span class="chat-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128274;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why the middleman?</strong>
+            <p>The browser never calls Claude directly. If it did, our <span class="term" data-definition="A secret value (like an API key or DB password) set on the server, not in your code. Accessed via Netlify.env.get(). Keeping keys out of the browser is rule #1 of API security.">environment variable</span> API key would leak to every visitor. The Netlify Function holds the key privately and enforces the <span class="term" data-definition="A cap on how often you can call an API. Prevents abuse and runaway bills. Free users here get 1 analysis/month.">rate limit</span> before spending money.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 5: Quiz ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check Your Instinct</h2>
+
+        <p>Four debugging and architecture scenarios. Pick the answer that matches how this world actually works.</p>
+
+        <div class="quiz-container" id="quiz-module4">
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Exactly. CSS runs in the browser &mdash; it has nothing to do with outside calls. Slowness in an AI-backed endpoint comes from external suspects: the model itself, the DB call that precedes it, or the network between Netlify and Anthropic."
+               data-explanation-wrong="Think about where each thing runs. Claude slowness, database slowness, and network latency are all outside-world issues &mdash; they affect response time. CSS never leaves the browser, so it can't slow down a server response.">
+            <h3 class="quiz-question">Your serverless function calls Claude AI. A user reports it&rsquo;s suddenly slow (5 seconds instead of 1). What&rsquo;s <em>NOT</em> a likely cause?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Claude&rsquo;s servers are busy today.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The database query that runs before Claude is slow.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Your frontend CSS got bigger.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Network latency between Netlify and Anthropic.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Right. The natural Pro features are the ones with real marginal cost per use &mdash; AI tokens, PDF compute, bandwidth. 'PDF export' isn't just a button; server-side generation uses memory and libraries that cost money at scale."
+               data-explanation-wrong="Think about cost. Pro tiers exist to cover the cost of features that burn real resources per use. 'Because Pro users deserve more' isn't a principle &mdash; it's arbitrary. 'It's just a button' misses that the PDF itself is generated server-side.">
+            <h3 class="quiz-question">You want to add &ldquo;export to PDF&rdquo; as a paid feature. Which reasoning matches how this app tiers features?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>It should be free &mdash; it&rsquo;s just a button.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Pro, because PDF generation uses server compute and libraries &mdash; real costs per use.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Pro, because Pro users deserve more.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Doesn&rsquo;t matter &mdash; either tier is fine.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Secrets in code get pushed to GitHub, get leaked in logs, and can't be rotated without a redeploy. Environment variables live on the server and can be swapped without touching code."
+               data-explanation-wrong="Think about what happens when that code gets pushed to GitHub. A hardcoded DATABASE_URL = anyone with repo access owns your database. Environment variables keep the secret out of source control entirely.">
+            <h3 class="quiz-question">A Netlify Function reads <code>Netlify.env.get('DATABASE_URL')</code>. Why not just put the URL directly in the code?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Saves typing.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Environment variables are private &mdash; the URL stays out of git history and can be rotated without redeploying code.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Netlify doesn&rsquo;t allow hardcoded strings.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>TypeScript requires it.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="The classic 'paid-but-unprovisioned' bug. Stripe charges the card, fires a webhook to your server, and your server updates the DB. If the webhook fails silently, the money is real but the access flag is never flipped."
+               data-explanation-wrong="The pricing page, frontend, and router never know about a completed payment &mdash; they can't. Stripe tells your server via a webhook. If that webhook handler has a bug or the endpoint is down, the DB never gets the 'upgrade' signal.">
+            <h3 class="quiz-question">A user reports: &ldquo;I paid but I&rsquo;m still on the free plan.&rdquo; Where do you look first?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The pricing page.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The Stripe <span class="term" data-definition="A URL on your server that Stripe (or any third party) calls when something happens &mdash; e.g., 'a payment just completed.' If the webhook fails, your DB never learns about the event.">webhook</span> handler &mdash; Stripe tells your server when a payment completes, and if that fails, your DB never updates.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The frontend.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Vue Router.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module4')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module4')">Try Again</button>
+        </div>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#128300;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Next up: Bugs and Battles</strong>
+            <p>You&rsquo;ve seen the app from the inside, between the pieces, and out to the edges of the world. Module 5 zooms into the messy reality &mdash; real git-history stories from this project: the nav overlap saga, the dark mode audit, the four-attempt fix.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</section>

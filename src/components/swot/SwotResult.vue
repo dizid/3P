@@ -241,9 +241,9 @@ const isPositive = computed(() => store.swotOverallScore >= 5)
 const isNeutral = computed(() => store.swotOverallScore >= -5 && store.swotOverallScore < 5)
 
 const resultIcon = computed(() => {
-  if (isPositive.value) return '&#127941;'
-  if (isNeutral.value) return '&#129300;'
-  return '&#128528;'
+  if (isPositive.value) return '🏅'
+  if (isNeutral.value) return '🤔'
+  return '😐'
 })
 
 const headerClass = computed(() => {

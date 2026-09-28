@@ -50,7 +50,7 @@
               class="text-5xl sm:text-6xl mb-4"
               :class="isPositive ? 'animate-bounce-subtle' : ''"
             >
-              {{ isPositive ? '&#127881;' : '&#129300;' }}
+              {{ isPositive ? '🎉' : '🤔' }}
             </div>
             <h1 class="text-4xl sm:text-5xl font-extrabold mb-4 tracking-tight">
               {{ isPositive ? 'Ga ervoor!' : 'Overweeg goed' }}

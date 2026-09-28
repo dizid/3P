@@ -74,7 +74,7 @@ defineProps({
   },
   icon: {
     type: String,
-    default: '&#128640;'
+    default: '🚀'
   },
   variant: {
     type: String,

@@ -1,0 +1,329 @@
+<section class="module" id="module-3" style="background: var(--color-bg-warm)">
+  <div class="module-content">
+
+    <header class="module-header animate-in">
+      <span class="module-number">03</span>
+      <h1 class="module-title">How the Pieces Talk</h1>
+      <p class="module-subtitle">Reactivity, props, and events &mdash; the three ways our components stay in sync.</p>
+    </header>
+
+    <div class="module-body">
+
+      <!-- ======================= SCREEN 1: Hook + Metaphor ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">From a Cast to a Band</h2>
+
+        <p>Module 2 introduced the cast &mdash; views, components, <span class="term" data-definition="A Pinia store is a central box for shared data. Any component can read from it or write to it, and everyone stays in sync automatically.">stores</span>, the router. But a cast standing on stage does nothing. This module is about how they actually perform together.</p>
+
+        <div class="callout callout-accent">
+          <div class="callout-icon">&#127931;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The Marching Band</strong>
+            <p>The <strong>drum major</strong> (the store) keeps time. When the tempo changes, every musician hears it instantly and adjusts. Trumpets cue trombones. Flutes answer clarinets. Nobody checks a whiteboard &mdash; they <em>react</em> to what they hear.</p>
+          </div>
+        </div>
+
+        <p>When you drag a slider in the app, the score at the bottom updates instantly. No refresh, no waiting. How? Three patterns: <strong>reactivity</strong>, <strong>props</strong>, and <strong>events</strong>. You&rsquo;ll know all three by the end of this screen&rsquo;s siblings.</p>
+      </section>
+
+      <!-- ======================= SCREEN 2: Reactivity ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Pattern 1 &mdash; Reactivity: The Tempo Everyone Hears</h2>
+
+        <p><span class="term" data-definition="Data that Vue watches. When it changes, the UI updates automatically &mdash; no manual refresh needed.">Reactive</span> data is data Vue watches. Change it, and anything depending on it updates on its own. Think of it like a spreadsheet: edit cell A1, and every formula pointing at A1 recalculates without you lifting a finger.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-property">tententenScore</span>: (<span class="code-property">state</span>) =&gt; {</span>
+<span class="code-line">  <span class="code-keyword">return</span> <span class="code-function">Math</span>.<span class="code-function">round</span>(</span>
+<span class="code-line">    (state.tententen.feel10min * <span class="code-number">0.15</span>) +</span>
+<span class="code-line">    (state.tententen.feel10months * <span class="code-number">0.35</span>) +</span>
+<span class="code-line">    (state.tententen.feel10years * <span class="code-number">0.50</span>)</span>
+<span class="code-line">  )</span>
+<span class="code-line">},</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">A live score called <code>tententenScore</code>. It reads three slider values from the store.</p>
+              <p class="tl">It&rsquo;s a <span class="term" data-definition="A value derived from other reactive values. It auto-recalculates whenever any input changes &mdash; like a spreadsheet formula.">computed</span> value &mdash; not stored, but calculated on demand from other values.</p>
+              <p class="tl">The moment any of the three sliders changes, this formula re-runs by itself.</p>
+              <p class="tl">Anywhere in the app that shows the score sees the new number immediately.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="callout callout-warning">
+          <div class="callout-icon">&#9888;</div>
+          <div class="callout-content">
+            <strong class="callout-title">The #1 Bug: Data Outside the Reactive System</strong>
+            <p>If you write <code>let total = 0</code> at the top of a component, Vue doesn&rsquo;t watch it. Change it &mdash; the UI shrugs. You need <span class="term" data-definition="Wraps a plain value (string, number, object) to make it reactive. Example: const count = ref(0); read it with count.value.">ref()</span> or a store. When AI writes Vue that &ldquo;looks right&rdquo; but nothing updates, this is the cause 90% of the time.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 3: Props & Events ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Pattern 2 &amp; 3 &mdash; Props Down, Events Up</h2>
+
+        <p>Components talk in two directions. Parents hand data <em>down</em> to children as <strong>props</strong>. Children shout messages <em>up</em> to parents as <strong>events</strong>. It&rsquo;s a strict one-way street, and the strictness is what keeps the app sane.</p>
+
+        <div class="pattern-cards">
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-2)">
+            <div class="pattern-icon" style="background: var(--color-actor-2)">&darr;</div>
+            <h4 class="pattern-title">Parent &rarr; Child (props)</h4>
+            <p class="pattern-desc"><strong>What:</strong> A parent hands read-only data to a child.</p>
+            <p class="pattern-desc"><strong>Example:</strong> <code>&lt;ToolHeader title=&quot;10-10-10 Rule&quot; /&gt;</code></p>
+            <p class="pattern-desc"><strong>Use when:</strong> The child just needs to display or use the value.</p>
+            <p class="pattern-desc"><strong>Don&rsquo;t:</strong> Try to change a prop from inside the child &mdash; Vue will yell.</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-1)">
+            <div class="pattern-icon" style="background: var(--color-actor-1)">&uarr;</div>
+            <h4 class="pattern-title">Child &rarr; Parent (events)</h4>
+            <p class="pattern-desc"><strong>What:</strong> A child fires a named signal the parent listens for.</p>
+            <p class="pattern-desc"><strong>Example:</strong> <code>emit(&#39;update:modelValue&#39;, 80)</code></p>
+            <p class="pattern-desc"><strong>Use when:</strong> A user did something the parent needs to know about.</p>
+            <p class="pattern-desc"><strong>Don&rsquo;t:</strong> Reach up and mutate the parent directly &mdash; emit instead.</p>
+          </div>
+
+          <div class="pattern-card" style="border-top: 3px solid var(--color-actor-4)">
+            <div class="pattern-icon" style="background: var(--color-actor-4)">&harr;</div>
+            <h4 class="pattern-title">Anywhere &harr; Anywhere (store)</h4>
+            <p class="pattern-desc"><strong>What:</strong> A shared box any component can read or write.</p>
+            <p class="pattern-desc"><strong>Example:</strong> <code>toolsStore.tententen.feel10min = 7</code></p>
+            <p class="pattern-desc"><strong>Use when:</strong> Two distant components need the same data.</p>
+            <p class="pattern-desc"><strong>Don&rsquo;t:</strong> Use a store for data only one component cares about.</p>
+          </div>
+        </div>
+
+        <h3 class="screen-heading" style="margin-top: var(--space-10); font-size: var(--text-xl)">Real code: a child that talks back</h3>
+
+        <p>Here&rsquo;s <code>GutCheck.vue</code> &mdash; the little &ldquo;Lean Yes / Lean No / No Idea&rdquo; picker. It receives a value and reports changes back, but never edits the value itself.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-keyword">const</span> <span class="code-property">props</span> = <span class="code-function">defineProps</span>({</span>
+<span class="code-line">  <span class="code-property">modelValue</span>: { <span class="code-property">type</span>: <span class="code-function">String</span>, <span class="code-property">default</span>: <span class="code-string">&#39;&#39;</span> }</span>
+<span class="code-line">})</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">const</span> <span class="code-property">emit</span> = <span class="code-function">defineEmits</span>([<span class="code-string">&#39;update:modelValue&#39;</span>])</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">const</span> <span class="code-property">options</span> = [</span>
+<span class="code-line">  { <span class="code-property">value</span>: <span class="code-string">&#39;yes&#39;</span>,    <span class="code-property">label</span>: <span class="code-string">&#39;Lean Yes \u2713&#39;</span> },</span>
+<span class="code-line">  { <span class="code-property">value</span>: <span class="code-string">&#39;no&#39;</span>,     <span class="code-property">label</span>: <span class="code-string">&#39;Lean No \u2717&#39;</span> },</span>
+<span class="code-line">  { <span class="code-property">value</span>: <span class="code-string">&#39;unsure&#39;</span>, <span class="code-property">label</span>: <span class="code-string">&#39;No Idea ?&#39;</span> }</span>
+<span class="code-line">]</span>
+<span class="code-line"></span>
+<span class="code-line"><span class="code-keyword">function</span> <span class="code-function">select</span>(<span class="code-property">value</span>) {</span>
+<span class="code-line">  <span class="code-function">emit</span>(<span class="code-string">&#39;update:modelValue&#39;</span>, props.modelValue === value ? <span class="code-string">&#39;&#39;</span> : value)</span>
+<span class="code-line">}</span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl"><strong>&ldquo;The parent gives me a value called <code>modelValue</code>.&rdquo;</strong> I can read it but I&rsquo;m not allowed to change it directly.</p>
+              <p class="tl"><strong>&ldquo;I promise I&rsquo;ll send an event called <code>update:modelValue</code>&rdquo;</strong> whenever the value should change. Think of it as filing paperwork.</p>
+              <p class="tl">Three button options the user can pick from. Just a plain list.</p>
+              <p class="tl"><strong>&ldquo;Hey parent &mdash; please update the value to this.&rdquo;</strong> I <span class="term" data-definition="Send a custom event up to the parent. The parent listens with @eventName. Children can't change parent data directly &mdash; they ask politely via emit.">emit</span> the new choice (or empty if the user clicked the same one twice).</p>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="screen-heading" style="margin-top: var(--space-10); font-size: var(--text-xl)">v-model: the two patterns, combined</h3>
+
+        <p>Props down + events up is such a common combo that Vue has a shortcut: <span class="term" data-definition="A shortcut that combines 'prop down' with 'event up' into one line, creating two-way binding. Under the hood it's still just props and events &mdash; no magic.">v-model</span>. One line, two-way binding.</p>
+
+        <div class="translation-block animate-in">
+          <div class="translation-code">
+            <span class="translation-label">CODE</span>
+<pre><code><span class="code-line"><span class="code-tag">&lt;GutCheck</span> <span class="code-attr">v-if</span>=<span class="code-value">&quot;!showResult&quot;</span> <span class="code-attr">v-model</span>=<span class="code-value">&quot;gutFeeling&quot;</span> <span class="code-tag">/&gt;</span></span></code></pre>
+          </div>
+          <div class="translation-english">
+            <span class="translation-label">PLAIN ENGLISH</span>
+            <div class="translation-lines">
+              <p class="tl">Show the <code>GutCheck</code> picker, but only if the result isn&rsquo;t showing yet.</p>
+              <p class="tl"><code>v-model=&quot;gutFeeling&quot;</code> means: &ldquo;pass <code>gutFeeling</code> down as a prop, AND listen for the emit to update it.&rdquo;</p>
+              <p class="tl">Two-way binding in one attribute. No manual wiring. This is the syntactic sugar that makes sliders feel magical.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 4: Data Flow Animation ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Watch It Happen: Dragging a Slider</h2>
+
+        <p>Here&rsquo;s the full round trip when a user drags a slider in the 10-10-10 tool. Click <em>Next Step</em> to march through it.</p>
+
+        <div class="flow-animation" data-steps='[
+          {"highlight":"flow-actor-1","label":"User drags slider to 80. The Slider component captures the new value."},
+          {"highlight":"flow-actor-1","label":"Slider emits update:modelValue with 80 \u2192 heading up to the parent.","packet":true,"from":"actor-1","to":"actor-2"},
+          {"highlight":"flow-actor-2","label":"Parent View assigns the new value into store.tententen.feel10months.","packet":true,"from":"actor-2","to":"actor-3"},
+          {"highlight":"flow-actor-3","label":"Store sees a dependency change. The tententenScore getter recalculates. Sparkles."},
+          {"highlight":"flow-actor-3","label":"Result component reads the new score from the store.","packet":true,"from":"actor-3","to":"actor-4"},
+          {"highlight":"flow-actor-4","label":"Result re-renders. The number on screen updates. No refresh."}
+        ]'>
+          <div class="flow-actors">
+            <div class="flow-actor" id="flow-actor-1">
+              <div class="flow-actor-icon" style="background: var(--color-actor-1)">&#127903;</div>
+              <span>Slider<br><small>child component</small></span>
+            </div>
+            <div class="flow-actor" id="flow-actor-2">
+              <div class="flow-actor-icon" style="background: var(--color-actor-2)">&#128083;</div>
+              <span>Parent View<br><small>TenTenTenView.vue</small></span>
+            </div>
+            <div class="flow-actor" id="flow-actor-3">
+              <div class="flow-actor-icon" style="background: var(--color-actor-4)">&#127897;</div>
+              <span>ToolsStore<br><small>drum major</small></span>
+            </div>
+            <div class="flow-actor" id="flow-actor-4">
+              <div class="flow-actor-icon" style="background: var(--color-actor-5)">&#128202;</div>
+              <span>Result<br><small>displays score</small></span>
+            </div>
+          </div>
+
+          <div class="flow-packet" id="flow-packet"></div>
+
+          <div class="flow-step-label" id="flow-label">Click &ldquo;Next Step&rdquo; to drag a slider.</div>
+
+          <div class="flow-controls">
+            <button class="btn flow-next-btn">Next Step</button>
+            <button class="btn flow-reset-btn">Restart</button>
+            <span class="flow-progress"></span>
+          </div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-icon">&#128161;</div>
+          <div class="callout-content">
+            <strong class="callout-title">Why this matters for AI coding</strong>
+            <p>This app is <span class="term" data-definition="You describe WHAT the UI should look like based on the data. The framework figures out HOW to update the screen. Opposite of imperative (telling the browser step-by-step).">declarative</span>. Nobody tells the Result to refresh &mdash; it just does when data changes. When an AI tool writes imperative DOM updates (manually setting text), it&rsquo;s fighting the framework. Push back.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= SCREEN 5: Quiz ======================= -->
+      <section class="screen animate-in">
+        <h2 class="screen-heading">Check Your Instinct</h2>
+
+        <p>Four scenarios. Pick the one that fits what you just learned.</p>
+
+        <div class="quiz-container" id="quiz-module3">
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Exactly. Plain variables aren't watched by Vue. You need ref() or a store to make data reactive. This is the single most common 'why isn't the UI updating?' bug."
+               data-explanation-wrong="Not quite. A plain `let` variable isn't reactive &mdash; Vue doesn't know it changed. You'd need ref(0) or a store for the UI to update. Plain JS variables update, but the screen never hears about it.">
+            <h3 class="quiz-question">You add <code>let totalClicks = 0</code> at the top of a <code>&lt;script setup&gt;</code>. You increment it on every click and display <code>{{ totalClicks }}</code> in the template. Does the UI update?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes &mdash; Vue watches every variable in <code>&lt;script setup&gt;</code>.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>No &mdash; plain variables aren&rsquo;t reactive. You need <code>ref(0)</code> or store state.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Yes, but only after a page refresh.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Only in production builds.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Props down, events up. The child never mutates the parent directly &mdash; it politely emits a signal and lets the parent decide what to do."
+               data-explanation-wrong="Think about direction. Data flows down as props (read-only), and signals flow up as events. A child shouldn't reach up into its parent or mutate what it was given.">
+            <h3 class="quiz-question">A child component needs to tell its parent &ldquo;a form was submitted.&rdquo; Which pattern?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Mutate a prop directly.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Import the parent component and call its function.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Emit an event the parent listens for.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Save the submission to <code>localStorage</code> and hope the parent checks.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-c"
+               data-explanation-right="Right. For simple cases a shared parent works, but a Pinia store is cleaner once things grow &mdash; and it scales without turning the parent into a middleman."
+               data-explanation-wrong="Think about who owns the data. A global window variable works in demos but breaks reactivity. Parent-passing works but gets messy fast. Stores exist precisely for cross-component sharing.">
+            <h3 class="quiz-question">You have two sibling components that need to share data. What&rsquo;s best?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Pass it through their common parent via props/events.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Always use a Pinia store, no matter the size.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Both work, but a store is cleaner for anything non-trivial.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Use <code>window.globalData</code>.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <div class="quiz-question-block"
+               data-correct="option-b"
+               data-explanation-right="Classic reactivity miss. The click handler runs, the assignment happens, but Vue isn't watching that object &mdash; so the UI never hears the news. Wrap it in ref() or move it into a store."
+               data-explanation-wrong="The symptom &mdash; code runs, data changes, UI stays stale &mdash; is the fingerprint of a reactivity bug. Typos and missing semicolons would break the handler entirely. The data is being changed; the screen just isn't being told.">
+            <h3 class="quiz-question">A user reports: &ldquo;I click Login and nothing happens.&rdquo; You check &mdash; the click handler <em>does</em> run and sets <code>user.email = &#39;foo@bar.com&#39;</code>. But the UI still says &ldquo;Guest.&rdquo; Most likely cause?</h3>
+            <div class="quiz-options">
+              <button class="quiz-option" data-value="option-a" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Typo in the email address.</span>
+              </button>
+              <button class="quiz-option" data-value="option-b" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span><code>user</code> isn&rsquo;t reactive &mdash; it&rsquo;s a plain object, not <code>ref()</code> or in a store.</span>
+              </button>
+              <button class="quiz-option" data-value="option-c" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>The server rejected the login silently.</span>
+              </button>
+              <button class="quiz-option" data-value="option-d" onclick="selectOption(this)">
+                <div class="quiz-option-radio"></div>
+                <span>Missing semicolon at the end of the handler.</span>
+              </button>
+            </div>
+            <div class="quiz-feedback"></div>
+          </div>
+
+          <button class="quiz-check-btn" onclick="checkQuiz('quiz-module3')">Check Answers</button>
+          <button class="quiz-reset-btn" onclick="resetQuiz('quiz-module3')">Try Again</button>
+        </div>
+
+        <p style="margin-top: var(--space-10); color: var(--color-text-secondary)">Next up: the band plays great indoors &mdash; but what happens when the music has to travel to a server, a database, or Stripe? That&rsquo;s Module 4.</p>
+      </section>
+
+    </div>
+  </div>
+</section>

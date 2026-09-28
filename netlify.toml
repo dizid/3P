@@ -21,6 +21,19 @@
 [context.deploy-preview.environment]
   NODE_ENV = "preview"
 
+# SPA fallback: prerendered pages (e.g. /tools/pmi -> tools/pmi.html) are served first;
+# app-only routes (/history, /shared/*, /auth/verify) and unknown URLs get the noindex shell
+[[redirects]]
+  from = "/*"
+  to = "/app-shell.html"
+  status = 200
+
+# Long-lived cache for Vite's content-hashed assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # Headers for security
 [[headers]]
   for = "/*"

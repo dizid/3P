@@ -49,10 +49,10 @@ onMounted(() => {
                 </div>
               </div>
               <div class="hidden sm:block">
-                <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                  De 3 P's
-                </h1>
-                <p class="text-xs text-gray-600 dark:text-gray-400 -mt-1 tracking-wide">Projecten Beoordelen</p>
+                <div class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  The 3 P's
+                </div>
+                <p class="text-xs text-gray-600 dark:text-gray-400 -mt-1 tracking-wide">Evaluate Projects</p>
               </div>
             </RouterLink>
           </div>

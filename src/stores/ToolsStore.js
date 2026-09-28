@@ -67,7 +67,7 @@ export const useToolsStore = defineStore({
       nextId: 1
     },
 
-    // De 3 P's State
+    // The 3 P's State (internal Poen/Pret keys kept for saved-data compatibility; UI shows Pay/Play)
     threeps: {
       baselinePoen: 50,
       baselinePret: 50,
@@ -237,7 +237,7 @@ export const useToolsStore = defineStore({
       return { text: 'Wait - fear of action dominates', type: 'negative' }
     },
 
-    // De 3 P's Score (multiplicative comparison)
+    // The 3 P's Score (multiplicative comparison)
     threepsScore: (state) => {
       return (state.threeps.baselinePoen * state.threeps.projectPoen) +
              (state.threeps.baselinePret * state.threeps.projectPret) +
@@ -246,10 +246,10 @@ export const useToolsStore = defineStore({
 
     threepsAdvice() {
       const score = this.threepsScore
-      if (score >= 7500) return { text: 'Ga ervoor!', type: 'positive' }
-      if (score >= 6000) return { text: 'Ziet er goed uit', type: 'positive' }
-      if (score >= 4500) return { text: 'Overweeg goed', type: 'neutral' }
-      return { text: 'Wellicht niet', type: 'negative' }
+      if (score >= 7500) return { text: 'Go for it!', type: 'positive' }
+      if (score >= 6000) return { text: 'Looks good', type: 'positive' }
+      if (score >= 4500) return { text: 'Think it through', type: 'neutral' }
+      return { text: 'Probably not', type: 'negative' }
     }
   },
 
@@ -410,7 +410,7 @@ export const useToolsStore = defineStore({
       }
     },
 
-    // De 3 P's Actions
+    // The 3 P's Actions
     setThreepsStep(step) {
       this.threeps.currentStep = step
     },

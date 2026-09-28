@@ -28,9 +28,9 @@
   </g>
 
   <!-- Title and tagline -->
-  <text x="420" y="280" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white">De 3 P's</text>
-  <text x="420" y="340" font-family="Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.9)">Decision-Making Tools</text>
-  <text x="420" y="390" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.8)">8 Frameworks • AI-Powered • Free to Use</text>
+  <text x="420" y="280" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="white">The 3 P's</text>
+  <text x="420" y="340" font-family="Arial, sans-serif" font-size="36" fill="rgba(255,255,255,0.9)">Pay · Play · Prestige</text>
+  <text x="420" y="390" font-family="Arial, sans-serif" font-size="28" fill="rgba(255,255,255,0.8)">8 Decision-Making Tools • Free to Use</text>
 
   <!-- Tool icons showcase -->
   <g opacity="0.6">

@@ -17,7 +17,7 @@
           class="hidden sm:inline text-sm font-medium transition-colors"
           :class="store.threeps.currentStep >= step ? 'text-indigo-600' : 'text-gray-400'"
         >
-          {{ step === 1 ? 'Jouw Waarden' : 'Project Waarden' }}
+          {{ step === 1 ? 'Your Values' : 'Project Values' }}
         </span>
         <div v-if="step < 2" class="w-8 h-0.5 bg-gray-300"></div>
       </div>
@@ -31,15 +31,15 @@
           <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
 
           <div class="relative z-10">
-            <h2 class="text-2xl sm:text-3xl font-bold mb-2">Stap 1: Jouw Waarden</h2>
+            <h2 class="text-2xl sm:text-3xl font-bold mb-2">Step 1: Your Values</h2>
             <p class="text-base opacity-90">
-              Hoe belangrijk is elk van de 3 P's voor jou persoonlijk?
+              How important is each of the 3 P's to you personally?
             </p>
           </div>
         </div>
 
         <div class="p-6 sm:p-8">
-          <!-- Poen -->
+          <!-- Pay -->
           <div class="mb-6 animate-on-enter stagger-1">
             <div class="glass p-5 sm:p-6 rounded-2xl border border-green-200/50 dark:border-green-800/50 card-lift group">
               <div class="flex items-center gap-3 sm:gap-4 mb-5">
@@ -50,8 +50,8 @@
                   </div>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Poen (Geld)</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Financiele beloning, inkomen</p>
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Pay (Money)</h3>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Financial reward, income</p>
                 </div>
                 <div class="text-3xl sm:text-4xl font-bold text-green-600 tabular-nums min-w-[50px] sm:min-w-[60px] text-right">
                   {{ store.threeps.baselinePoen }}
@@ -66,7 +66,7 @@
             </div>
           </div>
 
-          <!-- Pret -->
+          <!-- Play -->
           <div class="mb-6 animate-on-enter stagger-2">
             <div class="glass p-5 sm:p-6 rounded-2xl border border-blue-200/50 dark:border-blue-800/50 card-lift group">
               <div class="flex items-center gap-3 sm:gap-4 mb-5">
@@ -77,8 +77,8 @@
                   </div>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Pret (Plezier)</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Plezier hebben, zingevend werk</p>
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Play (Fun)</h3>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Enjoyment, meaningful work</p>
                 </div>
                 <div class="text-3xl sm:text-4xl font-bold text-blue-600 tabular-nums min-w-[50px] sm:min-w-[60px] text-right">
                   {{ store.threeps.baselinePret }}
@@ -105,7 +105,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                   <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Prestige (Status)</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Erkenning, aanzien, status</p>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Recognition, reputation, status</p>
                 </div>
                 <div class="text-3xl sm:text-4xl font-bold text-purple-600 tabular-nums min-w-[50px] sm:min-w-[60px] text-right">
                   {{ store.threeps.baselinePrestige }}
@@ -128,14 +128,14 @@
                   &#128203;
                 </div>
                 <div>
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Project Naam</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Welk project wil je beoordelen?</p>
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Project Name</h3>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400">Which project do you want to evaluate?</p>
                 </div>
               </div>
               <input
                 v-model="store.threeps.project"
                 type="text"
-                placeholder="Bijv: Nieuwe website, Cursus, Carrièreswitch..."
+                placeholder="E.g. new website, course, career switch..."
                 class="w-full px-4 py-3.5 bg-white dark:bg-slate-800 border-2 border-gray-300 dark:border-gray-600 rounded-xl text-gray-800 dark:text-gray-100 text-base placeholder-gray-400 dark:placeholder-gray-500 shadow-sm transition-all duration-200 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 dark:focus:ring-indigo-900 focus:outline-none hover:border-gray-400 dark:hover:border-gray-500"
               />
             </div>
@@ -149,7 +149,7 @@
               class="w-full relative overflow-hidden bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] btn-ripple btn-glow disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
               <span class="relative z-10 flex items-center justify-center gap-2 text-base sm:text-lg">
-                Verder naar Project Waarden
+                Continue to Project Values
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -163,8 +163,8 @@
       <div class="mt-6 glass p-5 sm:p-6 rounded-xl border-l-4 border-blue-500 animate-on-enter stagger-6">
         <p class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3">
           <span class="text-xl flex-shrink-0">&#128161;</span>
-          <span><strong>Tip:</strong> Wees eerlijk tegen jezelf. Er zijn geen goede of foute antwoorden -
-          dit gaat om jouw persoonlijke waarden en prioriteiten in het leven.</span>
+          <span><strong>Tip:</strong> Be honest with yourself. There are no right or wrong answers -
+          this is about your personal values and priorities in life.</span>
         </p>
       </div>
     </div>
@@ -179,13 +179,13 @@
           <div class="relative z-10">
             <h2 class="text-2xl sm:text-3xl font-bold mb-2">Project: "{{ store.threeps.project }}"</h2>
             <p class="text-base opacity-90">
-              Hoeveel levert dit project op voor elk van de 3 P's?
+              How much does this project deliver on each of the 3 P's?
             </p>
           </div>
         </div>
 
         <div class="p-6 sm:p-8">
-          <!-- Poen -->
+          <!-- Pay -->
           <div class="mb-6 animate-on-enter stagger-1">
             <div class="glass p-5 sm:p-6 rounded-2xl border border-green-200/50 dark:border-green-800/50 card-lift group">
               <div class="flex items-center gap-3 sm:gap-4 mb-5">
@@ -196,8 +196,8 @@
                   </div>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Poen (Geld)</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Hoeveel financiele opbrengst?</p>
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Pay (Money)</h3>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">How much financial return?</p>
                 </div>
                 <div class="text-3xl sm:text-4xl font-bold text-green-600 tabular-nums min-w-[50px] sm:min-w-[60px] text-right">
                   {{ store.threeps.projectPoen }}
@@ -212,7 +212,7 @@
             </div>
           </div>
 
-          <!-- Pret -->
+          <!-- Play -->
           <div class="mb-6 animate-on-enter stagger-2">
             <div class="glass p-5 sm:p-6 rounded-2xl border border-blue-200/50 dark:border-blue-800/50 card-lift group">
               <div class="flex items-center gap-3 sm:gap-4 mb-5">
@@ -223,8 +223,8 @@
                   </div>
                 </div>
                 <div class="flex-1 min-w-0">
-                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Pret (Plezier)</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Hoe leuk/zinvol zal dit zijn?</p>
+                  <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Play (Fun)</h3>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">How fun/meaningful will this be?</p>
                 </div>
                 <div class="text-3xl sm:text-4xl font-bold text-blue-600 tabular-nums min-w-[50px] sm:min-w-[60px] text-right">
                   {{ store.threeps.projectPret }}
@@ -251,7 +251,7 @@
                 </div>
                 <div class="flex-1 min-w-0">
                   <h3 class="text-lg sm:text-xl font-bold text-gray-800 dark:text-gray-100">Prestige (Status)</h3>
-                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">Hoeveel erkenning/aanzien?</p>
+                  <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 truncate">How much recognition/reputation?</p>
                 </div>
                 <div class="text-3xl sm:text-4xl font-bold text-purple-600 tabular-nums min-w-[50px] sm:min-w-[60px] text-right">
                   {{ store.threeps.projectPrestige }}
@@ -271,7 +271,7 @@
             <div class="flex items-center justify-between">
               <div>
                 <h3 class="font-bold text-gray-800 dark:text-gray-100">Live Score</h3>
-                <p class="text-sm text-gray-500 dark:text-gray-400">Gecombineerde waarde-matching</p>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Combined value match</p>
               </div>
               <div class="text-4xl font-bold" :class="scoreColor">
                 {{ store.threepsScore.toLocaleString() }}
@@ -289,7 +289,7 @@
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                 </svg>
-                Terug
+                Back
               </span>
             </button>
             <button
@@ -297,7 +297,7 @@
               class="flex-1 relative overflow-hidden bg-gradient-to-r from-purple-600 to-pink-600 text-white font-bold py-4 px-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl active:scale-[0.98] btn-ripple btn-glow"
             >
               <span class="relative z-10 flex items-center justify-center gap-2 text-base sm:text-lg">
-                Bekijk Resultaat
+                See Result
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" />
                 </svg>
@@ -311,8 +311,8 @@
       <div class="mt-6 glass p-5 sm:p-6 rounded-xl border-l-4 border-purple-500 animate-on-enter stagger-6">
         <p class="text-sm text-gray-700 dark:text-gray-300 flex items-start gap-3">
           <span class="text-xl flex-shrink-0">&#128161;</span>
-          <span><strong>Tip:</strong> Probeer een realistische inschatting te maken. Vergelijk dit project
-          met andere projecten die je gedaan hebt om een beter beeld te krijgen.</span>
+          <span><strong>Tip:</strong> Try to make a realistic estimate. Compare this project
+          with other projects you have done to get a clearer picture.</span>
         </p>
       </div>
     </div>

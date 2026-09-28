@@ -123,7 +123,7 @@
         <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2 text-center">
           "Why not just use ChatGPT?"
         </h2>
-        <p class="text-center text-gray-500 dark:text-gray-400 mb-8">ChatGPT gives you an answer. 3PS gives you a decision.</p>
+        <p class="text-center text-gray-500 dark:text-gray-400 mb-8">ChatGPT gives you an answer. The 3 P's gives you a decision.</p>
 
         <div class="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           <div>
@@ -136,7 +136,7 @@
             </ul>
           </div>
           <div>
-            <h4 class="font-semibold text-indigo-600 dark:text-indigo-400 mb-3 text-sm uppercase tracking-wider">3PS Pro</h4>
+            <h4 class="font-semibold text-indigo-600 dark:text-indigo-400 mb-3 text-sm uppercase tracking-wider">The 3 P's Pro</h4>
             <ul class="space-y-2">
               <li v-for="item in threepsComparison" :key="item" class="flex items-start gap-2 text-gray-700 dark:text-gray-300 text-sm">
                 <span class="text-green-500 mt-0.5">&#10003;</span>
@@ -276,7 +276,7 @@ const faqs = [
   },
   {
     question: 'How is this different from ChatGPT?',
-    answer: 'ChatGPT is a blank canvas — you need to know what to ask. 3PS guides you through proven decision frameworks with scoring, then adds AI coaching on top. Plus, it tracks your decisions over time and sends you reminders to review outcomes. No other tool does this.'
+    answer: "ChatGPT is a blank canvas — you need to know what to ask. The 3 P's guides you through proven decision frameworks with scoring, then adds AI coaching on top. Plus, it tracks your decisions over time and sends you reminders to review outcomes. No other tool does this."
   }
 ]
 </script>

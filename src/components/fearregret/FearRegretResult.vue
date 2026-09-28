@@ -212,11 +212,11 @@ const isPositive = computed(() => store.fearNetScore >= 3)
 const isNeutral = computed(() => store.fearNetScore >= -3 && store.fearNetScore < 3)
 
 const resultIcon = computed(() => {
-  if (store.fearNetScore >= 10) return '&#128640;'
-  if (store.fearNetScore >= 3) return '&#127775;'
-  if (store.fearNetScore >= -3) return '&#9878;'
-  if (store.fearNetScore >= -10) return '&#128260;'
-  return '&#128528;'
+  if (store.fearNetScore >= 10) return '🚀'
+  if (store.fearNetScore >= 3) return '🌟'
+  if (store.fearNetScore >= -3) return '⚖'
+  if (store.fearNetScore >= -10) return '🔄'
+  return '😐'
 })
 
 const headerClass = computed(() => {

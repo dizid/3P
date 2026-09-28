@@ -44,13 +44,13 @@ import TipsSection from '@/components/help/TipsSection.vue'
 const tools = [
   {
     id: 'threeps',
-    name: "De 3 P's",
+    name: "The 3 P's",
     icon: '&#128176;',
     color: '#6366f1',
     colorDark: '#4f46e5',
     tagline: 'Evaluate projects by your personal values',
     bestFor: 'Project evaluation, career decisions, freelance work',
-    howItWorks: 'Rate how important Money (Poen), Fun (Pret), and Prestige are to you personally. Then rate how much a potential project delivers on each. The tool combines these to show if the project aligns with your values.',
+    howItWorks: 'Rate how important Pay (money), Play (fun), and Prestige (status) are to you personally. Then rate how much a potential project delivers on each. The tool combines these to show if the project aligns with your values.',
     tips: [
       'Be honest about what you truly value - not what you think you should value',
       'Compare similar projects to calibrate your ratings',

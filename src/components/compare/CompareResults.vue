@@ -112,11 +112,11 @@ const negativeCount = computed(() =>
 )
 
 const consensusEmoji = computed(() => {
-  if (positiveCount.value === props.results.length) return '&#128640;'
-  if (negativeCount.value === props.results.length) return '&#128683;'
-  if (positiveCount.value > negativeCount.value) return '&#128077;'
-  if (negativeCount.value > positiveCount.value) return '&#128078;'
-  return '&#129300;'
+  if (positiveCount.value === props.results.length) return '🚀'
+  if (negativeCount.value === props.results.length) return '🚫'
+  if (positiveCount.value > negativeCount.value) return '👍'
+  if (negativeCount.value > positiveCount.value) return '👎'
+  return '🤔'
 })
 
 const consensusText = computed(() => {
