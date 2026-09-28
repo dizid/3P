@@ -43,7 +43,7 @@ watch(() => authStore.isAuthenticated, (isAuth) => {
         <div class="absolute inset-0 bg-black/50 backdrop-blur-sm" @click="handleClose"></div>
 
         <!-- Modal -->
-        <div class="relative w-full max-w-md glass rounded-2xl p-8 shadow-2xl">
+        <div class="relative w-full max-w-md bg-white dark:bg-slate-800 border border-gray-200 dark:border-gray-700 rounded-2xl p-8 shadow-2xl">
           <!-- Close button -->
           <button
             @click="handleClose"
