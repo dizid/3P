@@ -41,6 +41,7 @@
         <div class="mb-2">
           <AnimatedSlider
             v-model="store.regret.regretNotTrying"
+            label="Regret of not trying"
             :min="1"
             :max="100"
             color="#a855f7"
@@ -70,6 +71,7 @@
         <div class="mb-2">
           <AnimatedSlider
             v-model="store.regret.reversibility"
+            label="Reversibility of the decision"
             :min="1"
             :max="100"
             color="#6366f1"
@@ -99,6 +101,7 @@
         <div class="mb-2">
           <AnimatedSlider
             v-model="store.regret.valueAlignment"
+            label="Alignment with your values"
             :min="1"
             :max="100"
             color="#8b5cf6"
@@ -128,6 +131,7 @@
         <div class="mb-2">
           <AnimatedSlider
             v-model="store.regret.age80Perspective"
+            label="Your perspective at age 80"
             :min="1"
             :max="100"
             color="#d946ef"

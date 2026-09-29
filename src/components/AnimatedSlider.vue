@@ -7,6 +7,7 @@
         @input="handleInput"
         :min="min"
         :max="max"
+        :aria-label="label"
         class="w-full h-3 rounded-full appearance-none cursor-pointer outline-none transition-all duration-200"
         :style="sliderStyle"
       />
@@ -14,8 +15,8 @@
 
     <!-- Scale Markers -->
     <div class="flex justify-between mt-2 px-1">
-      <span class="text-xs text-gray-400">{{ min }}</span>
-      <span class="text-xs text-gray-400">{{ max }}</span>
+      <span class="text-xs text-gray-500 dark:text-gray-400">{{ min }}</span>
+      <span class="text-xs text-gray-500 dark:text-gray-400">{{ max }}</span>
     </div>
   </div>
 </template>
@@ -43,6 +44,11 @@ const props = defineProps({
   trackColor: {
     type: String,
     default: '#e5e7eb'
+  },
+  // Accessible name for the range input (screen readers)
+  label: {
+    type: String,
+    required: true
   }
 })
 

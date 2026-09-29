@@ -109,7 +109,6 @@ export default async (req: Request, context: Context) => {
     return new Response(
       JSON.stringify({
         error: "Failed to send login link",
-        details: error instanceof Error ? error.message : "Unknown error",
       }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );

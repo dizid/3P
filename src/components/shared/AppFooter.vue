@@ -66,9 +66,9 @@
           <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             <p class="text-sm text-gray-500 dark:text-gray-400">
               &copy; {{ currentYear }} The 3 P's &mdash; Made by
-              <a href="https://dizid.com" target="_blank" rel="noopener" class="text-indigo-600 dark:text-indigo-400 hover:underline">Dizid</a>
+              <a href="https://dizid.com" target="_blank" rel="noopener" class="text-indigo-600 dark:text-indigo-400 underline underline-offset-2">Dizid</a>
             </p>
-            <p class="text-xs text-gray-400 dark:text-gray-500">
+            <p class="text-xs text-gray-500 dark:text-gray-400">
               Decision tools for smarter choices
             </p>
           </div>

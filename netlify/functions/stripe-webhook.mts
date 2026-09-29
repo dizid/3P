@@ -1,5 +1,6 @@
 import type { Context, Config } from "@netlify/functions";
 import Stripe from "stripe";
+import { getSubscriptionPeriod } from "../lib/stripe-period";
 import { neon } from "@neondatabase/serverless";
 
 const getDb = () => {
@@ -73,6 +74,7 @@ export default async (req: Request, context: Context) => {
 
         // Get subscription details from Stripe
         const sub = await stripe.subscriptions.retrieve(subscriptionId);
+        const period = getSubscriptionPeriod(sub);
 
         // Upsert subscription record
         await sql`
@@ -83,15 +85,15 @@ export default async (req: Request, context: Context) => {
             ${subscriptionId},
             ${sub.status},
             ${"pro"},
-            ${new Date(sub.current_period_start * 1000).toISOString()},
-            ${new Date(sub.current_period_end * 1000).toISOString()}
+            ${period.start},
+            ${period.end}
           )
           ON CONFLICT (stripe_subscription_id)
           DO UPDATE SET
             status = ${sub.status},
             plan = ${"pro"},
-            current_period_start = ${new Date(sub.current_period_start * 1000).toISOString()},
-            current_period_end = ${new Date(sub.current_period_end * 1000).toISOString()},
+            current_period_start = ${period.start},
+            current_period_end = ${period.end},
             updated_at = NOW()
         `;
 
@@ -102,13 +104,14 @@ export default async (req: Request, context: Context) => {
       case "customer.subscription.updated": {
         const sub = event.data.object as Stripe.Subscription;
         const customerId = sub.customer as string;
+        const period = getSubscriptionPeriod(sub);
 
         await sql`
           UPDATE subscriptions
           SET
             status = ${sub.status},
-            current_period_start = ${new Date(sub.current_period_start * 1000).toISOString()},
-            current_period_end = ${new Date(sub.current_period_end * 1000).toISOString()},
+            current_period_start = ${period.start},
+            current_period_end = ${period.end},
             cancel_at_period_end = ${sub.cancel_at_period_end},
             updated_at = NOW()
           WHERE stripe_subscription_id = ${sub.id}

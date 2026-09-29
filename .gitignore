@@ -34,3 +34,6 @@ coverage
 
 # Local Netlify folder
 .netlify
+
+# Local notes with secrets
+DEV.md

@@ -59,6 +59,7 @@
               </div>
               <AnimatedSlider
                 v-model="store.threeps.baselinePoen"
+                label="How important is Pay to you"
                 :min="1"
                 :max="100"
                 color="#10b981"
@@ -86,6 +87,7 @@
               </div>
               <AnimatedSlider
                 v-model="store.threeps.baselinePret"
+                label="How important is Play to you"
                 :min="1"
                 :max="100"
                 color="#3b82f6"
@@ -113,6 +115,7 @@
               </div>
               <AnimatedSlider
                 v-model="store.threeps.baselinePrestige"
+                label="How important is Prestige to you"
                 :min="1"
                 :max="100"
                 color="#a855f7"
@@ -205,6 +208,7 @@
               </div>
               <AnimatedSlider
                 v-model="store.threeps.projectPoen"
+                label="How much Pay this project delivers"
                 :min="1"
                 :max="100"
                 color="#10b981"
@@ -232,6 +236,7 @@
               </div>
               <AnimatedSlider
                 v-model="store.threeps.projectPret"
+                label="How much Play this project delivers"
                 :min="1"
                 :max="100"
                 color="#3b82f6"
@@ -259,6 +264,7 @@
               </div>
               <AnimatedSlider
                 v-model="store.threeps.projectPrestige"
+                label="How much Prestige this project delivers"
                 :min="1"
                 :max="100"
                 color="#a855f7"

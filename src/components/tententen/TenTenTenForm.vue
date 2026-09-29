@@ -38,6 +38,7 @@
         <div class="mb-2">
           <AnimatedSlider
             v-model="store.tententen.feel10min"
+            label="How you will feel in 10 minutes"
             :min="1"
             :max="100"
             color="#3b82f6"
@@ -68,6 +69,7 @@
         <div class="mb-2">
           <AnimatedSlider
             v-model="store.tententen.feel10months"
+            label="How you will feel in 10 months"
             :min="1"
             :max="100"
             color="#6366f1"
@@ -98,6 +100,7 @@
         <div class="mb-2">
           <AnimatedSlider
             v-model="store.tententen.feel10years"
+            label="How you will feel in 10 years"
             :min="1"
             :max="100"
             color="#a855f7"

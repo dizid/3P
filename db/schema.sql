@@ -1,4 +1,4 @@
--- De 3 P's Database Schema
+-- The 3 P's Database Schema
 -- Run this against your Neon database to set up tables
 
 -- Enable UUID extension
@@ -13,9 +13,18 @@ CREATE TABLE IF NOT EXISTS profiles (
   display_name TEXT,
   avatar_url TEXT,
   stripe_customer_id TEXT UNIQUE,
+  -- Magic-link login
+  email_verified BOOLEAN DEFAULT FALSE,
+  magic_link_token TEXT,
+  token_expires_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()
 );
+
+-- Magic-link columns for databases created before they existed
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT FALSE;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS magic_link_token TEXT;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS token_expires_at TIMESTAMPTZ;
 
 -- =============================================
 -- SUBSCRIPTIONS (Stripe subscription sync)
@@ -88,6 +97,7 @@ CREATE TABLE IF NOT EXISTS ai_usage (
 -- INDEXES
 -- =============================================
 CREATE INDEX IF NOT EXISTS idx_profiles_email ON profiles(email);
+CREATE INDEX IF NOT EXISTS idx_profiles_magic_link_token ON profiles(magic_link_token);
 CREATE INDEX IF NOT EXISTS idx_profiles_stripe_customer ON profiles(stripe_customer_id);
 CREATE INDEX IF NOT EXISTS idx_subscriptions_profile ON subscriptions(profile_id);
 CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_customer ON subscriptions(stripe_customer_id);

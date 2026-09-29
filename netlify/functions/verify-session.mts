@@ -80,7 +80,6 @@ export default async (req: Request, context: Context) => {
       return new Response(
         JSON.stringify({
           error: "Invalid session",
-          details: error.message,
         }),
         {
           status: 400,
@@ -92,7 +91,6 @@ export default async (req: Request, context: Context) => {
     return new Response(
       JSON.stringify({
         error: "Failed to verify session",
-        details: error instanceof Error ? error.message : "Unknown error",
       }),
       {
         status: 500,

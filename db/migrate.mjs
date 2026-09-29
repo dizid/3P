@@ -45,10 +45,19 @@ async function migrate() {
         display_name TEXT,
         avatar_url TEXT,
         stripe_customer_id TEXT UNIQUE,
+        email_verified BOOLEAN DEFAULT FALSE,
+        magic_link_token TEXT,
+        token_expires_at TIMESTAMPTZ,
         created_at TIMESTAMPTZ DEFAULT NOW(),
         updated_at TIMESTAMPTZ DEFAULT NOW()
       )
     `
+
+    // Magic-link login columns (also added to existing databases)
+    console.log('  ✓ Ensuring magic-link columns...')
+    await sql`ALTER TABLE profiles ADD COLUMN IF NOT EXISTS email_verified BOOLEAN DEFAULT FALSE`
+    await sql`ALTER TABLE profiles ADD COLUMN IF NOT EXISTS magic_link_token TEXT`
+    await sql`ALTER TABLE profiles ADD COLUMN IF NOT EXISTS token_expires_at TIMESTAMPTZ`
 
     // Create subscriptions table
     console.log('  ✓ Creating subscriptions table...')
@@ -111,6 +120,7 @@ async function migrate() {
     // Create indexes
     console.log('  ✓ Creating indexes...')
     await sql`CREATE INDEX IF NOT EXISTS idx_profiles_email ON profiles(email)`
+    await sql`CREATE INDEX IF NOT EXISTS idx_profiles_magic_link_token ON profiles(magic_link_token)`
     await sql`CREATE INDEX IF NOT EXISTS idx_profiles_stripe_customer ON profiles(stripe_customer_id)`
     await sql`CREATE INDEX IF NOT EXISTS idx_subscriptions_profile ON subscriptions(profile_id)`
     await sql`CREATE INDEX IF NOT EXISTS idx_subscriptions_stripe_customer ON subscriptions(stripe_customer_id)`

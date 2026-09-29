@@ -1,5 +1,6 @@
 import type { Context, Config } from "@netlify/functions";
 import Stripe from "stripe";
+import { getSubscriptionPeriod } from "../lib/stripe-period";
 
 export default async (req: Request, context: Context) => {
   // Allow GET and POST
@@ -140,9 +141,7 @@ export default async (req: Request, context: Context) => {
           status: "trialing",
           customerId: customer.id,
           subscriptionId: subscription.id,
-          currentPeriodEnd: new Date(
-            subscription.current_period_end * 1000
-          ).toISOString(),
+          currentPeriodEnd: getSubscriptionPeriod(subscription).end,
           features: {
             aiAdvice: true,
             unlimitedHistory: true,
@@ -165,9 +164,7 @@ export default async (req: Request, context: Context) => {
         status: "active",
         customerId: customer.id,
         subscriptionId: subscription.id,
-        currentPeriodEnd: new Date(
-          subscription.current_period_end * 1000
-        ).toISOString(),
+        currentPeriodEnd: getSubscriptionPeriod(subscription).end,
         features: {
           aiAdvice: true,
           unlimitedHistory: true,

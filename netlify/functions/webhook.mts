@@ -1,5 +1,6 @@
 import type { Context, Config } from "@netlify/functions";
 import Stripe from "stripe";
+import { getSubscriptionPeriod } from "../lib/stripe-period";
 import { neon } from "@neondatabase/serverless";
 
 // Get database connection
@@ -109,8 +110,8 @@ export default async (req: Request, context: Context) => {
             ${subscriptionId},
             ${subscription.status},
             'pro',
-            ${new Date(subscription.current_period_start * 1000).toISOString()},
-            ${new Date(subscription.current_period_end * 1000).toISOString()},
+            ${getSubscriptionPeriod(subscription).start},
+            ${getSubscriptionPeriod(subscription).end},
             ${subscription.cancel_at_period_end}
           )
           ON CONFLICT (stripe_subscription_id)
@@ -133,8 +134,8 @@ export default async (req: Request, context: Context) => {
           UPDATE subscriptions
           SET
             status = ${subscription.status},
-            current_period_start = ${new Date(subscription.current_period_start * 1000).toISOString()},
-            current_period_end = ${new Date(subscription.current_period_end * 1000).toISOString()},
+            current_period_start = ${getSubscriptionPeriod(subscription).start},
+            current_period_end = ${getSubscriptionPeriod(subscription).end},
             cancel_at_period_end = ${subscription.cancel_at_period_end}
           WHERE stripe_subscription_id = ${subscription.id}
         `;
@@ -161,11 +162,16 @@ export default async (req: Request, context: Context) => {
         const invoice = event.data.object as Stripe.Invoice;
         console.log("Payment failed for invoice:", invoice.id);
 
-        if (invoice.subscription) {
+        // Since Stripe API 2025-03-31 the subscription lives under invoice.parent
+        const invoiceSubscription = invoice.parent?.subscription_details?.subscription;
+        const invoiceSubscriptionId =
+          typeof invoiceSubscription === "string" ? invoiceSubscription : invoiceSubscription?.id;
+
+        if (invoiceSubscriptionId) {
           await sql`
             UPDATE subscriptions
             SET status = 'past_due'
-            WHERE stripe_subscription_id = ${invoice.subscription}
+            WHERE stripe_subscription_id = ${invoiceSubscriptionId}
           `;
         }
         break;
@@ -187,7 +193,6 @@ export default async (req: Request, context: Context) => {
     return new Response(
       JSON.stringify({
         error: "Webhook handler failed",
-        details: error instanceof Error ? error.message : "Unknown error",
       }),
       {
         status: 500,

@@ -145,7 +145,10 @@ src/components/
 - **Netlify site ID:** `a5e53b4a-5519-4c1e-b21e-0ad9c9846503` (de3ps)
 - **Netlify URL / production domain:** https://3p.tnxz.nl (de3ps.nl is NOT ours — it redirects to an unrelated site)
 - **GA4 measurement ID:** `G-7G2Z0W3YQ5`
-- **Neon project ID:** `holy-mouse-05375084` (crypto-prediction — shared DB)
-- **Neon database:** `neondb` (default)
-- **Neon region:** aws-ap-southeast-1
+- **Neon project ID:** `sparkling-king-18887430` (job-radar project — 3P has its own database there, 2026-09-29)
+- **Neon database:** `threeps` (NOT `neondb`, which is job-radar's), branch `main` (`br-holy-sky-a66aplnx`), role `threeps_app` (owns only `threeps`)
+- **Neon region:** aws-us-west-2
+- **Schema:** `node db/migrate.mjs` (idempotent; uses `DATABASE_URL` from `.env`). Always pass `database_name: threeps` in Neon MCP calls.
+- **History:** the previous DB (project `holy-mouse-05375084`, shared with crypto) was deleted and is unrecoverable; all pre-2026-09-29 accounts/decisions are gone.
+- **Resend:** sends from `The 3 P's <login@notifications.dizid.com>` (shared verified domain; override with `EMAIL_FROM`)
 - **GitHub repo:** dizid/3P

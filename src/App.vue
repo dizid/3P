@@ -59,7 +59,7 @@ onMounted(() => {
 
           <!-- Desktop Navigation Links -->
           <div class="hidden sm:flex items-center gap-1 sm:gap-2">
-            <RouterLink to="/" class="nav-link" exact-active-class="nav-link-active">Start</RouterLink>
+            <RouterLink to="/" class="nav-link" exact-active-class="nav-link-active">Home</RouterLink>
             <RouterLink to="/tools" class="nav-link" active-class="nav-link-active">Tools</RouterLink>
             <RouterLink to="/history" class="nav-link" active-class="nav-link-active">History</RouterLink>
             <RouterLink to="/help" class="nav-link" active-class="nav-link-active">Help</RouterLink>
@@ -121,7 +121,7 @@ onMounted(() => {
       <Transition name="fade">
         <div v-if="mobileMenuOpen" class="sm:hidden border-t border-white/10 dark:border-gray-700/50 nav-bar">
           <div class="px-4 py-3 space-y-1">
-            <RouterLink to="/" class="mobile-nav-link" exact-active-class="mobile-nav-link-active">Start</RouterLink>
+            <RouterLink to="/" class="mobile-nav-link" exact-active-class="mobile-nav-link-active">Home</RouterLink>
             <RouterLink to="/tools" class="mobile-nav-link" active-class="mobile-nav-link-active">Tools</RouterLink>
             <RouterLink to="/history" class="mobile-nav-link" active-class="mobile-nav-link-active">History</RouterLink>
             <RouterLink to="/help" class="mobile-nav-link" active-class="mobile-nav-link-active">Help</RouterLink>
@@ -152,7 +152,7 @@ onMounted(() => {
     </nav>
 
     <!-- Main Content — pt-16/pt-20 offsets fixed nav height -->
-    <main id="main-content" class="pt-16 sm:pt-20" tabindex="-1">
+    <main id="main-content" class="min-h-screen pt-16 sm:pt-20" tabindex="-1">
       <RouterView v-slot="{ Component, route }">
         <Transition name="page" mode="out-in">
           <component :is="Component" :key="route.path" />

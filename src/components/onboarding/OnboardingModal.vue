@@ -16,6 +16,7 @@
           <!-- Close button -->
           <button
             @click="close"
+            aria-label="Close"
             class="absolute top-4 right-4 z-10 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
           >
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -37,16 +38,23 @@
           </div>
 
           <!-- Progress dots -->
-          <div class="flex justify-center gap-2 pb-4">
+          <div class="flex justify-center pb-4">
+            <!-- p-2 gives a 26px+ tap target around the small visible dot -->
             <button
               v-for="(step, index) in steps"
               :key="index"
               @click="currentStep = index"
-              class="w-2.5 h-2.5 rounded-full transition-all duration-300"
-              :class="index === currentStep
-                ? 'bg-blue-500 w-8'
-                : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'"
-            ></button>
+              :aria-label="`Go to step ${index + 1}`"
+              :aria-current="index === currentStep ? 'step' : undefined"
+              class="p-2"
+            >
+              <span
+                class="block w-2.5 h-2.5 rounded-full transition-all duration-300"
+                :class="index === currentStep
+                  ? 'bg-blue-500 w-8'
+                  : 'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400'"
+              ></span>
+            </button>
           </div>
 
           <!-- Navigation -->
